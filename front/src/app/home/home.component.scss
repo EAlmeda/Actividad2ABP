@@ -1,0 +1,15 @@
+.home {
+    &__title {
+        font-size: 78px;
+        position: fixed;
+        top: 50%;
+        left: 20%;
+        color: #3D5A2F;
+    }
+
+    &__img {
+        position: fixed;
+        top: 15%;
+        right: 10%;
+    }
+}

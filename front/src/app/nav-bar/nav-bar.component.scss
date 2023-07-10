@@ -1,0 +1,17 @@
+
+
+.nav {
+    position: sticky;
+    top: 0;
+    background-color: #CAE1A4;
+    color: #3D5A2F;
+    padding: 0 16px;
+    height: 56px;
+
+    display: flex;
+    align-items: center;
+
+    &__auth {
+        margin-left: auto;
+    }
+}
