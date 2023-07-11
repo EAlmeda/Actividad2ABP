@@ -1,0 +1,26 @@
+
+$grey-light: #E0E0E0;
+$grey: #9E9E9E;
+$white: #9E9E9E;
+$blue: #9CCC65;
+
+.card {
+    max-width: 300px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 $grey-light;
+    transition: 0.3s;
+    width: 100%;
+
+    &__header-image {
+        background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+        border-radius: 20px;
+      }
+
+    &__container-actions {
+        margin-left: auto;
+    }
+  }
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 $grey;
+}

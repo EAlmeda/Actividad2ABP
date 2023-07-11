@@ -1,0 +1,11 @@
+
+.menu {
+    padding: 32px;
+
+    &__product-display{
+        display: grid;
+        gap: 48px;
+        grid-template-columns: repeat(auto-fill, minmax(19rem, 1fr));
+        padding: 16px;
+    }
+}
