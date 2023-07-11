@@ -7,17 +7,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { SharedModule } from './shared/shared.module';
 import { BookATableComponent } from './book-a-table/book-atable.component';
-import { MenuComponent } from './menu/menu.component';
+import { MenuComponent } from './menu/menu-component/menu.component';
 import { OrdersComponent } from './orders/orders.component';
 import { ReviewsComponent } from './reviews/reviews.component';
 import { HomeComponent } from './home/home.component';
+import { MenuModule } from './menu/menu.module';
+import { UsersModule } from './users/users.module';
+import { CartModule } from './cart/cart.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavBarComponent,
     BookATableComponent,
-    MenuComponent,
     OrdersComponent,
     ReviewsComponent,
     HomeComponent
@@ -26,6 +28,9 @@ import { HomeComponent } from './home/home.component';
     BrowserModule,
     SharedModule,
     AppRoutingModule,
+    MenuModule,
+    UsersModule,
+    CartModule,
     BrowserAnimationsModule
   ],
   providers: [],
