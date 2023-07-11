@@ -15,3 +15,12 @@
         margin-left: auto;
     }
 }
+
+.nav a {
+    margin-left: 5px;
+}
+
+.nav a:hover  {
+    border-radius: 15px;
+    background: #f4fde5;
+}
