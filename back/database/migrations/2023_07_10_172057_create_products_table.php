@@ -16,12 +16,14 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name', 200);
-            $table->double('price', 200);
+            $table->double('price');
             $table->boolean('available');
-            $table->string('image_path');
+            $table->string('recipe',200);
+            $table->string('image_path',200);
             $table->string('description', 200);
             $table->enum('type', ['dish', 'drink']);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
