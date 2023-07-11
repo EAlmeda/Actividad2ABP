@@ -11,10 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kitchen_order_contains', function (Blueprint $table) {
+        Schema::create('does', function (Blueprint $table) {
             $table->id();
-
-            $table->integer('quantity');
 
             $table->timestamps();
             $table->softDeletes();
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kitchen_order_contains');
+        Schema::dropIfExists('does');
     }
 };
