@@ -9,11 +9,11 @@
     <a mat-button routerLink="/book-a-table" routerLinkActive="active">Reservar mesa</a>
     <a mat-button routerLink="/menu" routerLinkActive="active">Carta</a>
     <a mat-button routerLink="/orders" routerLinkActive="active">Pedidos</a>
-    <a mat-button routerLink="/review" routerLinkActive="active">Comentarios</a>
+    <a mat-button routerLink="/review" disabled matTooltip="En progreso">Comentarios</a>
 
     <div class="nav__auth">
-        <a mat-button disabled>Crear cuenta</a>
-        <a mat-button disabled>Inicio de sesión</a>
+        <a mat-button disabled matTooltip="En progreso">Crear cuenta</a>
+        <a mat-button disabled matTooltip="En progreso">Inicio de sesión</a>
         <a mat-icon-button matTooltip="Perfil" routerLink="/profile">
             <mat-icon>
                 <span class="material-symbols-outlined">

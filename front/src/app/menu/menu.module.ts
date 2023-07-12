@@ -5,11 +5,11 @@ import { ProductDisplayComponent } from './product-display/product-display.compo
 import { SharedModule } from '../shared/shared.module';
 
 
-
 @NgModule({
   declarations: [
     MenuComponent,
-    ProductDisplayComponent],
+    ProductDisplayComponent, 
+  ],
   imports: [
     CommonModule,
     SharedModule

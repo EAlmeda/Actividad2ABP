@@ -1,0 +1,18 @@
+<mat-card class="order-card">
+    <mat-card-header>
+      <mat-card-title>Pedido {{order.id}} </mat-card-title>
+      <mat-card-subtitle>{{order.datetime}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <p>Dirección de entrega: {{order.address}}</p>
+        <app-price-chip [price]="order.amount"></app-price-chip>
+    </mat-card-content>
+    <mat-card-actions text-align="end">
+      <button mat-button>Consultar</button>
+      <button mat-button>Generar código QR</button>
+    </mat-card-actions>
+    <mat-card-footer>
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar> 
+        <!-- TODO: hacer algo con el estado -->
+      </mat-card-footer>
+  </mat-card>

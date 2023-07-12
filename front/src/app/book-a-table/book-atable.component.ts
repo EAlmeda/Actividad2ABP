@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+
 
 @Component({
   selector: 'app-book-atable',
@@ -8,6 +10,7 @@ import { Component, OnInit } from '@angular/core';
 export class BookATableComponent implements OnInit {
 
   startDate = new Date(2023, 7, 10);
+  selectedDate = new FormControl(this.startDate);
 
   constructor() { }
 

@@ -11,46 +11,55 @@ export class MenuComponent implements OnInit {
     name: "Pizza marinara",
     type: "Dish",
     available: true,
+    price: 16,
     description: "Pizza con mariscos varios."
   }, {
     name: "Pizza marinara",
     type: "Drink",
     available: true,
+    price: 16,
     description: "Pizza con mariscos varios."
   }, {
     name: "Pizza marinara",
     type: "Drink",
     available: false,
+    price: 16,
     description: "Pizza con mariscos varios."
   }, {
     name: "Pizza marinara",
     type: "Drink",
     available: true,
+    price: 16,
     description: "Pizza con mariscos varios."
   },{
     name: "Pizza marinara",
     type: "Drink",
     available: true,
+    price: 16,
     description: "Pizza con mariscos varios."
   }, {
     name: "Pizza marinara",
     type: "Dish",
     available: false,
+    price: 16,
     description: "Pizza con mariscos varios."
   },{
     name: "Pizza marinara",
     type: "Dish",
     available: true,
+    price: 16,
     description: "Pizza con mariscos varios."
   }, {
     name: "Pizza marinara",
     type: "Dish",
     available: true,
+    price: 16,
     description: "Pizza con mariscos varios."
   },{
     name: "Pizza marinara",
     type: "Dish",
     available: false,
+    price: 16,
     description: "Pizza con mariscos varios."
   }];
 

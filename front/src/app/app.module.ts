@@ -14,6 +14,7 @@ import { HomeComponent } from './home/home.component';
 import { MenuModule } from './menu/menu.module';
 import { UsersModule } from './users/users.module';
 import { CartModule } from './cart/cart.module';
+import { OrderDisplayComponent } from './orders/order-display/order-display.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,9 @@ import { CartModule } from './cart/cart.module';
     BookATableComponent,
     OrdersComponent,
     ReviewsComponent,
-    HomeComponent
+    HomeComponent,
+    OrderDisplayComponent, 
+    
   ],
   imports: [
     BrowserModule,
