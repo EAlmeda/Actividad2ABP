@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Models\Allergen;
 use Illuminate\Http\Request;
+use ResultResponse;
 
 class AllergenController extends Controller
 {
@@ -66,7 +68,7 @@ class AllergenController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Allergen $allergen)
+    public function show($id)
     {
         $resultResponse = new ResultResponse();
 
@@ -102,7 +104,7 @@ class AllergenController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Allergen $allergen)
+    public function update(Request $request, $id)
     {
         $this->validateAllergen($request);
         $resultResponse = new ResultResponse();
