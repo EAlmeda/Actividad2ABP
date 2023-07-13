@@ -28,8 +28,8 @@ class KitchenOrder extends Model
         return $this->belongsToMany(Employee::class,'cook');
     }
 
-    public function tables():BelongsToMany
+    public function boards():BelongsToMany
     {
-        return $this->belongsToMany(Employee::class,'table');
+        return $this->belongsToMany(Board::class,'table');
     }
 }
