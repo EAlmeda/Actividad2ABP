@@ -11,18 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kitchen_orders', function (Blueprint $table) {
+        Schema::create('boards', function (Blueprint $table) {
             $table->id();
 
-            $table->dateTime('beginDate');
-            $table->dateTime('endDate');
-            $table->enum('status', ['ordered', 'cookiing','finished']);
-            $table->integer('board_id')->unsigned();
+            $table->integer('capacity');
+            $table->boolean('available');
+            $table->integer('number');
 
             $table->timestamps();
             $table->softDeletes();
-
-            $table->foreign('board_id')->references('id')->on('board')->onDelete('cascade');
         });
     }
 
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kitchen_orders');
+        Schema::dropIfExists('boards');
     }
 };

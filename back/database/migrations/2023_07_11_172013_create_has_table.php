@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('allergen_id');
             $table->foreign('allergen_id')->references('id')->on('allergen')->onDelete('cascade');
 
+            $table->softDeletes();
             $table->timestamps();
         });
     }

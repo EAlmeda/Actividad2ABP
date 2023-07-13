@@ -22,6 +22,7 @@ return new class extends Migration
             $table->enum('status', ['ordered','cooking','delivering','delivered']);
             $table->enum('type', ['delivery', 'pick_up']);
 
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('icon_name',200);
             $table->integer('risk');
 
+            $table->softDeletes();
             $table->timestamps();
         });
     }
