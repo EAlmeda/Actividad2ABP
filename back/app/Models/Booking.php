@@ -22,7 +22,7 @@ class Booking extends Model
         'time',
     ];
 
-    public function Customer():BelongsToMany
+    public function customers():BelongsToMany
     {
         return $this->belongsToMany(Customer::class,'does');
     }

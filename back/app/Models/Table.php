@@ -7,27 +7,32 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class OnlineOrder extends Model
+class Table extends Model
 {
     use HasFactory;
+
     use SoftDeletes;
 
     protected $fillable = [
-        'amount',
-        'date',
-        'expected_date',
-        'address',
-        'status',
-        'type'
+        'name',
+        'surname_1',
+        'surname_2',
+        'team',
+        'phone',
+        'email',
+        'work_shift',
+        'bank_account',
+        'address'
     ];
 
-    public function Products():BelongsToMany
+    public function kitchenOrders():BelongsToMany
     {
-        return $this->belongsToMany(Product::class,'online_order_contains');
+        return $this->belongsToMany(KitchenOrder::class,'to');
     }
 
     public function employees():BelongsToMany
     {
-        return $this->belongsToMany(Employee::class,'delivers');
+        return $this->belongsToMany(Employee::class,'serves');
     }
+
 }

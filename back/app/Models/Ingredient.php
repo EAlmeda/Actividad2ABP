@@ -18,7 +18,7 @@ class Ingredient extends Model
         'quantity'
     ];
 
-    public function Products(): BelongsToMany
+    public function products(): BelongsToMany
     {
         return $this->belongsToMany(Product::class, 'made_with');
     }
