@@ -1,0 +1,13 @@
+.item-card {
+    margin:  0 18rem 0 18rem;
+    &__img {
+        border-radius: 200px;
+        width: 150px;
+        height: 120px;
+    }
+
+    &__actions {
+        display: flex;
+        justify-content: end;
+    }
+}

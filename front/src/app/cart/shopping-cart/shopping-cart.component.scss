@@ -1,0 +1,21 @@
+.cart {
+    padding: 32px;
+
+    &__cart-display{
+        display: grid;
+        gap: 48px;
+        grid-template-columns: repeat(auto-fill, minmax(42rem, 1fr));
+        padding: 16px;
+    }
+
+    &__actions {
+        
+        display: flex;
+        justify-content: end;
+        gap: 8px;
+
+        &--button {
+            background-color: #CAE1A4;
+        }
+    }
+}

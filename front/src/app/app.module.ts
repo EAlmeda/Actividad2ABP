@@ -15,6 +15,7 @@ import { MenuModule } from './menu/menu.module';
 import { UsersModule } from './users/users.module';
 import { CartModule } from './cart/cart.module';
 import { OrderDisplayComponent } from './orders/order-display/order-display.component';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { OrderDisplayComponent } from './orders/order-display/order-display.comp
     MenuModule,
     UsersModule,
     CartModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    StoreModule.forRoot({}, {})
   ],
   providers: [],
   bootstrap: [AppComponent]
