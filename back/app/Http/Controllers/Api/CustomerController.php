@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
+use App\Models\OnlineOrder;
 use Illuminate\Http\Request;
 use ResultResponse;
 
@@ -78,7 +79,7 @@ class CustomerController extends Controller
 
         try {
             $customer = Customer::findOrFail($id);
-
+            $customer.OnlineOrder =$customer->online();
             $this->setResultResponse(
                 $resultResponse,
                 $customer,

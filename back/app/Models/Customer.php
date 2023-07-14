@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Customer extends Model
@@ -23,14 +24,14 @@ class Customer extends Model
         'address'
     ];
 
-    public function customers():BelongsToMany
+    public function onlineOrders():BelongsToMany
     {
         return $this->belongsToMany(OnlineOrder::class,'makes');
     }
 
-    public function bookings():BelongsToMany
+    public function bookings():HasMany
     {
-        return $this->belongsToMany(Bookings::class,'does');
+        return $this->hasMany(Bookings::class);
     }
 
 }
