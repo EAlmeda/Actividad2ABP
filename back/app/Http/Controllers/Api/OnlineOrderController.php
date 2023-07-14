@@ -3,29 +3,28 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Customer;
 use App\Models\OnlineOrder;
 use Illuminate\Http\Request;
 use ResultResponse;
 
-class CustomerController extends Controller
+class OnlineOrderController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $customers = Customer::all();
+        $onlineOrders = OnlineOrder::all();
 
         $resultResponse = new ResultResponse();
 
         $this->setResultResponse(
             $resultResponse,
-            $customers,
+            $onlineOrders,
             ResultResponse::SUCCESS_CODE,
             ResultResponse::TXT_SUCCESS_CODE
         );
-        return $customers;
+        return $onlineOrders;
     }
 
 
@@ -34,26 +33,25 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validateCustomer($request);
+        $this->validateOnlineOrder($request);
 
         $resultResponse = new ResultResponse();
 
         try {
-            $newCustomer   = new Customer([
-                'name' => $request->get('name'),
-                'surname_1' => $request->get('surname_1'),
-                'surname_2' => $request->get('surname_2'),
-                'birth_date' => $request->get('birth_date'),
-                'phone' => $request->get('phone'),
-                'email' => $request->get('email'),
-                'address' => $request->get('address')
+            $newOnlineOrder   = new OnlineOrder([
+                'amount' => $request->get('amount'),
+                'date' => $request->get('date'),
+                'expected_date' => $request->get('expected_date'),
+                'address' => $request->get('address'),
+                'status' => $request->get('status'),
+                'type' => $request->get('type'),
             ]);
 
-            $newCustomer->save();
+            $newOnlineOrder->save();
 
             $this->setResultResponse(
                 $resultResponse,
-                $newCustomer,
+                $newOnlineOrder,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
@@ -78,11 +76,11 @@ class CustomerController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
-            $customer = Customer::findOrFail($id);
-            $customer.OnlineOrder =$customer->online();
+            $onlineOrder = OnlineOrder::findOrFail($id);
+
             $this->setResultResponse(
                 $resultResponse,
-                $customer,
+                $onlineOrder,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
@@ -103,25 +101,24 @@ class CustomerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validateCustomer($request);
+        $this->validateOnlineOrder($request);
         $resultResponse = new ResultResponse();
 
         try {
-            $customer = Customer::findOrFail($id);
+            $onlineOrder = OnlineOrder::findOrFail($id);
 
-            $customer->name = $request->get('name');
-            $customer->surname_1 = $request->get('surname_1');
-            $customer->surname_2 = $request->get('surname_2');
-            $customer->birth_date = $request->get('birth_date');
-            $customer->phone = $request->get('phone');
-            $customer->email = $request->get('email');
-            $customer->address = $request->get('address');
+            $onlineOrder->amount = $request->get('amount');
+            $onlineOrder->date = $request->get('date');
+            $onlineOrder->expected_date = $request->get('expected_date');
+            $onlineOrder->address = $request->get('address');
+            $onlineOrder->status = $request->get('status');
+            $onlineOrder->type = $request->get('type');
 
-            $customer->save();
+            $onlineOrder->save();
 
             $this->setResultResponse(
                 $resultResponse,
-                $customer,
+                $onlineOrder,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
@@ -142,21 +139,20 @@ class CustomerController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
-            $customer = Customer::findOrFail($id);
+            $onlineOrder = OnlineOrder::findOrFail($id);
 
-            $customer->name = $request->get('name', $customer->name);
-            $customer->surname_1 = $request->get('surname_1', $customer->surname_1);
-            $customer->surname_2 = $request->get('surname_2', $customer->surname_2);
-            $customer->birth_date = $request->get('birth_date', $customer->birth_date);
-            $customer->phone = $request->get('phone', $customer->phone);
-            $customer->email = $request->get('email', $customer->email);
-            $customer->address = $request->get('address', $customer->address);
+            $onlineOrder->amount = $request->get('amount', $onlineOrder->amount);
+            $onlineOrder->date = $request->get('date', $onlineOrder->date);
+            $onlineOrder->expected_date = $request->get('expected_date', $onlineOrder->expected_date);
+            $onlineOrder->address = $request->get('address', $onlineOrder->address);
+            $onlineOrder->status = $request->get('status', $onlineOrder->status);
+            $onlineOrder->type = $request->get('type', $onlineOrder->type);
 
-            $customer->save();
+            $onlineOrder->save();
 
             $this->setResultResponse(
                 $resultResponse,
-                $customer,
+                $onlineOrder,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
@@ -180,13 +176,13 @@ class CustomerController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
-            $customer = Customer::findOrFail($id);
+            $onlineOrder = OnlineOrder::findOrFail($id);
 
-            $customer->delete();
+            $onlineOrder->delete();
 
             $this->setResultResponse(
                 $resultResponse,
-                $customer,
+                $onlineOrder,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -22,8 +23,8 @@ class Booking extends Model
         'time',
     ];
 
-    public function customers():BelongsToMany
+    public function customers():BelongsTo
     {
-        return $this->belongsToMany(Customer::class,'does');
+        return $this->belongsTo(Customer::class);
     }
 }

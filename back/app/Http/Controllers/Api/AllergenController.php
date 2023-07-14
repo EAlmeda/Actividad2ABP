@@ -1,59 +1,54 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Customer;
-use App\Models\OnlineOrder;
+use App\Models\Allergen;
 use Illuminate\Http\Request;
 use ResultResponse;
 
-class CustomerController extends Controller
+class AllergenController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $customers = Customer::all();
+        $allergens = Allergen::all();
 
         $resultResponse = new ResultResponse();
 
         $this->setResultResponse(
             $resultResponse,
-            $customers,
+            $allergens,
             ResultResponse::SUCCESS_CODE,
             ResultResponse::TXT_SUCCESS_CODE
         );
-        return $customers;
+        return $allergens;
     }
-
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        $this->validateCustomer($request);
+        $this->validateAllergen($request);
 
         $resultResponse = new ResultResponse();
 
         try {
-            $newCustomer   = new Customer([
+            $newAllergen   = new Allergen([
                 'name' => $request->get('name'),
-                'surname_1' => $request->get('surname_1'),
-                'surname_2' => $request->get('surname_2'),
-                'birth_date' => $request->get('birth_date'),
-                'phone' => $request->get('phone'),
-                'email' => $request->get('email'),
-                'address' => $request->get('address')
+                'description' => $request->get('description'),
+                'icon_name' => $request->get('icon_name'),
+                'risk' => $request->get('risk'),
             ]);
 
-            $newCustomer->save();
+            $newAllergen->save();
 
             $this->setResultResponse(
                 $resultResponse,
-                $newCustomer,
+                $newAllergen,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
@@ -78,11 +73,11 @@ class CustomerController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
-            $customer = Customer::findOrFail($id);
-            $customer.OnlineOrder =$customer->online();
+            $allergen = Allergen::findOrFail($id);
+
             $this->setResultResponse(
                 $resultResponse,
-                $customer,
+                $allergen,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
@@ -103,25 +98,22 @@ class CustomerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validateCustomer($request);
+        $this->validateAllergen($request);
         $resultResponse = new ResultResponse();
 
         try {
-            $customer = Customer::findOrFail($id);
+            $allergen = Allergen::findOrFail($id);
 
-            $customer->name = $request->get('name');
-            $customer->surname_1 = $request->get('surname_1');
-            $customer->surname_2 = $request->get('surname_2');
-            $customer->birth_date = $request->get('birth_date');
-            $customer->phone = $request->get('phone');
-            $customer->email = $request->get('email');
-            $customer->address = $request->get('address');
+            $allergen->name = $request->get('name');
+            $allergen->description = $request->get('description');
+            $allergen->icon_name = $request->get('icon_name');
+            $allergen->risk = $request->get('risk');
 
-            $customer->save();
+            $allergen->save();
 
             $this->setResultResponse(
                 $resultResponse,
-                $customer,
+                $allergen,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
@@ -142,21 +134,18 @@ class CustomerController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
-            $customer = Customer::findOrFail($id);
+            $allergen = Allergen::findOrFail($id);
 
-            $customer->name = $request->get('name', $customer->name);
-            $customer->surname_1 = $request->get('surname_1', $customer->surname_1);
-            $customer->surname_2 = $request->get('surname_2', $customer->surname_2);
-            $customer->birth_date = $request->get('birth_date', $customer->birth_date);
-            $customer->phone = $request->get('phone', $customer->phone);
-            $customer->email = $request->get('email', $customer->email);
-            $customer->address = $request->get('address', $customer->address);
+            $allergen->name = $request->get('name', $allergen->name);
+            $allergen->description = $request->get('description', $allergen->description);
+            $allergen->icon_name = $request->get('icon_name', $allergen->icon_name);
+            $allergen->risk = $request->get('risk', $allergen->risk);
 
-            $customer->save();
+            $allergen->save();
 
             $this->setResultResponse(
                 $resultResponse,
-                $customer,
+                $allergen,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
@@ -180,13 +169,13 @@ class CustomerController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
-            $customer = Customer::findOrFail($id);
+            $allergen = Allergen::findOrFail($id);
 
-            $customer->delete();
+            $allergen->delete();
 
             $this->setResultResponse(
                 $resultResponse,
-                $customer,
+                $allergen,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );

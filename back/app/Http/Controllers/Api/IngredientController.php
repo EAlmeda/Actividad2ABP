@@ -3,29 +3,28 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Customer;
-use App\Models\OnlineOrder;
+use App\Models\Ingredient;
 use Illuminate\Http\Request;
 use ResultResponse;
 
-class CustomerController extends Controller
+class IngredientController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $customers = Customer::all();
+        $ingredients = Ingredient::all();
 
         $resultResponse = new ResultResponse();
 
         $this->setResultResponse(
             $resultResponse,
-            $customers,
+            $ingredients,
             ResultResponse::SUCCESS_CODE,
             ResultResponse::TXT_SUCCESS_CODE
         );
-        return $customers;
+        return $ingredients;
     }
 
 
@@ -34,26 +33,21 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validateCustomer($request);
+        $this->validateIngredient($request);
 
         $resultResponse = new ResultResponse();
 
         try {
-            $newCustomer   = new Customer([
+            $newIngredient   = new Ingredient([
                 'name' => $request->get('name'),
-                'surname_1' => $request->get('surname_1'),
-                'surname_2' => $request->get('surname_2'),
-                'birth_date' => $request->get('birth_date'),
-                'phone' => $request->get('phone'),
-                'email' => $request->get('email'),
-                'address' => $request->get('address')
+                'quantity' => $request->get('quantity'),
             ]);
 
-            $newCustomer->save();
+            $newIngredient->save();
 
             $this->setResultResponse(
                 $resultResponse,
-                $newCustomer,
+                $newIngredient,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
@@ -78,11 +72,11 @@ class CustomerController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
-            $customer = Customer::findOrFail($id);
-            $customer.OnlineOrder =$customer->online();
+            $ingredient = Ingredient::findOrFail($id);
+
             $this->setResultResponse(
                 $resultResponse,
-                $customer,
+                $ingredient,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
@@ -103,25 +97,20 @@ class CustomerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validateCustomer($request);
+        $this->validateIngredient($request);
         $resultResponse = new ResultResponse();
 
         try {
-            $customer = Customer::findOrFail($id);
+            $ingredient = Ingredient::findOrFail($id);
 
-            $customer->name = $request->get('name');
-            $customer->surname_1 = $request->get('surname_1');
-            $customer->surname_2 = $request->get('surname_2');
-            $customer->birth_date = $request->get('birth_date');
-            $customer->phone = $request->get('phone');
-            $customer->email = $request->get('email');
-            $customer->address = $request->get('address');
+            $ingredient->name = $request->get('name');
+            $ingredient->quantity = $request->get('quantity');
 
-            $customer->save();
+            $ingredient->save();
 
             $this->setResultResponse(
                 $resultResponse,
-                $customer,
+                $ingredient,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
@@ -142,21 +131,16 @@ class CustomerController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
-            $customer = Customer::findOrFail($id);
+            $ingredient = Ingredient::findOrFail($id);
 
-            $customer->name = $request->get('name', $customer->name);
-            $customer->surname_1 = $request->get('surname_1', $customer->surname_1);
-            $customer->surname_2 = $request->get('surname_2', $customer->surname_2);
-            $customer->birth_date = $request->get('birth_date', $customer->birth_date);
-            $customer->phone = $request->get('phone', $customer->phone);
-            $customer->email = $request->get('email', $customer->email);
-            $customer->address = $request->get('address', $customer->address);
+            $ingredient->name = $request->get('name', $ingredient->name);
+            $ingredient->quantity = $request->get('quantity', $ingredient->quantity);
 
-            $customer->save();
+            $ingredient->save();
 
             $this->setResultResponse(
                 $resultResponse,
-                $customer,
+                $ingredient,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
@@ -180,13 +164,13 @@ class CustomerController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
-            $customer = Customer::findOrFail($id);
+            $ingredient = Ingredient::findOrFail($id);
 
-            $customer->delete();
+            $ingredient->delete();
 
             $this->setResultResponse(
                 $resultResponse,
-                $customer,
+                $ingredient,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );

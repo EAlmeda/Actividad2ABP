@@ -3,29 +3,28 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Customer;
-use App\Models\OnlineOrder;
+use App\Models\KitchenOrder;
 use Illuminate\Http\Request;
 use ResultResponse;
 
-class CustomerController extends Controller
+class KitchenOrderController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $customers = Customer::all();
+        $kitchenOrders = KitchenOrder::all();
 
         $resultResponse = new ResultResponse();
 
         $this->setResultResponse(
             $resultResponse,
-            $customers,
+            $kitchenOrders,
             ResultResponse::SUCCESS_CODE,
             ResultResponse::TXT_SUCCESS_CODE
         );
-        return $customers;
+        return $kitchenOrders;
     }
 
 
@@ -34,26 +33,22 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validateCustomer($request);
+        $this->validateKitchenOrder($request);
 
         $resultResponse = new ResultResponse();
 
         try {
-            $newCustomer   = new Customer([
-                'name' => $request->get('name'),
-                'surname_1' => $request->get('surname_1'),
-                'surname_2' => $request->get('surname_2'),
-                'birth_date' => $request->get('birth_date'),
-                'phone' => $request->get('phone'),
-                'email' => $request->get('email'),
-                'address' => $request->get('address')
+            $newKitchenOrder   = new KitchenOrder([
+                'begin_date' => $request->get('begin_date'),
+                'end_date' => $request->get('end_date'),
+                'status' => $request->get('status'),
             ]);
 
-            $newCustomer->save();
+            $newKitchenOrder->save();
 
             $this->setResultResponse(
                 $resultResponse,
-                $newCustomer,
+                $newKitchenOrder,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
@@ -78,11 +73,11 @@ class CustomerController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
-            $customer = Customer::findOrFail($id);
-            $customer.OnlineOrder =$customer->online();
+            $kitchenOrder = KitchenOrder::findOrFail($id);
+
             $this->setResultResponse(
                 $resultResponse,
-                $customer,
+                $kitchenOrder,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
@@ -103,25 +98,21 @@ class CustomerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validateCustomer($request);
+        $this->validateKitchenOrder($request);
         $resultResponse = new ResultResponse();
 
         try {
-            $customer = Customer::findOrFail($id);
+            $kitchenOrder = KitchenOrder::findOrFail($id);
 
-            $customer->name = $request->get('name');
-            $customer->surname_1 = $request->get('surname_1');
-            $customer->surname_2 = $request->get('surname_2');
-            $customer->birth_date = $request->get('birth_date');
-            $customer->phone = $request->get('phone');
-            $customer->email = $request->get('email');
-            $customer->address = $request->get('address');
+            $kitchenOrder->begin_date = $request->get('begin_date');
+            $kitchenOrder->end_date = $request->get('end_date');
+            $kitchenOrder->status = $request->get('status');
 
-            $customer->save();
+            $kitchenOrder->save();
 
             $this->setResultResponse(
                 $resultResponse,
-                $customer,
+                $kitchenOrder,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
@@ -142,21 +133,17 @@ class CustomerController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
-            $customer = Customer::findOrFail($id);
+            $kitchenOrder = KitchenOrder::findOrFail($id);
 
-            $customer->name = $request->get('name', $customer->name);
-            $customer->surname_1 = $request->get('surname_1', $customer->surname_1);
-            $customer->surname_2 = $request->get('surname_2', $customer->surname_2);
-            $customer->birth_date = $request->get('birth_date', $customer->birth_date);
-            $customer->phone = $request->get('phone', $customer->phone);
-            $customer->email = $request->get('email', $customer->email);
-            $customer->address = $request->get('address', $customer->address);
+            $kitchenOrder->begin_date = $request->get('begin_date', $kitchenOrder->begin_date);
+            $kitchenOrder->end_date = $request->get('end_date', $kitchenOrder->end_date);
+            $kitchenOrder->status = $request->get('status', $kitchenOrder->status);
 
-            $customer->save();
+            $kitchenOrder->save();
 
             $this->setResultResponse(
                 $resultResponse,
-                $customer,
+                $kitchenOrder,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
@@ -180,13 +167,13 @@ class CustomerController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
-            $customer = Customer::findOrFail($id);
+            $kitchenOrder = KitchenOrder::findOrFail($id);
 
-            $customer->delete();
+            $kitchenOrder->delete();
 
             $this->setResultResponse(
                 $resultResponse,
-                $customer,
+                $kitchenOrder,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );

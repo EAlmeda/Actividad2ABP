@@ -3,29 +3,28 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Customer;
-use App\Models\OnlineOrder;
+use App\Models\Employee;
 use Illuminate\Http\Request;
 use ResultResponse;
 
-class CustomerController extends Controller
+class EmployeeController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $customers = Customer::all();
+        $employees = Employee::all();
 
         $resultResponse = new ResultResponse();
 
         $this->setResultResponse(
             $resultResponse,
-            $customers,
+            $employees,
             ResultResponse::SUCCESS_CODE,
             ResultResponse::TXT_SUCCESS_CODE
         );
-        return $customers;
+        return $employees;
     }
 
 
@@ -34,26 +33,28 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validateCustomer($request);
+        $this->validateEmployee($request);
 
         $resultResponse = new ResultResponse();
 
         try {
-            $newCustomer   = new Customer([
+            $newEmployee   = new Employee([
                 'name' => $request->get('name'),
                 'surname_1' => $request->get('surname_1'),
                 'surname_2' => $request->get('surname_2'),
-                'birth_date' => $request->get('birth_date'),
+                'team' => $request->get('team'),
                 'phone' => $request->get('phone'),
                 'email' => $request->get('email'),
+                'work_shift' => $request->get('work_shift'),
+                'bank_account' => $request->get('bank_account'),
                 'address' => $request->get('address')
             ]);
 
-            $newCustomer->save();
+            $newEmployee->save();
 
             $this->setResultResponse(
                 $resultResponse,
-                $newCustomer,
+                $newEmployee,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
@@ -78,11 +79,11 @@ class CustomerController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
-            $customer = Customer::findOrFail($id);
-            $customer.OnlineOrder =$customer->online();
+            $employee = Employee::findOrFail($id);
+
             $this->setResultResponse(
                 $resultResponse,
-                $customer,
+                $employee,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
@@ -103,25 +104,27 @@ class CustomerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validateCustomer($request);
+        $this->validateEmployee($request);
         $resultResponse = new ResultResponse();
 
         try {
-            $customer = Customer::findOrFail($id);
+            $employee = Employee::findOrFail($id);
 
-            $customer->name = $request->get('name');
-            $customer->surname_1 = $request->get('surname_1');
-            $customer->surname_2 = $request->get('surname_2');
-            $customer->birth_date = $request->get('birth_date');
-            $customer->phone = $request->get('phone');
-            $customer->email = $request->get('email');
-            $customer->address = $request->get('address');
+            $employee->name = $request->get('name');
+            $employee->surname_1 = $request->get('surname_1');
+            $employee->surname_2 = $request->get('surname_2');
+            $employee->team = $request->get('team');
+            $employee->phone = $request->get('phone');
+            $employee->email = $request->get('email');
+            $employee->work_shift = $request->get('work_shift');
+            $employee->bank_account = $request->get('bank_account');
+            $employee->address = $request->get('address');
 
-            $customer->save();
+            $employee->save();
 
             $this->setResultResponse(
                 $resultResponse,
-                $customer,
+                $employee,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
@@ -142,21 +145,23 @@ class CustomerController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
-            $customer = Customer::findOrFail($id);
+            $employee = Employee::findOrFail($id);
 
-            $customer->name = $request->get('name', $customer->name);
-            $customer->surname_1 = $request->get('surname_1', $customer->surname_1);
-            $customer->surname_2 = $request->get('surname_2', $customer->surname_2);
-            $customer->birth_date = $request->get('birth_date', $customer->birth_date);
-            $customer->phone = $request->get('phone', $customer->phone);
-            $customer->email = $request->get('email', $customer->email);
-            $customer->address = $request->get('address', $customer->address);
+            $employee->name = $request->get('name', $employee->name);
+            $employee->surname_1 = $request->get('surname_1', $employee->surname_1);
+            $employee->surname_2 = $request->get('surname_2', $employee->surname_2);
+            $employee->team = $request->get('team', $employee->team);
+            $employee->phone = $request->get('phone', $employee->phone);
+            $employee->email = $request->get('email', $employee->email);
+            $employee->work_shift = $request->get('work_shift', $employee->work_shift);
+            $employee->bank_account = $request->get('bank_account', $employee->bank_account);
+            $employee->address = $request->get('address', $employee->address);
 
-            $customer->save();
+            $employee->save();
 
             $this->setResultResponse(
                 $resultResponse,
-                $customer,
+                $employee,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
@@ -180,13 +185,13 @@ class CustomerController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
-            $customer = Customer::findOrFail($id);
+            $employee = Employee::findOrFail($id);
 
-            $customer->delete();
+            $employee->delete();
 
             $this->setResultResponse(
                 $resultResponse,
-                $customer,
+                $employee,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );

@@ -3,29 +3,28 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Customer;
-use App\Models\OnlineOrder;
+use App\Models\Booking;
 use Illuminate\Http\Request;
 use ResultResponse;
 
-class CustomerController extends Controller
+class BookingController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $customers = Customer::all();
+        $bookings = Booking::all();
 
         $resultResponse = new ResultResponse();
 
         $this->setResultResponse(
             $resultResponse,
-            $customers,
+            $bookings,
             ResultResponse::SUCCESS_CODE,
             ResultResponse::TXT_SUCCESS_CODE
         );
-        return $customers;
+        return $bookings;
     }
 
 
@@ -34,26 +33,25 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validateCustomer($request);
+        $this->validateBooking($request);
 
         $resultResponse = new ResultResponse();
 
         try {
-            $newCustomer   = new Customer([
-                'name' => $request->get('name'),
-                'surname_1' => $request->get('surname_1'),
-                'surname_2' => $request->get('surname_2'),
-                'birth_date' => $request->get('birth_date'),
-                'phone' => $request->get('phone'),
-                'email' => $request->get('email'),
-                'address' => $request->get('address')
+            $newBooking   = new Booking([
+                'booker_name' => $request->get('booker_name'),
+                'booker_phone' => $request->get('booker_phone'),
+                'booker_time' => $request->get('booker_time'),
+                'people_quantity' => $request->get('people_quantity'),
+                'date' => $request->get('date'),
+                'time' => $request->get('time'),
             ]);
 
-            $newCustomer->save();
+            $newBooking->save();
 
             $this->setResultResponse(
                 $resultResponse,
-                $newCustomer,
+                $newBooking,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
@@ -78,11 +76,11 @@ class CustomerController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
-            $customer = Customer::findOrFail($id);
-            $customer.OnlineOrder =$customer->online();
+            $booking = Booking::findOrFail($id);
+
             $this->setResultResponse(
                 $resultResponse,
-                $customer,
+                $booking,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
@@ -103,25 +101,24 @@ class CustomerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validateCustomer($request);
+        $this->validateBooking($request);
         $resultResponse = new ResultResponse();
 
         try {
-            $customer = Customer::findOrFail($id);
+            $booking = Booking::findOrFail($id);
 
-            $customer->name = $request->get('name');
-            $customer->surname_1 = $request->get('surname_1');
-            $customer->surname_2 = $request->get('surname_2');
-            $customer->birth_date = $request->get('birth_date');
-            $customer->phone = $request->get('phone');
-            $customer->email = $request->get('email');
-            $customer->address = $request->get('address');
+            $booking->name = $request->get('name');
+            $booking->surname_1 = $request->get('surname_1');
+            $booking->booker_time = $request->get('booker_time');
+            $booking->people_quantity = $request->get('people_quantity');
+            $booking->date = $request->get('date');
+            $booking->time = $request->get('time');
 
-            $customer->save();
+            $booking->save();
 
             $this->setResultResponse(
                 $resultResponse,
-                $customer,
+                $booking,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
@@ -142,21 +139,20 @@ class CustomerController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
-            $customer = Customer::findOrFail($id);
+            $booking = Booking::findOrFail($id);
 
-            $customer->name = $request->get('name', $customer->name);
-            $customer->surname_1 = $request->get('surname_1', $customer->surname_1);
-            $customer->surname_2 = $request->get('surname_2', $customer->surname_2);
-            $customer->birth_date = $request->get('birth_date', $customer->birth_date);
-            $customer->phone = $request->get('phone', $customer->phone);
-            $customer->email = $request->get('email', $customer->email);
-            $customer->address = $request->get('address', $customer->address);
+            $booking->name = $request->get('name', $booking->name);
+            $booking->surname_1 = $request->get('surname_1', $booking->surname_1);
+            $booking->booker_time = $request->get('booker_time', $booking->booker_time);
+            $booking->people_quantity = $request->get('people_quantity', $booking->people_quantity);
+            $booking->date = $request->get('date', $booking->date);
+            $booking->time = $request->get('time', $booking->time);
 
-            $customer->save();
+            $booking->save();
 
             $this->setResultResponse(
                 $resultResponse,
-                $customer,
+                $booking,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
@@ -180,13 +176,13 @@ class CustomerController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
-            $customer = Customer::findOrFail($id);
+            $booking = Booking::findOrFail($id);
 
-            $customer->delete();
+            $booking->delete();
 
             $this->setResultResponse(
                 $resultResponse,
-                $customer,
+                $booking,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
