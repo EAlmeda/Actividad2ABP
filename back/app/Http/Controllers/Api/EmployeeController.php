@@ -100,6 +100,224 @@ class EmployeeController extends Controller
         return response()->json($resultResponse);
     }
 
+    public function findByName($name)
+    {
+        $query = Employee::query();
+        $resultResponse = new ResultResponse();
+
+        try {
+            $query->orWhere('name', 'LIKE', '%' . $name . '%');
+
+            $employee = $query->paginate(1);
+
+            $this->setResultResponse(
+                $resultResponse,
+                $employee,
+                ResultResponse::SUCCESS_CODE,
+                ResultResponse::TXT_SUCCESS_CODE
+            );
+        } catch (\Exception $e) {
+            $this->setResultResponse(
+                $resultResponse,
+                "",
+                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
+                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
+            );
+        }
+
+        return response()->json($resultResponse);
+    }
+
+    public function findBySurname($value)
+    {
+        $query = Employee::query();
+        $resultResponse = new ResultResponse();
+        $columns = ['surname_1', 'surname_2'];
+
+        try {
+            foreach ($columns as $column) {
+                $query->orWhere($column, 'LIKE', '%' . $value . '%');
+            }
+
+            $employee = $query->paginate(1);
+
+            $this->setResultResponse(
+                $resultResponse,
+                $employee,
+                ResultResponse::SUCCESS_CODE,
+                ResultResponse::TXT_SUCCESS_CODE
+            );
+        } catch (\Exception $e) {
+            $this->setResultResponse(
+                $resultResponse,
+                "",
+                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
+                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
+            );
+        }
+
+        return response()->json($resultResponse);
+    }
+
+    public function findByTeam($team)
+    {
+        $query = Employee::query();
+        $resultResponse = new ResultResponse();
+
+        try {
+            $query->orWhere('team', 'LIKE', '%' . $team . '%');
+
+            $employee = $query->paginate(1);
+
+            $this->setResultResponse(
+                $resultResponse,
+                $employee,
+                ResultResponse::SUCCESS_CODE,
+                ResultResponse::TXT_SUCCESS_CODE
+            );
+        } catch (\Exception $e) {
+            $this->setResultResponse(
+                $resultResponse,
+                "",
+                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
+                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
+            );
+        }
+
+        return response()->json($resultResponse);
+    }
+
+    public function findByPhone($phone)
+    {
+        $resultResponse = new ResultResponse();
+
+        try {
+            $allergen = Employee::where('phone', $phone)->firstOrFail();
+
+            $this->setResultResponse(
+                $resultResponse,
+                $allergen,
+                ResultResponse::SUCCESS_CODE,
+                ResultResponse::TXT_SUCCESS_CODE
+            );
+        } catch (\Exception $e) {
+            $this->setResultResponse(
+                $resultResponse,
+                "",
+                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
+                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
+            );
+        }
+
+        return response()->json($resultResponse);
+    }
+
+    public function findByEmail($email)
+    {
+        $resultResponse = new ResultResponse();
+
+        try {
+            $allergen = Employee::where('email', $email)->firstOrFail();
+
+            $this->setResultResponse(
+                $resultResponse,
+                $allergen,
+                ResultResponse::SUCCESS_CODE,
+                ResultResponse::TXT_SUCCESS_CODE
+            );
+        } catch (\Exception $e) {
+            $this->setResultResponse(
+                $resultResponse,
+                "",
+                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
+                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
+            );
+        }
+
+        return response()->json($resultResponse);
+    }
+
+    public function findByWorkShift($work_shift)
+    {
+        $query = Employee::query();
+        $resultResponse = new ResultResponse();
+
+        try {
+            $query->orWhere('work_shift', 'LIKE', '%' . $work_shift . '%');
+
+            $employee = $query->paginate(1);
+
+            $this->setResultResponse(
+                $resultResponse,
+                $employee,
+                ResultResponse::SUCCESS_CODE,
+                ResultResponse::TXT_SUCCESS_CODE
+            );
+        } catch (\Exception $e) {
+            $this->setResultResponse(
+                $resultResponse,
+                "",
+                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
+                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
+            );
+        }
+
+        return response()->json($resultResponse);
+    }
+
+    public function findByBankAccount($bank_account)
+    {
+        $resultResponse = new ResultResponse();
+
+        try {
+            $allergen = Employee::where('bank_account', $bank_account)->firstOrFail();
+
+            $this->setResultResponse(
+                $resultResponse,
+                $allergen,
+                ResultResponse::SUCCESS_CODE,
+                ResultResponse::TXT_SUCCESS_CODE
+            );
+        } catch (\Exception $e) {
+            $this->setResultResponse(
+                $resultResponse,
+                "",
+                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
+                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
+            );
+        }
+
+        return response()->json($resultResponse);
+    }
+
+    public function findByAddress($address)
+    {
+        $query = Employee::query();
+        $resultResponse = new ResultResponse();
+
+        try {
+            $query->orWhere('address', 'LIKE', '%' . $address . '%');
+
+            $employee = $query->paginate(1);
+
+            $this->setResultResponse(
+                $resultResponse,
+                $employee,
+                ResultResponse::SUCCESS_CODE,
+                ResultResponse::TXT_SUCCESS_CODE
+            );
+        } catch (\Exception $e) {
+            $this->setResultResponse(
+                $resultResponse,
+                "",
+                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
+                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
+            );
+        }
+
+        return response()->json($resultResponse);
+    }
+
     /**
      * Update the specified resource in storage.
      */
