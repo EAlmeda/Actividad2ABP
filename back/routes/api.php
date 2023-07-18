@@ -36,6 +36,7 @@ Route::controller(AllergenController::class)->prefix('allergens')->group(functio
     Route::get('/name/{name}','findByName');
     Route::get('/description/{description}','findByDescription');
     Route::get('/risk/{risk}','findByRisk');
+    Route::get('/find/{value}','findByAllColumns');
     Route::delete('/{id}','destroy');
 });
 

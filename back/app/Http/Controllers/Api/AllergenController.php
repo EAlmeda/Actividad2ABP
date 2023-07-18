@@ -122,7 +122,7 @@ class AllergenController extends Controller
     {
         $resultResponse = new ResultResponse();
         try {
-            $allergen = Allergen::where('name','LIKE', $description)->firstOrFail();
+            $allergen = Allergen::where('name', 'LIKE', '%' . $description . '%')->firstOrFail();
 
             $this->setResultResponse(
                 $resultResponse,
@@ -166,7 +166,36 @@ class AllergenController extends Controller
         return response()->json($resultResponse);
     }
 
+    public function findByAllColumns($value)
+    {
+        $query = Allergen::query();
+        $resultResponse = new ResultResponse();
+        $columns = ['name', 'description', 'icon_name', 'risk'];
 
+        try {
+            foreach ($columns as $column) {
+                $query->orWhere($column, 'LIKE', '%' . $value . '%');
+            }
+
+            $allergen = $query->paginate();
+
+            $this->setResultResponse(
+                $resultResponse,
+                $allergen,
+                ResultResponse::SUCCESS_CODE,
+                ResultResponse::TXT_SUCCESS_CODE
+            );
+        } catch (\Exception $e) {
+            $this->setResultResponse(
+                $resultResponse,
+                "",
+                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
+                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
+            );
+        }
+
+        return response()->json($resultResponse);
+    }
 
     /**
      * Update the specified resource in storage.
