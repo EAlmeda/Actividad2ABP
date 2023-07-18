@@ -1,4 +1,6 @@
 <?php
+namespace App\Libs;
+
 class ResultResponse
 {
     const SUCCESS_CODE = 200;

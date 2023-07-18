@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Board;
 use Illuminate\Http\Request;
-use ResultResponse;
+use App\Libs\ResultResponse;
 
 class BoardController extends Controller
 {
@@ -105,7 +105,7 @@ class BoardController extends Controller
 
             $board->capacity = $request->get('capacity');
             $board->available = $request->get('available');
-    
+
             $board->save();
 
             $this->setResultResponse(
@@ -126,7 +126,7 @@ class BoardController extends Controller
         return response()->json($resultResponse);
     }
 
-    public function put(Request $request, $id)
+    public function patch(Request $request, $id)
     {
         $resultResponse = new ResultResponse();
 

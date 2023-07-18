@@ -26,7 +26,7 @@ class Customer extends Model
 
     public function onlineOrders():HasMany
     {
-        return $this->HasMany(OnlineOrder::class);
+        return $this->hasMany(OnlineOrder::class);
     }
 
     public function bookings():HasMany
