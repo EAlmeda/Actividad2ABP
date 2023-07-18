@@ -5,6 +5,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class PricePipe implements PipeTransform {
   public transform(value: number): string {
-    return value + " €.";
+    return value + " €";
   }
 }

@@ -15,6 +15,13 @@ return new class extends Migration
             $table->id();
 
             $table->integer('quantity');
+            $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('kitchen_order_id');
+            $table->unsignedBigInteger('employee_id');
+
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->foreign('kitchen_order_id')->references('id')->on('kitchen_orders')->onDelete('cascade');
+            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
 
             $table->timestamps();
             $table->softDeletes();

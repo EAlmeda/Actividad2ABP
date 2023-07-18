@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Libs\ResultResponse;
 use App\Models\Customer;
 use App\Models\OnlineOrder;
 use Illuminate\Http\Request;
-use ResultResponse;
 
 class CustomerController extends Controller
 {
@@ -79,7 +79,7 @@ class CustomerController extends Controller
 
         try {
             $customer = Customer::findOrFail($id);
-            $customer.OnlineOrder =$customer->online();
+            $customer->OnlineOrder =$customer->online();
             $this->setResultResponse(
                 $resultResponse,
                 $customer,
@@ -137,7 +137,7 @@ class CustomerController extends Controller
         return response()->json($resultResponse);
     }
 
-    public function put(Request $request, $id)
+    public function patch(Request $request, $id)
     {
         $resultResponse = new ResultResponse();
 

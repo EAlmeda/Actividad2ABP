@@ -1,13 +1,13 @@
 <?php
 
-use App\Http\Controllers\AllergenController;
-use App\Http\Controllers\BoardController;
-use App\Http\Controllers\BookingController;
-use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\EmployeeController;
-use App\Http\Controllers\IngredientController;
-use App\Http\Controllers\KitchenOrderController;
-use App\Http\Controllers\OnlineOrderController;
+use App\Http\Controllers\Api\AllergenController;
+use App\Http\Controllers\Api\BoardController;
+use App\Http\Controllers\Api\BookingController;
+use App\Http\Controllers\Api\CustomerController;
+use App\Http\Controllers\Api\EmployeeController;
+use App\Http\Controllers\Api\IngredientController;
+use App\Http\Controllers\Api\KitchenOrderController;
+use App\Http\Controllers\Api\OnlineOrderController;
 use App\Http\Controllers\Api\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -31,8 +31,12 @@ Route::controller(AllergenController::class)->prefix('allergens')->group(functio
     Route::get('/','index');
     Route::post('/','store');
     Route::post('/{id}','update');
-    Route::put('/{id}','put');
+    Route::patch('/{id}','patch');
     Route::get('/{id}','show');
+    Route::get('/name/{name}','findByName');
+    Route::get('/description/{description}','findByDescription');
+    Route::get('/risk/{risk}','findByRisk');
+    Route::get('/find/{value}','findByAllColumns');
     Route::delete('/{id}','destroy');
 });
 
@@ -40,7 +44,7 @@ Route::controller(BoardController::class)->prefix('board')->group(function(){
     Route::get('/','index');
     Route::post('/','store');
     Route::post('/{id}','update');
-    Route::put('/{id}','put');
+    Route::patch('/{id}','patch');
     Route::get('/{id}','show');
     Route::delete('/{id}','destroy');
 });
@@ -49,7 +53,7 @@ Route::controller(BookingController::class)->prefix('booking')->group(function()
     Route::get('/','index');
     Route::post('/','store');
     Route::post('/{id}','update');
-    Route::put('/{id}','put');
+    Route::patch('/{id}','patch');
     Route::get('/{id}','show');
     Route::delete('/{id}','destroy');
 });
@@ -59,7 +63,7 @@ Route::controller(CustomerController::class)->prefix('customer')->group(function
     Route::get('/','index');
     Route::post('/','store');
     Route::post('/{id}','update');
-    Route::put('/{id}','put');
+    Route::patch('/{id}','patch');
     Route::get('/{id}','show');
     Route::delete('/{id}','destroy');
 });
@@ -69,7 +73,7 @@ Route::controller(EmployeeController::class)->prefix('employee')->group(function
     Route::get('/','index');
     Route::post('/','store');
     Route::post('/{id}','update');
-    Route::put('/{id}','put');
+    Route::patch('/{id}','patch');
     Route::get('/{id}','show');
     Route::delete('/{id}','destroy');
 });
@@ -79,7 +83,7 @@ Route::controller(IngredientController::class)->prefix('ingredient')->group(func
     Route::get('/','index');
     Route::post('/','store');
     Route::post('/{id}','update');
-    Route::put('/{id}','put');
+    Route::patch('/{id}','patch');
     Route::get('/{id}','show');
     Route::delete('/{id}','destroy');
 });
@@ -89,7 +93,7 @@ Route::controller(KitchenOrderController::class)->prefix('products')->group(func
     Route::get('/','index');
     Route::post('/','store');
     Route::post('/{id}','update');
-    Route::put('/{id}','put');
+    Route::patch('/{id}','patch');
     Route::get('/{id}','show');
     Route::delete('/{id}','destroy');
 });
@@ -99,7 +103,7 @@ Route::controller(OnlineOrderController::class)->prefix('products')->group(funct
     Route::get('/','index');
     Route::post('/','store');
     Route::post('/{id}','update');
-    Route::put('/{id}','put');
+    Route::patch('/{id}','patch');
     Route::get('/{id}','show');
     Route::delete('/{id}','destroy');
 });
@@ -109,7 +113,7 @@ Route::controller(ProductController::class)->prefix('products')->group(function(
     Route::get('/','index');
     Route::post('/','store');
     Route::post('/{id}','update');
-    Route::put('/{id}','put');
+    Route::patch('/{id}','patch');
     Route::get('/{id}','show');
     Route::delete('/{id}','destroy');
 });

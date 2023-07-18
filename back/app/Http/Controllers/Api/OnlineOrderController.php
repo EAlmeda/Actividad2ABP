@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\OnlineOrder;
 use Illuminate\Http\Request;
-use ResultResponse;
+use App\Libs\ResultResponse;
+
 
 class OnlineOrderController extends Controller
 {
@@ -134,7 +135,7 @@ class OnlineOrderController extends Controller
         return response()->json($resultResponse);
     }
 
-    public function put(Request $request, $id)
+    public function patch(Request $request, $id)
     {
         $resultResponse = new ResultResponse();
 

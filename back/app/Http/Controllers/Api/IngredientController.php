@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Ingredient;
 use Illuminate\Http\Request;
-use ResultResponse;
+use App\Libs\ResultResponse;
 
 class IngredientController extends Controller
 {
@@ -126,7 +126,7 @@ class IngredientController extends Controller
         return response()->json($resultResponse);
     }
 
-    public function put(Request $request, $id)
+    public function patch(Request $request, $id)
     {
         $resultResponse = new ResultResponse();
 
