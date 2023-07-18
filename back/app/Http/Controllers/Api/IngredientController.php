@@ -92,6 +92,87 @@ class IngredientController extends Controller
         return response()->json($resultResponse);
     }
 
+    public function findByName($name)
+    {
+        $resultResponse = new ResultResponse();
+        try {
+            $ingredient = Ingredient::where('name', 'LIKE', '%' . $name . '%')->firstOrFail();
+
+            $this->setResultResponse(
+                $resultResponse,
+                $ingredient,
+                ResultResponse::SUCCESS_CODE,
+                ResultResponse::TXT_SUCCESS_CODE
+            );
+        } catch (\Exception $e) {
+            $this->setResultResponse(
+                $resultResponse,
+                "",
+                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
+                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
+            );
+        }
+
+        return response()->json($resultResponse);
+    }
+
+    public function findByQuantity($quantity)
+    {
+        $resultResponse = new ResultResponse();
+        try {
+            $ingredient = Ingredient::where('quantity', 'LIKE', '%' . $quantity . '%')->firstOrFail();
+
+            $this->setResultResponse(
+                $resultResponse,
+                $ingredient,
+                ResultResponse::SUCCESS_CODE,
+                ResultResponse::TXT_SUCCESS_CODE
+            );
+        } catch (\Exception $e) {
+            $this->setResultResponse(
+                $resultResponse,
+                "",
+                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
+                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
+            );
+        }
+
+        return response()->json($resultResponse);
+    }
+
+
+    public function findByAllColumns($value)
+    {
+        $query = Ingredient::query();
+        $resultResponse = new ResultResponse();
+        $columns = ['name', 'quantity'];
+
+        try {
+            foreach ($columns as $column) {
+                $query->orWhere($column, 'LIKE', '%' . $value . '%');
+            }
+
+            $ingredient = $query->paginate(1);
+
+            $this->setResultResponse(
+                $resultResponse,
+                $ingredient,
+                ResultResponse::SUCCESS_CODE,
+                ResultResponse::TXT_SUCCESS_CODE
+            );
+        } catch (\Exception $e) {
+            $this->setResultResponse(
+                $resultResponse,
+                "",
+                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
+                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
+            );
+        }
+
+        return response()->json($resultResponse);
+    }
+
+
     /**
      * Update the specified resource in storage.
      */
