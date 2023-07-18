@@ -97,6 +97,205 @@ class ProductController extends Controller
         return response()->json($resultResponse);
     }
 
+    public function findByName($name)
+    {
+        $query = Product::query();
+        $resultResponse = new ResultResponse();
+
+        try {
+            $query->orWhere('name', 'LIKE', '%' . $name . '%');
+
+            $product = $query->paginate(1);
+
+            $this->setResultResponse(
+                $resultResponse,
+                $product,
+                ResultResponse::SUCCESS_CODE,
+                ResultResponse::TXT_SUCCESS_CODE
+            );
+        } catch (\Exception $e) {
+            $this->setResultResponse(
+                $resultResponse,
+                "",
+                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
+                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
+            );
+        }
+
+        return response()->json($resultResponse);
+    }
+
+    public function findByPrice($price)
+    {
+        $query = Product::query();
+        $resultResponse = new ResultResponse();
+
+        try {
+            $query->orWhere('price', 'LIKE', '%' . $price . '%');
+
+            $product = $query->paginate(1);
+
+            $this->setResultResponse(
+                $resultResponse,
+                $product,
+                ResultResponse::SUCCESS_CODE,
+                ResultResponse::TXT_SUCCESS_CODE
+            );
+        } catch (\Exception $e) {
+            $this->setResultResponse(
+                $resultResponse,
+                "",
+                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
+                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
+            );
+        }
+
+        return response()->json($resultResponse);
+    }
+
+    public function findByAvailable($available)
+    {
+        $query = Product::query();
+        $resultResponse = new ResultResponse();
+
+        try {
+            $query->orWhere('available', 'LIKE', '%' . $available . '%');
+
+            $product = $query->paginate(1);
+
+            $this->setResultResponse(
+                $resultResponse,
+                $product,
+                ResultResponse::SUCCESS_CODE,
+                ResultResponse::TXT_SUCCESS_CODE
+            );
+        } catch (\Exception $e) {
+            $this->setResultResponse(
+                $resultResponse,
+                "",
+                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
+                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
+            );
+        }
+
+        return response()->json($resultResponse);
+    }
+
+    public function findByImagePath($image_path)
+    {
+        $query = Product::query();
+        $resultResponse = new ResultResponse();
+
+        try {
+            $query->orWhere('image_path', 'LIKE', '%' . $image_path . '%');
+
+            $product = $query->paginate(1);
+
+            $this->setResultResponse(
+                $resultResponse,
+                $product,
+                ResultResponse::SUCCESS_CODE,
+                ResultResponse::TXT_SUCCESS_CODE
+            );
+        } catch (\Exception $e) {
+            $this->setResultResponse(
+                $resultResponse,
+                "",
+                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
+                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
+            );
+        }
+
+        return response()->json($resultResponse);
+    }
+
+    public function findByDescription($description)
+    {
+        $query = Product::query();
+        $resultResponse = new ResultResponse();
+
+        try {
+            $query->orWhere('description', 'LIKE', '%' . $description . '%');
+
+            $product = $query->paginate(1);
+
+            $this->setResultResponse(
+                $resultResponse,
+                $product,
+                ResultResponse::SUCCESS_CODE,
+                ResultResponse::TXT_SUCCESS_CODE
+            );
+        } catch (\Exception $e) {
+            $this->setResultResponse(
+                $resultResponse,
+                "",
+                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
+                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
+            );
+        }
+
+        return response()->json($resultResponse);
+    }
+
+    public function findByType($type)
+    {
+        $query = Product::query();
+        $resultResponse = new ResultResponse();
+
+        try {
+            $query->orWhere('type', 'LIKE', '%' . $type . '%');
+
+            $product = $query->paginate(1);
+
+            $this->setResultResponse(
+                $resultResponse,
+                $product,
+                ResultResponse::SUCCESS_CODE,
+                ResultResponse::TXT_SUCCESS_CODE
+            );
+        } catch (\Exception $e) {
+            $this->setResultResponse(
+                $resultResponse,
+                "",
+                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
+                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
+            );
+        }
+
+        return response()->json($resultResponse);
+    }
+
+    public function findByAllColumns($value)
+    {
+        $query = Product::query();
+        $resultResponse = new ResultResponse();
+        $columns = ['name', 'price', 'available', 'image_path', 'description', 'type'];
+
+        try {
+            foreach ($columns as $column) {
+                $query->orWhere($column, 'LIKE', '%' . $value . '%');
+            }
+
+            $product = $query->paginate(1);
+
+            $this->setResultResponse(
+                $resultResponse,
+                $product,
+                ResultResponse::SUCCESS_CODE,
+                ResultResponse::TXT_SUCCESS_CODE
+            );
+        } catch (\Exception $e) {
+            $this->setResultResponse(
+                $resultResponse,
+                "",
+                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
+                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
+            );
+        }
+
+        return response()->json($resultResponse);
+    }
+
     /**
      * Update the specified resource in storage.
      */
