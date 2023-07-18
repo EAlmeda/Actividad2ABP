@@ -98,12 +98,223 @@ class CustomerController extends Controller
         return response()->json($resultResponse);
     }
 
+    public function findByName($value)
+    {
+        $query = Customer::query();
+        $resultResponse = new ResultResponse();
+        $columns = ['name'];
+
+        try {
+            foreach ($columns as $column) {
+                $query->orWhere($column, 'LIKE', '%' . $value . '%');
+            }
+
+            $customer = $query->paginate(1);
+
+            $this->setResultResponse(
+                $resultResponse,
+                $customer,
+                ResultResponse::SUCCESS_CODE,
+                ResultResponse::TXT_SUCCESS_CODE
+            );
+        } catch (\Exception $e) {
+            $this->setResultResponse(
+                $resultResponse,
+                "",
+                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
+                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
+            );
+        }
+
+        return response()->json($resultResponse);
+    }
+
+    public function findBySurname($value)
+    {
+        $query = Customer::query();
+        $resultResponse = new ResultResponse();
+        $columns = ['surname_1', 'surname_2'];
+
+        try {
+            foreach ($columns as $column) {
+                $query->orWhere($column, 'LIKE', '%' . $value . '%');
+            }
+
+            $customer = $query->paginate(1);
+
+            $this->setResultResponse(
+                $resultResponse,
+                $customer,
+                ResultResponse::SUCCESS_CODE,
+                ResultResponse::TXT_SUCCESS_CODE
+            );
+        } catch (\Exception $e) {
+            $this->setResultResponse(
+                $resultResponse,
+                "",
+                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
+                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
+            );
+        }
+
+        return response()->json($resultResponse);
+    }
+
+    public function findByBirthDate($value)
+    {
+        $query = Customer::query();
+        $resultResponse = new ResultResponse();
+        $columns = ['birth_date'];
+
+        try {
+            foreach ($columns as $column) {
+                $query->orWhere($column, 'LIKE', '%' . $value . '%');
+            }
+
+            $customer = $query->paginate(1);
+
+            $this->setResultResponse(
+                $resultResponse,
+                $customer,
+                ResultResponse::SUCCESS_CODE,
+                ResultResponse::TXT_SUCCESS_CODE
+            );
+        } catch (\Exception $e) {
+            $this->setResultResponse(
+                $resultResponse,
+                "",
+                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
+                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
+            );
+        }
+
+        return response()->json($resultResponse);
+    }
+
+    public function findByPhone($value)
+    {
+        $query = Customer::query();
+        $resultResponse = new ResultResponse();
+        $columns = ['phone'];
+
+        try {
+            foreach ($columns as $column) {
+                $query->orWhere($column, 'LIKE', '%' . $value . '%');
+            }
+
+            $customer = $query->paginate(1);
+
+            $this->setResultResponse(
+                $resultResponse,
+                $customer,
+                ResultResponse::SUCCESS_CODE,
+                ResultResponse::TXT_SUCCESS_CODE
+            );
+        } catch (\Exception $e) {
+            $this->setResultResponse(
+                $resultResponse,
+                "",
+                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
+                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
+            );
+        }
+
+        return response()->json($resultResponse);
+    }
+
+    public function findByEmail($email)
+    {
+        $resultResponse = new ResultResponse();
+        try {
+            $customer = Customer::where('email', $email)->firstOrFail();
+
+            $this->setResultResponse(
+                $resultResponse,
+                $customer,
+                ResultResponse::SUCCESS_CODE,
+                ResultResponse::TXT_SUCCESS_CODE
+            );
+        } catch (\Exception $e) {
+            $this->setResultResponse(
+                $resultResponse,
+                "",
+                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
+                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
+            );
+        }
+
+        return response()->json($resultResponse);
+    }
+
+    public function findByAddress($value)
+    {
+        $query = Customer::query();
+        $resultResponse = new ResultResponse();
+        $columns = ['address'];
+
+        try {
+            foreach ($columns as $column) {
+                $query->orWhere($column, 'LIKE', '%' . $value . '%');
+            }
+
+            $customer = $query->paginate(1);
+
+            $this->setResultResponse(
+                $resultResponse,
+                $customer,
+                ResultResponse::SUCCESS_CODE,
+                ResultResponse::TXT_SUCCESS_CODE
+            );
+        } catch (\Exception $e) {
+            $this->setResultResponse(
+                $resultResponse,
+                "",
+                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
+                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
+            );
+        }
+
+        return response()->json($resultResponse);
+    }
+
+    public function findByAll($value)
+    {
+        $query = Customer::query();
+        $resultResponse = new ResultResponse();
+        $columns = ['name, surname_1, surname_2, birth_date, phone, email, address'];
+
+        try {
+            foreach ($columns as $column) {
+                $query->orWhere($column, 'LIKE', '%' . $value . '%');
+            }
+
+            $customer = $query->paginate(1);
+
+            $this->setResultResponse(
+                $resultResponse,
+                $customer,
+                ResultResponse::SUCCESS_CODE,
+                ResultResponse::TXT_SUCCESS_CODE
+            );
+        } catch (\Exception $e) {
+            $this->setResultResponse(
+                $resultResponse,
+                "",
+                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
+                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
+            );
+        }
+
+        return response()->json($resultResponse);
+    }
+
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, $id)
     {
-        $this->validateCustomer($request);
+        # TODO validateCustomer function
+        # $this->validateCustomer($request); 
         $resultResponse = new ResultResponse();
 
         try {
