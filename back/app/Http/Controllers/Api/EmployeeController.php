@@ -318,6 +318,38 @@ class EmployeeController extends Controller
         return response()->json($resultResponse);
     }
 
+    public function findByAllColumns($value)
+    {
+        $query = Employee::query();
+        $resultResponse = new ResultResponse();
+        $columns = ['name', 'surname_1', 'surname_2', 'team', 'phone', 'email', 'work_shift', 'bank_account', 'address'];
+
+        try {
+            foreach ($columns as $column) {
+                $query->orWhere($column, 'LIKE', '%' . $value . '%');
+            }
+
+            $allergen = $query->paginate(1);
+
+            $this->setResultResponse(
+                $resultResponse,
+                $allergen,
+                ResultResponse::SUCCESS_CODE,
+                ResultResponse::TXT_SUCCESS_CODE
+            );
+        } catch (\Exception $e) {
+            $this->setResultResponse(
+                $resultResponse,
+                "",
+                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
+                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
+            );
+        }
+
+        return response()->json($resultResponse);
+    }
+
+
     /**
      * Update the specified resource in storage.
      */
