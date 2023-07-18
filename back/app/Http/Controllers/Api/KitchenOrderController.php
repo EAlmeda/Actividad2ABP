@@ -93,6 +93,123 @@ class KitchenOrderController extends Controller
         return response()->json($resultResponse);
     }
 
+    public function findByBeginDate($begin_date)
+    {
+        $query = KitchenOrder::query();
+        $resultResponse = new ResultResponse();
+
+        try {
+            $query->orWhere('begin_date', 'LIKE', '%' . $begin_date . '%');
+
+            $kitchen_order = $query->paginate(1);
+
+            $this->setResultResponse(
+                $resultResponse,
+                $kitchen_order,
+                ResultResponse::SUCCESS_CODE,
+                ResultResponse::TXT_SUCCESS_CODE
+            );
+        } catch (\Exception $e) {
+            $this->setResultResponse(
+                $resultResponse,
+                "",
+                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
+                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
+            );
+        }
+
+        return response()->json($resultResponse);
+    }
+
+    public function findByStatus($status)
+    {
+        $query = KitchenOrder::query();
+        $resultResponse = new ResultResponse();
+
+        try {
+            $query->orWhere('status', 'LIKE', '%' . $status . '%');
+
+            $kitchen_order = $query->paginate(1);
+
+            $this->setResultResponse(
+                $resultResponse,
+                $kitchen_order,
+                ResultResponse::SUCCESS_CODE,
+                ResultResponse::TXT_SUCCESS_CODE
+            );
+        } catch (\Exception $e) {
+            $this->setResultResponse(
+                $resultResponse,
+                "",
+                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
+                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
+            );
+        }
+
+        return response()->json($resultResponse);
+    }
+
+
+    public function findByEndDate($end_date)
+    {
+        $query = KitchenOrder::query();
+        $resultResponse = new ResultResponse();
+
+        try {
+            $query->orWhere('end_date', 'LIKE', '%' . $end_date . '%');
+
+            $kitchen_order = $query->paginate(1);
+
+            $this->setResultResponse(
+                $resultResponse,
+                $kitchen_order,
+                ResultResponse::SUCCESS_CODE,
+                ResultResponse::TXT_SUCCESS_CODE
+            );
+        } catch (\Exception $e) {
+            $this->setResultResponse(
+                $resultResponse,
+                "",
+                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
+                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
+            );
+        }
+
+        return response()->json($resultResponse);
+    }
+
+
+    public function findByAllColumns($value)
+    {
+        $query = KitchenOrder::query();
+        $resultResponse = new ResultResponse();
+        $columns = ['begin_date', 'end_date', 'status'];
+
+        try {
+            foreach ($columns as $column) {
+                $query->orWhere($column, 'LIKE', '%' . $value . '%');
+            }
+
+            $kitchen_order = $query->paginate(1);
+
+            $this->setResultResponse(
+                $resultResponse,
+                $kitchen_order,
+                ResultResponse::SUCCESS_CODE,
+                ResultResponse::TXT_SUCCESS_CODE
+            );
+        } catch (\Exception $e) {
+            $this->setResultResponse(
+                $resultResponse,
+                "",
+                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
+                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
+            );
+        }
+
+        return response()->json($resultResponse);
+    }
+
     /**
      * Update the specified resource in storage.
      */
