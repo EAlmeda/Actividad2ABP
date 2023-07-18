@@ -74,7 +74,7 @@ class AllergenController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
-            $allergen = Allergen::findOrFail($id);
+            $allergen = Allergen::with('ingredients')->findOrFail($id);
 
             $this->setResultResponse(
                 $resultResponse,
@@ -177,7 +177,7 @@ class AllergenController extends Controller
                 $query->orWhere($column, 'LIKE', '%' . $value . '%');
             }
 
-            $allergen = $query->paginate();
+            $allergen = $query->paginate(1);
 
             $this->setResultResponse(
                 $resultResponse,

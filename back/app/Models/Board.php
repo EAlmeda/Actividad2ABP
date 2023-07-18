@@ -27,7 +27,7 @@ class Board extends Model
 
     public function employees():BelongsTo
     {
-        return $this->BelongsTo(Employee::class);
+        return $this->belongsTo(Employee::class);
     }
 
 }

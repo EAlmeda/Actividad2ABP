@@ -36,7 +36,7 @@ Route::controller(AllergenController::class)->prefix('allergens')->group(functio
     Route::get('/name/{name}','findByName');
     Route::get('/description/{description}','findByDescription');
     Route::get('/risk/{risk}','findByRisk');
-    Route::get('/find/{value}','findByAllColumns');
+    Route::get('/all/{value}','findByAllColumns');
     Route::delete('/{id}','destroy');
 });
 
@@ -46,6 +46,9 @@ Route::controller(BoardController::class)->prefix('board')->group(function(){
     Route::post('/{id}','update');
     Route::patch('/{id}','patch');
     Route::get('/{id}','show');
+    Route::get('/available/{available}','findByAvailability');
+    Route::get('/capacity/{capacity}','findByCapacity');
+    Route::get('/all/{value}','findByAllColumns');
     Route::delete('/{id}','destroy');
 });
 
