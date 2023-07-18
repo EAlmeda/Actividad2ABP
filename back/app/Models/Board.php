@@ -4,7 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Board extends Model
@@ -18,14 +20,14 @@ class Board extends Model
         'available',
     ];
 
-    public function kitchenOrders():BelongsToMany
+    public function kitchenOrders():HasMany
     {
-        return $this->belongsToMany(KitchenOrder::class,'to');
+        return $this->hasMany(KitchenOrder::class,'to');
     }
 
-    public function employees():BelongsToMany
+    public function employees():BelongsTo
     {
-        return $this->belongsToMany(Employee::class,'serves');
+        return $this->BelongsTo(Employee::class);
     }
 
 }

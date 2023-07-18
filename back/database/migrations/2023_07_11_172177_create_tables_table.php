@@ -17,6 +17,9 @@ return new class extends Migration
             $table->integer('capacity');
             $table->boolean('available');
             $table->integer('number');
+            $table->unsignedBigInteger('employee_id')->nullable();
+
+            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
 
             $table->timestamps();
             $table->softDeletes();

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
 
             $table->unsignedBigInteger('allergen_id');
-            $table->foreign('allergen_id')->references('id')->on('allergen')->onDelete('cascade');
+            $table->foreign('allergen_id')->references('id')->on('allergens')->onDelete('cascade');
 
             $table->softDeletes();
             $table->timestamps();

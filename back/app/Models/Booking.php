@@ -23,7 +23,7 @@ class Booking extends Model
         'time',
     ];
 
-    public function customers():BelongsTo
+    public function customer():BelongsTo
     {
         return $this->belongsTo(Customer::class);
     }

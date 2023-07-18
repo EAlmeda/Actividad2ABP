@@ -22,6 +22,12 @@ return new class extends Migration
             $table->enum('status', ['ordered','cooking','delivering','delivered']);
             $table->enum('type', ['delivery', 'pick_up']);
 
+            $table->unsignedBigInteger('customer_id');
+            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
+
+            $table->unsignedBigInteger('employee_id')->nullable();
+            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
+
             $table->softDeletes();
             $table->timestamps();
         });

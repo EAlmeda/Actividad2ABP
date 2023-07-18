@@ -24,9 +24,9 @@ class Customer extends Model
         'address'
     ];
 
-    public function onlineOrders():BelongsToMany
+    public function onlineOrders():HasMany
     {
-        return $this->belongsToMany(OnlineOrder::class,'makes');
+        return $this->HasMany(OnlineOrder::class);
     }
 
     public function bookings():HasMany

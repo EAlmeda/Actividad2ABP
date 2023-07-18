@@ -79,7 +79,7 @@ class CustomerController extends Controller
 
         try {
             $customer = Customer::findOrFail($id);
-            $customer.OnlineOrder =$customer->online();
+            $customer->OnlineOrder =$customer->online();
             $this->setResultResponse(
                 $resultResponse,
                 $customer,
