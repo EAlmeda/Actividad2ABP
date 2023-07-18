@@ -96,6 +96,131 @@ class BookingController extends Controller
         return response()->json($resultResponse);
     }
 
+    public function findByBookerName($booker_name)
+    {
+        $query = Booking::query();
+        $resultResponse = new ResultResponse();
+        $columns = ['booker_name'];
+
+        try {
+            foreach ($columns as $column) {
+                $query->orWhere($column, $booker_name);
+            }
+
+            $booking = $query->paginate();
+
+            $this->setResultResponse(
+                $resultResponse,
+                $booking,
+                ResultResponse::SUCCESS_CODE,
+                ResultResponse::TXT_SUCCESS_CODE
+            );
+        } catch (\Exception $e) {
+            $this->setResultResponse(
+                $resultResponse,
+                "",
+                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
+                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
+            );
+        }
+
+        return response()->json($resultResponse);
+
+    }
+
+    public function findByBookerPhone($booker_phone)
+    {
+        $query = Booking::query();
+        $resultResponse = new ResultResponse();
+        $columns = ['booker_phone'];
+
+        try {
+            foreach ($columns as $column) {
+                $query->orWhere($column, $booker_phone);
+            }
+
+            $booking = $query->paginate();
+
+            $this->setResultResponse(
+                $resultResponse,
+                $booking,
+                ResultResponse::SUCCESS_CODE,
+                ResultResponse::TXT_SUCCESS_CODE
+            );
+        } catch (\Exception $e) {
+            $this->setResultResponse(
+                $resultResponse,
+                "",
+                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
+                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
+            );
+        }
+
+        return response()->json($resultResponse);
+    }
+
+    public function findByDateTime($value)
+    {
+        $query = Booking::query();
+        $resultResponse = new ResultResponse();
+        $columns = ['date', 'time'];
+
+        try {
+            foreach ($columns as $column) {
+                $query->orWhere($column, $value);
+            }
+
+            $booking = $query->paginate();
+
+            $this->setResultResponse(
+                $resultResponse,
+                $booking,
+                ResultResponse::SUCCESS_CODE,
+                ResultResponse::TXT_SUCCESS_CODE
+            );
+        } catch (\Exception $e) {
+            $this->setResultResponse(
+                $resultResponse,
+                "",
+                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
+                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
+            );
+        }
+
+        return response()->json($resultResponse);
+    }
+
+    public function findByAllColumns($value)
+    {
+        $query = Booking::query();
+        $resultResponse = new ResultResponse();
+        $columns = ['booker_name', 'booker_phone', 'date', 'time'];
+
+        try {
+            foreach ($columns as $column) {
+                $query->orWhere($column, 'LIKE', '%' . $value . '%');
+            }
+
+            $booking = $query->paginate();
+
+            $this->setResultResponse(
+                $resultResponse,
+                $booking,
+                ResultResponse::SUCCESS_CODE,
+                ResultResponse::TXT_SUCCESS_CODE
+            );
+        } catch (\Exception $e) {
+            $this->setResultResponse(
+                $resultResponse,
+                "",
+                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
+                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
+            );
+        }
+
+        return response()->json($resultResponse);
+    }
+
     /**
      * Update the specified resource in storage.
      */
