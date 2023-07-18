@@ -192,11 +192,11 @@ class EmployeeController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
-            $allergen = Employee::where('phone', $phone)->firstOrFail();
+            $employee = Employee::where('phone', $phone)->firstOrFail();
 
             $this->setResultResponse(
                 $resultResponse,
-                $allergen,
+                $employee,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
@@ -217,11 +217,11 @@ class EmployeeController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
-            $allergen = Employee::where('email', $email)->firstOrFail();
+            $employee = Employee::where('email', $email)->firstOrFail();
 
             $this->setResultResponse(
                 $resultResponse,
-                $allergen,
+                $employee,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
@@ -270,11 +270,11 @@ class EmployeeController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
-            $allergen = Employee::where('bank_account', $bank_account)->firstOrFail();
+            $employee = Employee::where('bank_account', $bank_account)->firstOrFail();
 
             $this->setResultResponse(
                 $resultResponse,
-                $allergen,
+                $employee,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
@@ -329,11 +329,11 @@ class EmployeeController extends Controller
                 $query->orWhere($column, 'LIKE', '%' . $value . '%');
             }
 
-            $allergen = $query->paginate(1);
+            $employee = $query->paginate(1);
 
             $this->setResultResponse(
                 $resultResponse,
-                $allergen,
+                $employee,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
