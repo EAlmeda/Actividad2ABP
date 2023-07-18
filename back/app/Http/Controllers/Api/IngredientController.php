@@ -118,9 +118,13 @@ class IngredientController extends Controller
 
     public function findByQuantity($quantity)
     {
+        $query = Ingredient::query();
         $resultResponse = new ResultResponse();
+
         try {
-            $ingredient = Ingredient::where('quantity', 'LIKE', '%' . $quantity . '%')->firstOrFail();
+            $query->orWhere('quantity', 'LIKE', '%' . $quantity . '%');
+
+            $ingredient = $query->paginate(1);
 
             $this->setResultResponse(
                 $resultResponse,
