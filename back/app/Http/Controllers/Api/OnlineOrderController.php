@@ -97,6 +97,208 @@ class OnlineOrderController extends Controller
         return response()->json($resultResponse);
     }
 
+    public function findByAmount($amount)
+    {
+        $query = OnlineOrder::query();
+        $resultResponse = new ResultResponse();
+
+        try {
+            $query->orWhere('amount', 'LIKE', '%' . $amount . '%');
+
+            $online_order = $query->paginate(1);
+
+            $this->setResultResponse(
+                $resultResponse,
+                $online_order,
+                ResultResponse::SUCCESS_CODE,
+                ResultResponse::TXT_SUCCESS_CODE
+            );
+        } catch (\Exception $e) {
+            $this->setResultResponse(
+                $resultResponse,
+                "",
+                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
+                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
+            );
+        }
+
+        return response()->json($resultResponse);
+    }
+
+    public function findByDate($date)
+    {
+        $query = OnlineOrder::query();
+        $resultResponse = new ResultResponse();
+
+        try {
+            $query->orWhere('date', 'LIKE', '%' . $date . '%');
+
+            $online_order = $query->paginate(1);
+
+            $this->setResultResponse(
+                $resultResponse,
+                $online_order,
+                ResultResponse::SUCCESS_CODE,
+                ResultResponse::TXT_SUCCESS_CODE
+            );
+        } catch (\Exception $e) {
+            $this->setResultResponse(
+                $resultResponse,
+                "",
+                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
+                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
+            );
+        }
+
+        return response()->json($resultResponse);
+    }
+
+    public function findByExpectedDate($expected_date)
+    {
+        $query = OnlineOrder::query();
+        $resultResponse = new ResultResponse();
+
+        try {
+            $query->orWhere('expected_date', 'LIKE', '%' . $expected_date . '%');
+
+            $online_order = $query->paginate(1);
+
+            $this->setResultResponse(
+                $resultResponse,
+                $online_order,
+                ResultResponse::SUCCESS_CODE,
+                ResultResponse::TXT_SUCCESS_CODE
+            );
+        } catch (\Exception $e) {
+            $this->setResultResponse(
+                $resultResponse,
+                "",
+                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
+                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
+            );
+        }
+
+        return response()->json($resultResponse);
+    }
+
+    public function findByAddress($address)
+    {
+        $query = OnlineOrder::query();
+        $resultResponse = new ResultResponse();
+
+        try {
+            $query->orWhere('address', 'LIKE', '%' . $address . '%');
+
+            $online_order = $query->paginate(1);
+
+            $this->setResultResponse(
+                $resultResponse,
+                $online_order,
+                ResultResponse::SUCCESS_CODE,
+                ResultResponse::TXT_SUCCESS_CODE
+            );
+        } catch (\Exception $e) {
+            $this->setResultResponse(
+                $resultResponse,
+                "",
+                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
+                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
+            );
+        }
+
+        return response()->json($resultResponse);
+    }
+
+
+    public function findByStatus($status)
+    {
+        $query = OnlineOrder::query();
+        $resultResponse = new ResultResponse();
+
+        try {
+            $query->orWhere('status', 'LIKE', '%' . $status . '%');
+
+            $online_order = $query->paginate(1);
+
+            $this->setResultResponse(
+                $resultResponse,
+                $online_order,
+                ResultResponse::SUCCESS_CODE,
+                ResultResponse::TXT_SUCCESS_CODE
+            );
+        } catch (\Exception $e) {
+            $this->setResultResponse(
+                $resultResponse,
+                "",
+                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
+                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
+            );
+        }
+
+        return response()->json($resultResponse);
+    }
+
+
+    public function findByType($type)
+    {
+        $query = OnlineOrder::query();
+        $resultResponse = new ResultResponse();
+
+        try {
+            $query->orWhere('type', 'LIKE', '%' . $type . '%');
+
+            $online_order = $query->paginate(1);
+
+            $this->setResultResponse(
+                $resultResponse,
+                $online_order,
+                ResultResponse::SUCCESS_CODE,
+                ResultResponse::TXT_SUCCESS_CODE
+            );
+        } catch (\Exception $e) {
+            $this->setResultResponse(
+                $resultResponse,
+                "",
+                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
+                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
+            );
+        }
+
+        return response()->json($resultResponse);
+    }
+
+    public function findByAllColumns($value)
+    {
+        $query = OnlineOrder::query();
+        $resultResponse = new ResultResponse();
+        $columns = ['amount', 'date', 'expected_date', 'address', 'status', 'type'];
+
+        try {
+            foreach ($columns as $column) {
+                $query->orWhere($column, 'LIKE', '%' . $value . '%');
+            }
+
+            $online_order = $query->paginate(1);
+
+            $this->setResultResponse(
+                $resultResponse,
+                $online_order,
+                ResultResponse::SUCCESS_CODE,
+                ResultResponse::TXT_SUCCESS_CODE
+            );
+        } catch (\Exception $e) {
+            $this->setResultResponse(
+                $resultResponse,
+                "",
+                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
+                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
+            );
+        }
+
+        return response()->json($resultResponse);
+    }
+
+
     /**
      * Update the specified resource in storage.
      */
