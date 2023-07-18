@@ -72,11 +72,90 @@ class BoardController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
-            $board = Board::findOrFail($id);
-
+            $board = Board::with('kitchenOrders')->with('employees')->findOrFail($id);
             $this->setResultResponse(
                 $resultResponse,
                 $board,
+                ResultResponse::SUCCESS_CODE,
+                ResultResponse::TXT_SUCCESS_CODE
+            );
+        } catch (\Exception $e) {
+            $this->setResultResponse(
+                $resultResponse,
+                "",
+                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
+                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
+            );
+        }
+
+        return response()->json($resultResponse);
+    }
+
+    public function findByCapacity($capacity)
+    {
+        $resultResponse = new ResultResponse();
+        try {
+            $allergen = Board::where('capacity', $capacity)->firstOrFail();
+
+            $this->setResultResponse(
+                $resultResponse,
+                $allergen,
+                ResultResponse::SUCCESS_CODE,
+                ResultResponse::TXT_SUCCESS_CODE
+            );
+        } catch (\Exception $e) {
+            $this->setResultResponse(
+                $resultResponse,
+                "",
+                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
+                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
+            );
+        }
+
+        return response()->json($resultResponse);
+    }
+
+    public function findByAvaialability($available)
+    {
+        $resultResponse = new ResultResponse();
+        try {
+            $allergen = Board::where('available', $available)->firstOrFail();
+
+            $this->setResultResponse(
+                $resultResponse,
+                $allergen,
+                ResultResponse::SUCCESS_CODE,
+                ResultResponse::TXT_SUCCESS_CODE
+            );
+        } catch (\Exception $e) {
+            $this->setResultResponse(
+                $resultResponse,
+                "",
+                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
+                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
+            );
+        }
+
+        return response()->json($resultResponse);
+    }
+
+
+    public function findByAllColumns($value)
+    {
+        $query = Board::query();
+        $resultResponse = new ResultResponse();
+        $columns = ['capacity', 'available'];
+
+        try {
+            foreach ($columns as $column) {
+                $query->orWhere($column, 'LIKE', '%' . $value . '%');
+            }
+
+            $allergen = $query->paginate(1);
+
+            $this->setResultResponse(
+                $resultResponse,
+                $allergen,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
