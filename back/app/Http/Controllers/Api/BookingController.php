@@ -159,6 +159,64 @@ class BookingController extends Controller
         return response()->json($resultResponse);
     }
 
+    public function findByBookerTime($booker_time)
+    {
+        $query = Booking::query();
+        $resultResponse = new ResultResponse();
+        $columns = ['booker_time'];
+
+        try {
+            foreach ($columns as $column) {
+                $query->orWhere($column, $booker_time);
+            }
+
+            $booking = $query->paginate();
+
+            $this->setResultResponse(
+                $resultResponse,
+                $booking,
+                ResultResponse::SUCCESS_CODE,
+                ResultResponse::TXT_SUCCESS_CODE
+            );
+        } catch (\Exception $e) {
+            $this->setResultResponse(
+                $resultResponse,
+                "",
+                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
+                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
+            );
+        }
+    }
+
+    public function findByPeopleQuantity($people_quantity)
+    {
+        $query = Booking::query();
+        $resultResponse = new ResultResponse();
+        $columns = ['people_quantity'];
+
+        try {
+            foreach ($columns as $column) {
+                $query->orWhere($column, $people_quantity);
+            }
+
+            $booking = $query->paginate();
+
+            $this->setResultResponse(
+                $resultResponse,
+                $booking,
+                ResultResponse::SUCCESS_CODE,
+                ResultResponse::TXT_SUCCESS_CODE
+            );
+        } catch (\Exception $e) {
+            $this->setResultResponse(
+                $resultResponse,
+                "",
+                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
+                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
+            );
+        }
+    }
+
     public function findByDateTime($value)
     {
         $query = Booking::query();
@@ -192,6 +250,7 @@ class BookingController extends Controller
 
     public function findByAllColumns($value)
     {
+        # TODO Ensure that all the columns need to be indexed. It makes no sense we need the booking_time to search when having the rest of values.
         $query = Booking::query();
         $resultResponse = new ResultResponse();
         $columns = ['booker_name', 'booker_phone', 'date', 'time'];
