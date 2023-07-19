@@ -25,7 +25,7 @@ class Board extends Model
         return $this->hasMany(KitchenOrder::class,'to');
     }
 
-    public function employees():BelongsTo
+    public function employee():BelongsTo
     {
         return $this->belongsTo(Employee::class);
     }
