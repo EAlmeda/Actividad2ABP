@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Libs\ApiExtensions;
+use App\Libs\FindExtensions;
 use App\Models\Booking;
 use Illuminate\Http\Request;
 use App\Libs\ResultResponse;
+use App\Models\Allergen;
 
 class BookingController extends Controller
 {
@@ -18,7 +21,7 @@ class BookingController extends Controller
 
         $resultResponse = new ResultResponse();
 
-        $this->setResultResponse(
+        ApiExtensions::setResultResponse(
             $resultResponse,
             $bookings,
             ResultResponse::SUCCESS_CODE,
@@ -49,14 +52,14 @@ class BookingController extends Controller
 
             $newBooking->save();
 
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 $newBooking,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
         } catch (\Exception $e) {
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 "",
                 ResultResponse::ERROR_CODE,
@@ -78,14 +81,14 @@ class BookingController extends Controller
         try {
             $booking = Booking::findOrFail($id);
 
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 $booking,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
         } catch (\Exception $e) {
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 "",
                 ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
@@ -98,152 +101,47 @@ class BookingController extends Controller
 
     public function findByBookerName($booker_name)
     {
-        $query = Booking::query();
-        $resultResponse = new ResultResponse();
         $columns = ['booker_name'];
 
-        try {
-            foreach ($columns as $column) {
-                $query->orWhere($column, $booker_name);
-            }
-
-            $booking = $query->paginate();
-
-            $this->setResultResponse(
-                $resultResponse,
-                $booking,
-                ResultResponse::SUCCESS_CODE,
-                ResultResponse::TXT_SUCCESS_CODE
-            );
-        } catch (\Exception $e) {
-            $this->setResultResponse(
-                $resultResponse,
-                "",
-                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
-                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
-            );
-        }
+        $resultResponse = ApiExtensions::findByColumns(Booking::class, $columns, $booker_name);
 
         return response()->json($resultResponse);
-
     }
 
     public function findByBookerPhone($booker_phone)
     {
-        $query = Booking::query();
-        $resultResponse = new ResultResponse();
         $columns = ['booker_phone'];
 
-        try {
-            foreach ($columns as $column) {
-                $query->orWhere($column, $booker_phone);
-            }
-
-            $booking = $query->paginate();
-
-            $this->setResultResponse(
-                $resultResponse,
-                $booking,
-                ResultResponse::SUCCESS_CODE,
-                ResultResponse::TXT_SUCCESS_CODE
-            );
-        } catch (\Exception $e) {
-            $this->setResultResponse(
-                $resultResponse,
-                "",
-                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
-                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
-            );
-        }
+        $resultResponse = ApiExtensions::findByColumns(Booking::class, $columns, $booker_phone);
 
         return response()->json($resultResponse);
     }
 
-    public function findByBookerTime($booker_time)
+
+
+    public function findByBookerEmail($booker_email)
     {
-        $query = Booking::query();
-        $resultResponse = new ResultResponse();
-        $columns = ['booker_time'];
+        $columns = ['booker_email'];
 
-        try {
-            foreach ($columns as $column) {
-                $query->orWhere($column, $booker_time);
-            }
+        $resultResponse = ApiExtensions::findByColumns(Booking::class, $columns, $booker_email);
 
-            $booking = $query->paginate();
-
-            $this->setResultResponse(
-                $resultResponse,
-                $booking,
-                ResultResponse::SUCCESS_CODE,
-                ResultResponse::TXT_SUCCESS_CODE
-            );
-        } catch (\Exception $e) {
-            $this->setResultResponse(
-                $resultResponse,
-                "",
-                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
-                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
-            );
-        }
+        return response()->json($resultResponse);
     }
 
-    public function findByPeopleQuantity($people_quantity)
+    public function findByPeopleQuantity($value)
     {
-        $query = Booking::query();
-        $resultResponse = new ResultResponse();
         $columns = ['people_quantity'];
 
-        try {
-            foreach ($columns as $column) {
-                $query->orWhere($column, $people_quantity);
-            }
+        $resultResponse = ApiExtensions::findByColumns(Booking::class, $columns, $value);
 
-            $booking = $query->paginate();
-
-            $this->setResultResponse(
-                $resultResponse,
-                $booking,
-                ResultResponse::SUCCESS_CODE,
-                ResultResponse::TXT_SUCCESS_CODE
-            );
-        } catch (\Exception $e) {
-            $this->setResultResponse(
-                $resultResponse,
-                "",
-                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
-                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
-            );
-        }
+        return response()->json($resultResponse);
     }
 
     public function findByDateTime($value)
     {
-        $query = Booking::query();
-        $resultResponse = new ResultResponse();
         $columns = ['date', 'time'];
 
-        try {
-            foreach ($columns as $column) {
-                $query->orWhere($column, $value);
-            }
-
-            $booking = $query->paginate();
-
-            $this->setResultResponse(
-                $resultResponse,
-                $booking,
-                ResultResponse::SUCCESS_CODE,
-                ResultResponse::TXT_SUCCESS_CODE
-            );
-        } catch (\Exception $e) {
-            $this->setResultResponse(
-                $resultResponse,
-                "",
-                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
-                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
-            );
-        }
+        $resultResponse = ApiExtensions::findByColumns(Booking::class, $columns, $value);
 
         return response()->json($resultResponse);
     }
@@ -251,31 +149,9 @@ class BookingController extends Controller
     public function findByAllColumns($value)
     {
         # TODO Ensure that all the columns need to be indexed. It makes no sense we need the booking_time to search when having the rest of values.
-        $query = Booking::query();
-        $resultResponse = new ResultResponse();
         $columns = ['booker_name', 'booker_phone', 'date', 'time'];
 
-        try {
-            foreach ($columns as $column) {
-                $query->orWhere($column, 'LIKE', '%' . $value . '%');
-            }
-
-            $booking = $query->paginate();
-
-            $this->setResultResponse(
-                $resultResponse,
-                $booking,
-                ResultResponse::SUCCESS_CODE,
-                ResultResponse::TXT_SUCCESS_CODE
-            );
-        } catch (\Exception $e) {
-            $this->setResultResponse(
-                $resultResponse,
-                "",
-                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
-                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
-            );
-        }
+        $resultResponse = ApiExtensions::findByColumns(Booking::class, $columns, $value);
 
         return response()->json($resultResponse);
     }
@@ -300,14 +176,14 @@ class BookingController extends Controller
 
             $booking->save();
 
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 $booking,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
         } catch (\Exception $e) {
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 "",
                 ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
@@ -334,14 +210,14 @@ class BookingController extends Controller
 
             $booking->save();
 
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 $booking,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
         } catch (\Exception $e) {
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 "",
                 ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
@@ -364,14 +240,14 @@ class BookingController extends Controller
 
             $booking->delete();
 
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 $booking,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
         } catch (\Exception $e) {
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 "",
                 ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
@@ -379,12 +255,5 @@ class BookingController extends Controller
             );
         }
         return response()->json($resultResponse);
-    }
-
-    private function setResultResponse($resultResponse, $data, $statusCode, $message)
-    {
-        $resultResponse->setData($data);
-        $resultResponse->setStatusCode($statusCode);
-        $resultResponse->setMessage($message);
     }
 }

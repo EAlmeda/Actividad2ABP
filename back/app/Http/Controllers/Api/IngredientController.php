@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Libs\ApiExtensions;
 use App\Models\Ingredient;
 use Illuminate\Http\Request;
 use App\Libs\ResultResponse;
@@ -18,7 +19,7 @@ class IngredientController extends Controller
 
         $resultResponse = new ResultResponse();
 
-        $this->setResultResponse(
+        ApiExtensions::setResultResponse(
             $resultResponse,
             $ingredients,
             ResultResponse::SUCCESS_CODE,
@@ -45,14 +46,14 @@ class IngredientController extends Controller
 
             $newIngredient->save();
 
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 $newIngredient,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
         } catch (\Exception $e) {
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 "",
                 ResultResponse::ERROR_CODE,
@@ -74,14 +75,14 @@ class IngredientController extends Controller
         try {
             $ingredient = Ingredient::findOrFail($id);
 
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 $ingredient,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
         } catch (\Exception $e) {
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 "",
                 ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
@@ -92,54 +93,20 @@ class IngredientController extends Controller
         return response()->json($resultResponse);
     }
 
-    public function findByName($name)
+    public function findByName($value)
     {
-        $resultResponse = new ResultResponse();
-        try {
-            $ingredient = Ingredient::where('name', 'LIKE', '%' . $name . '%')->firstOrFail();
+        $columns = ['name'];
 
-            $this->setResultResponse(
-                $resultResponse,
-                $ingredient,
-                ResultResponse::SUCCESS_CODE,
-                ResultResponse::TXT_SUCCESS_CODE
-            );
-        } catch (\Exception $e) {
-            $this->setResultResponse(
-                $resultResponse,
-                "",
-                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
-                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
-            );
-        }
+        $resultResponse = ApiExtensions::findByColumns(Ingredient::class, $columns, $value);
 
         return response()->json($resultResponse);
     }
 
-    public function findByQuantity($quantity)
+    public function findByQuantity($value)
     {
-        $query = Ingredient::query();
-        $resultResponse = new ResultResponse();
+        $columns = ['quantity'];
 
-        try {
-            $query->orWhere('quantity', 'LIKE', '%' . $quantity . '%');
-
-            $ingredient = $query->paginate(1);
-
-            $this->setResultResponse(
-                $resultResponse,
-                $ingredient,
-                ResultResponse::SUCCESS_CODE,
-                ResultResponse::TXT_SUCCESS_CODE
-            );
-        } catch (\Exception $e) {
-            $this->setResultResponse(
-                $resultResponse,
-                "",
-                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
-                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
-            );
-        }
+        $resultResponse = ApiExtensions::findByColumns(Ingredient::class, $columns, $value);
 
         return response()->json($resultResponse);
     }
@@ -147,31 +114,9 @@ class IngredientController extends Controller
 
     public function findByAllColumns($value)
     {
-        $query = Ingredient::query();
-        $resultResponse = new ResultResponse();
         $columns = ['name', 'quantity'];
 
-        try {
-            foreach ($columns as $column) {
-                $query->orWhere($column, 'LIKE', '%' . $value . '%');
-            }
-
-            $ingredient = $query->paginate(1);
-
-            $this->setResultResponse(
-                $resultResponse,
-                $ingredient,
-                ResultResponse::SUCCESS_CODE,
-                ResultResponse::TXT_SUCCESS_CODE
-            );
-        } catch (\Exception $e) {
-            $this->setResultResponse(
-                $resultResponse,
-                "",
-                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
-                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
-            );
-        }
+        $resultResponse = ApiExtensions::findByColumns(Ingredient::class, $columns, $value);
 
         return response()->json($resultResponse);
     }
@@ -193,14 +138,14 @@ class IngredientController extends Controller
 
             $ingredient->save();
 
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 $ingredient,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
         } catch (\Exception $e) {
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 "",
                 ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
@@ -223,14 +168,14 @@ class IngredientController extends Controller
 
             $ingredient->save();
 
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 $ingredient,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
         } catch (\Exception $e) {
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 "",
                 ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
@@ -253,14 +198,14 @@ class IngredientController extends Controller
 
             $ingredient->delete();
 
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 $ingredient,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
         } catch (\Exception $e) {
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 "",
                 ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
@@ -268,12 +213,5 @@ class IngredientController extends Controller
             );
         }
         return response()->json($resultResponse);
-    }
-
-    private function setResultResponse($resultResponse, $data, $statusCode, $message)
-    {
-        $resultResponse->setData($data);
-        $resultResponse->setStatusCode($statusCode);
-        $resultResponse->setMessage($message);
     }
 }

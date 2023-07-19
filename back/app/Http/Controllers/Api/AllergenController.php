@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Libs\ApiExtensions;
 use App\Models\Allergen;
 use Illuminate\Http\Request;
 use App\Libs\ResultResponse;
@@ -19,7 +20,7 @@ class AllergenController extends Controller
 
         $resultResponse = new ResultResponse();
 
-        $this->setResultResponse(
+        ApiExtensions::setResultResponse(
             $resultResponse,
             $allergens,
             ResultResponse::SUCCESS_CODE,
@@ -47,14 +48,14 @@ class AllergenController extends Controller
 
             $newAllergen->save();
 
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 $newAllergen,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
         } catch (\Exception $e) {
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 "",
                 ResultResponse::ERROR_CODE,
@@ -76,14 +77,14 @@ class AllergenController extends Controller
         try {
             $allergen = Allergen::with('ingredients')->findOrFail($id);
 
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 $allergen,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
         } catch (\Exception $e) {
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 "",
                 ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
@@ -94,105 +95,38 @@ class AllergenController extends Controller
         return response()->json($resultResponse);
     }
 
-    public function findByName($name)
+    public function findByName($value)
     {
-        $resultResponse = new ResultResponse();
-        try {
-            $allergen = Allergen::where('name', $name)->firstOrFail();
+        $columns = ['name'];
 
-            $this->setResultResponse(
-                $resultResponse,
-                $allergen,
-                ResultResponse::SUCCESS_CODE,
-                ResultResponse::TXT_SUCCESS_CODE
-            );
-        } catch (\Exception $e) {
-            $this->setResultResponse(
-                $resultResponse,
-                "",
-                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
-                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
-            );
-        }
+        $resultResponse = ApiExtensions::findByColumns(Allergen::class, $columns, $value);
 
         return response()->json($resultResponse);
     }
 
-    public function findByDescription($description)
+    public function findByDescription($value)
     {
-        $resultResponse = new ResultResponse();
-        try {
-            $allergen = Allergen::where('name', 'LIKE', '%' . $description . '%')->firstOrFail();
+        $columns = ['description'];
 
-            $this->setResultResponse(
-                $resultResponse,
-                $allergen,
-                ResultResponse::SUCCESS_CODE,
-                ResultResponse::TXT_SUCCESS_CODE
-            );
-        } catch (\Exception $e) {
-            $this->setResultResponse(
-                $resultResponse,
-                "",
-                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
-                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
-            );
-        }
+        $resultResponse = ApiExtensions::findByColumns(Allergen::class, $columns, $value);
 
         return response()->json($resultResponse);
     }
 
-    public function findByRisk($risk)
+    public function findByRisk($value)
     {
-        $resultResponse = new ResultResponse();
-        try {
-            $allergen = Allergen::where('risk', $risk)->firstOrFail();
+        $columns = ['risk'];
 
-            $this->setResultResponse(
-                $resultResponse,
-                $allergen,
-                ResultResponse::SUCCESS_CODE,
-                ResultResponse::TXT_SUCCESS_CODE
-            );
-        } catch (\Exception $e) {
-            $this->setResultResponse(
-                $resultResponse,
-                "",
-                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
-                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
-            );
-        }
+        $resultResponse = ApiExtensions::findByColumns(Allergen::class, $columns, $value);
 
         return response()->json($resultResponse);
     }
 
     public function findByAllColumns($value)
     {
-        $query = Allergen::query();
-        $resultResponse = new ResultResponse();
         $columns = ['name', 'description', 'icon_name', 'risk'];
 
-        try {
-            foreach ($columns as $column) {
-                $query->orWhere($column, 'LIKE', '%' . $value . '%');
-            }
-
-            $allergen = $query->paginate(1);
-
-            $this->setResultResponse(
-                $resultResponse,
-                $allergen,
-                ResultResponse::SUCCESS_CODE,
-                ResultResponse::TXT_SUCCESS_CODE
-            );
-        } catch (\Exception $e) {
-            $this->setResultResponse(
-                $resultResponse,
-                "",
-                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
-                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
-            );
-        }
+        $resultResponse = ApiExtensions::findByColumns(Allergen::class, $columns, $value);
 
         return response()->json($resultResponse);
     }
@@ -215,14 +149,14 @@ class AllergenController extends Controller
 
             $allergen->save();
 
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 $allergen,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
         } catch (\Exception $e) {
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 "",
                 ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
@@ -247,14 +181,14 @@ class AllergenController extends Controller
 
             $allergen->save();
 
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 $allergen,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
         } catch (\Exception $e) {
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 "",
                 ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
@@ -277,14 +211,14 @@ class AllergenController extends Controller
 
             $allergen->delete();
 
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 $allergen,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
         } catch (\Exception $e) {
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 "",
                 ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
@@ -292,12 +226,5 @@ class AllergenController extends Controller
             );
         }
         return response()->json($resultResponse);
-    }
-
-    private function setResultResponse($resultResponse, $data, $statusCode, $message)
-    {
-        $resultResponse->setData($data);
-        $resultResponse->setStatusCode($statusCode);
-        $resultResponse->setMessage($message);
     }
 }

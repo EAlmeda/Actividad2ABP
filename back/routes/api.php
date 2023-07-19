@@ -27,7 +27,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::controller(AllergenController::class)->prefix('allergens')->group(function(){
+Route::controller(AllergenController::class)->prefix('allergen')->group(function(){
     Route::get('/','index');
     Route::post('/','store');
     Route::post('/{id}','update');
@@ -58,6 +58,7 @@ Route::controller(BookingController::class)->prefix('booking')->group(function()
     Route::post('/{id}','update');
     Route::patch('/{id}','patch');
     Route::get('/{id}','show');
+    Route::get('/test/{booker_time}','findByBookerTime');
     Route::delete('/{id}','destroy');
 });
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Libs\ApiExtensions;
 use App\Libs\ResultResponse;
 use App\Models\Customer;
 use App\Models\OnlineOrder;
@@ -19,7 +20,7 @@ class CustomerController extends Controller
 
         $resultResponse = new ResultResponse();
 
-        $this->setResultResponse(
+      ApiExtensions::setResultResponse(
             $resultResponse,
             $customers,
             ResultResponse::SUCCESS_CODE,
@@ -51,14 +52,14 @@ class CustomerController extends Controller
 
             $newCustomer->save();
 
-            $this->setResultResponse(
+          ApiExtensions::setResultResponse(
                 $resultResponse,
                 $newCustomer,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
         } catch (\Exception $e) {
-            $this->setResultResponse(
+          ApiExtensions::setResultResponse(
                 $resultResponse,
                 "",
                 ResultResponse::ERROR_CODE,
@@ -79,15 +80,15 @@ class CustomerController extends Controller
 
         try {
             $customer = Customer::findOrFail($id);
-            $customer->OnlineOrder =$customer->online();
-            $this->setResultResponse(
+            $customer->OnlineOrder = $customer->online();
+          ApiExtensions::setResultResponse(
                 $resultResponse,
                 $customer,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
         } catch (\Exception $e) {
-            $this->setResultResponse(
+          ApiExtensions::setResultResponse(
                 $resultResponse,
                 "",
                 ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
@@ -100,210 +101,63 @@ class CustomerController extends Controller
 
     public function findByName($value)
     {
-        $query = Customer::query();
-        $resultResponse = new ResultResponse();
         $columns = ['name'];
 
-        try {
-            foreach ($columns as $column) {
-                $query->orWhere($column, 'LIKE', '%' . $value . '%');
-            }
-
-            $customer = $query->paginate(1);
-
-            $this->setResultResponse(
-                $resultResponse,
-                $customer,
-                ResultResponse::SUCCESS_CODE,
-                ResultResponse::TXT_SUCCESS_CODE
-            );
-        } catch (\Exception $e) {
-            $this->setResultResponse(
-                $resultResponse,
-                "",
-                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
-                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
-            );
-        }
+        $resultResponse = ApiExtensions::findByColumns(Customer::class, $columns, $value);
 
         return response()->json($resultResponse);
     }
 
     public function findBySurname($value)
     {
-        $query = Customer::query();
-        $resultResponse = new ResultResponse();
         $columns = ['surname_1', 'surname_2'];
 
-        try {
-            foreach ($columns as $column) {
-                $query->orWhere($column, 'LIKE', '%' . $value . '%');
-            }
-
-            $customer = $query->paginate(1);
-
-            $this->setResultResponse(
-                $resultResponse,
-                $customer,
-                ResultResponse::SUCCESS_CODE,
-                ResultResponse::TXT_SUCCESS_CODE
-            );
-        } catch (\Exception $e) {
-            $this->setResultResponse(
-                $resultResponse,
-                "",
-                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
-                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
-            );
-        }
+        $resultResponse = ApiExtensions::findByColumns(Customer::class, $columns, $value);
 
         return response()->json($resultResponse);
     }
 
     public function findByBirthDate($value)
     {
-        $query = Customer::query();
-        $resultResponse = new ResultResponse();
         $columns = ['birth_date'];
 
-        try {
-            foreach ($columns as $column) {
-                $query->orWhere($column, 'LIKE', '%' . $value . '%');
-            }
-
-            $customer = $query->paginate(1);
-
-            $this->setResultResponse(
-                $resultResponse,
-                $customer,
-                ResultResponse::SUCCESS_CODE,
-                ResultResponse::TXT_SUCCESS_CODE
-            );
-        } catch (\Exception $e) {
-            $this->setResultResponse(
-                $resultResponse,
-                "",
-                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
-                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
-            );
-        }
+        $resultResponse = ApiExtensions::findByColumns(Customer::class, $columns, $value);
 
         return response()->json($resultResponse);
     }
 
     public function findByPhone($value)
     {
-        $query = Customer::query();
-        $resultResponse = new ResultResponse();
         $columns = ['phone'];
 
-        try {
-            foreach ($columns as $column) {
-                $query->orWhere($column, 'LIKE', '%' . $value . '%');
-            }
-
-            $customer = $query->paginate(1);
-
-            $this->setResultResponse(
-                $resultResponse,
-                $customer,
-                ResultResponse::SUCCESS_CODE,
-                ResultResponse::TXT_SUCCESS_CODE
-            );
-        } catch (\Exception $e) {
-            $this->setResultResponse(
-                $resultResponse,
-                "",
-                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
-                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
-            );
-        }
+        $resultResponse = ApiExtensions::findByColumns(Customer::class, $columns, $value);
 
         return response()->json($resultResponse);
     }
 
-    public function findByEmail($email)
+    public function findByEmail($value)
     {
-        $resultResponse = new ResultResponse();
-        try {
-            $customer = Customer::where('email', $email)->firstOrFail();
+        $columns = ['email'];
 
-            $this->setResultResponse(
-                $resultResponse,
-                $customer,
-                ResultResponse::SUCCESS_CODE,
-                ResultResponse::TXT_SUCCESS_CODE
-            );
-        } catch (\Exception $e) {
-            $this->setResultResponse(
-                $resultResponse,
-                "",
-                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
-                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
-            );
-        }
+        $resultResponse = ApiExtensions::findByColumns(Customer::class, $columns, $value);
 
         return response()->json($resultResponse);
     }
 
     public function findByAddress($value)
     {
-        $query = Customer::query();
-        $resultResponse = new ResultResponse();
         $columns = ['address'];
 
-        try {
-            foreach ($columns as $column) {
-                $query->orWhere($column, 'LIKE', '%' . $value . '%');
-            }
-
-            $customer = $query->paginate(1);
-
-            $this->setResultResponse(
-                $resultResponse,
-                $customer,
-                ResultResponse::SUCCESS_CODE,
-                ResultResponse::TXT_SUCCESS_CODE
-            );
-        } catch (\Exception $e) {
-            $this->setResultResponse(
-                $resultResponse,
-                "",
-                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
-                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
-            );
-        }
+        $resultResponse = ApiExtensions::findByColumns(Customer::class, $columns, $value);
 
         return response()->json($resultResponse);
     }
 
     public function findByAll($value)
     {
-        $query = Customer::query();
-        $resultResponse = new ResultResponse();
         $columns = ['name, surname_1, surname_2, birth_date, phone, email, address'];
 
-        try {
-            foreach ($columns as $column) {
-                $query->orWhere($column, 'LIKE', '%' . $value . '%');
-            }
-
-            $customer = $query->paginate(1);
-
-            $this->setResultResponse(
-                $resultResponse,
-                $customer,
-                ResultResponse::SUCCESS_CODE,
-                ResultResponse::TXT_SUCCESS_CODE
-            );
-        } catch (\Exception $e) {
-            $this->setResultResponse(
-                $resultResponse,
-                "",
-                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
-                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
-            );
-        }
+        $resultResponse = ApiExtensions::findByColumns(Customer::class, $columns, $value);
 
         return response()->json($resultResponse);
     }
@@ -314,7 +168,7 @@ class CustomerController extends Controller
     public function update(Request $request, $id)
     {
         # TODO validateCustomer function
-        # $this->validateCustomer($request); 
+        # $this->validateCustomer($request);
         $resultResponse = new ResultResponse();
 
         try {
@@ -330,14 +184,14 @@ class CustomerController extends Controller
 
             $customer->save();
 
-            $this->setResultResponse(
+          ApiExtensions::setResultResponse(
                 $resultResponse,
                 $customer,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
         } catch (\Exception $e) {
-            $this->setResultResponse(
+          ApiExtensions::setResultResponse(
                 $resultResponse,
                 "",
                 ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
@@ -365,14 +219,14 @@ class CustomerController extends Controller
 
             $customer->save();
 
-            $this->setResultResponse(
+          ApiExtensions::setResultResponse(
                 $resultResponse,
                 $customer,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
         } catch (\Exception $e) {
-            $this->setResultResponse(
+          ApiExtensions::setResultResponse(
                 $resultResponse,
                 "",
                 ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
@@ -395,14 +249,14 @@ class CustomerController extends Controller
 
             $customer->delete();
 
-            $this->setResultResponse(
+          ApiExtensions::setResultResponse(
                 $resultResponse,
                 $customer,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
         } catch (\Exception $e) {
-            $this->setResultResponse(
+          ApiExtensions::setResultResponse(
                 $resultResponse,
                 "",
                 ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
@@ -412,10 +266,4 @@ class CustomerController extends Controller
         return response()->json($resultResponse);
     }
 
-    private function setResultResponse($resultResponse, $data, $statusCode, $message)
-    {
-        $resultResponse->setData($data);
-        $resultResponse->setStatusCode($statusCode);
-        $resultResponse->setMessage($message);
-    }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Libs\ApiExtensions;
 use App\Models\Board;
 use Illuminate\Http\Request;
 use App\Libs\ResultResponse;
@@ -18,7 +19,7 @@ class BoardController extends Controller
 
         $resultResponse = new ResultResponse();
 
-        $this->setResultResponse(
+        ApiExtensions::setResultResponse(
             $resultResponse,
             $boards,
             ResultResponse::SUCCESS_CODE,
@@ -45,14 +46,14 @@ class BoardController extends Controller
 
             $newBoard->save();
 
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 $newBoard,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
         } catch (\Exception $e) {
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 "",
                 ResultResponse::ERROR_CODE,
@@ -73,14 +74,14 @@ class BoardController extends Controller
 
         try {
             $board = Board::with('kitchenOrders')->with('employees')->findOrFail($id);
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 $board,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
         } catch (\Exception $e) {
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 "",
                 ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
@@ -91,50 +92,20 @@ class BoardController extends Controller
         return response()->json($resultResponse);
     }
 
-    public function findByCapacity($capacity)
+    public function findByCapacity($value)
     {
-        $resultResponse = new ResultResponse();
-        try {
-            $allergen = Board::where('capacity', $capacity)->firstOrFail();
+        $columns = ['capacity'];
 
-            $this->setResultResponse(
-                $resultResponse,
-                $allergen,
-                ResultResponse::SUCCESS_CODE,
-                ResultResponse::TXT_SUCCESS_CODE
-            );
-        } catch (\Exception $e) {
-            $this->setResultResponse(
-                $resultResponse,
-                "",
-                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
-                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
-            );
-        }
+        $resultResponse = ApiExtensions::findByColumns(Board::class, $columns, $value);
 
         return response()->json($resultResponse);
     }
 
-    public function findByAvaialability($available)
+    public function findByAvaialability($value)
     {
-        $resultResponse = new ResultResponse();
-        try {
-            $allergen = Board::where('available', $available)->firstOrFail();
+        $columns = ['available'];
 
-            $this->setResultResponse(
-                $resultResponse,
-                $allergen,
-                ResultResponse::SUCCESS_CODE,
-                ResultResponse::TXT_SUCCESS_CODE
-            );
-        } catch (\Exception $e) {
-            $this->setResultResponse(
-                $resultResponse,
-                "",
-                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
-                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
-            );
-        }
+        $resultResponse = ApiExtensions::findByColumns(Board::class, $columns, $value);
 
         return response()->json($resultResponse);
     }
@@ -142,31 +113,9 @@ class BoardController extends Controller
 
     public function findByAllColumns($value)
     {
-        $query = Board::query();
-        $resultResponse = new ResultResponse();
         $columns = ['capacity', 'available'];
 
-        try {
-            foreach ($columns as $column) {
-                $query->orWhere($column, 'LIKE', '%' . $value . '%');
-            }
-
-            $allergen = $query->paginate(1);
-
-            $this->setResultResponse(
-                $resultResponse,
-                $allergen,
-                ResultResponse::SUCCESS_CODE,
-                ResultResponse::TXT_SUCCESS_CODE
-            );
-        } catch (\Exception $e) {
-            $this->setResultResponse(
-                $resultResponse,
-                "",
-                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
-                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
-            );
-        }
+        $resultResponse = ApiExtensions::findByColumns(Board::class, $columns, $value);
 
         return response()->json($resultResponse);
     }
@@ -187,14 +136,14 @@ class BoardController extends Controller
 
             $board->save();
 
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 $board,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
         } catch (\Exception $e) {
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 "",
                 ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
@@ -217,14 +166,14 @@ class BoardController extends Controller
 
             $board->save();
 
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 $board,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
         } catch (\Exception $e) {
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 "",
                 ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
@@ -247,14 +196,14 @@ class BoardController extends Controller
 
             $board->delete();
 
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 $board,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
         } catch (\Exception $e) {
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 "",
                 ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
@@ -262,12 +211,5 @@ class BoardController extends Controller
             );
         }
         return response()->json($resultResponse);
-    }
-
-    private function setResultResponse($resultResponse, $data, $statusCode, $message)
-    {
-        $resultResponse->setData($data);
-        $resultResponse->setStatusCode($statusCode);
-        $resultResponse->setMessage($message);
     }
 }

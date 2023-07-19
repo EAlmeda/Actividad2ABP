@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Libs\ApiExtensions;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Libs\ResultResponse;
@@ -19,7 +20,7 @@ class ProductController extends Controller
 
         $resultResponse = new ResultResponse();
 
-        $this->setResultResponse(
+        ApiExtensions::setResultResponse(
             $resultResponse,
             $products,
             ResultResponse::SUCCESS_CODE,
@@ -50,14 +51,14 @@ class ProductController extends Controller
 
             $newProduct->save();
 
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 $newProduct,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
         } catch (\Exception $e) {
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 "",
                 ResultResponse::ERROR_CODE,
@@ -79,14 +80,14 @@ class ProductController extends Controller
         try {
             $product = Product::findOrFail($id);
 
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 $product,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
         } catch (\Exception $e) {
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 "",
                 ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
@@ -97,201 +98,65 @@ class ProductController extends Controller
         return response()->json($resultResponse);
     }
 
-    public function findByName($name)
+    public function findByName($value)
     {
-        $query = Product::query();
-        $resultResponse = new ResultResponse();
+        $columns = ['name'];
 
-        try {
-            $query->orWhere('name', 'LIKE', '%' . $name . '%');
-
-            $product = $query->paginate(1);
-
-            $this->setResultResponse(
-                $resultResponse,
-                $product,
-                ResultResponse::SUCCESS_CODE,
-                ResultResponse::TXT_SUCCESS_CODE
-            );
-        } catch (\Exception $e) {
-            $this->setResultResponse(
-                $resultResponse,
-                "",
-                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
-                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
-            );
-        }
+        $resultResponse = ApiExtensions::findByColumns(Product::class, $columns, $value);
 
         return response()->json($resultResponse);
     }
 
-    public function findByPrice($price)
+    public function findByPrice($value)
     {
-        $query = Product::query();
-        $resultResponse = new ResultResponse();
+        $columns = ['price'];
 
-        try {
-            $query->orWhere('price', 'LIKE', '%' . $price . '%');
-
-            $product = $query->paginate(1);
-
-            $this->setResultResponse(
-                $resultResponse,
-                $product,
-                ResultResponse::SUCCESS_CODE,
-                ResultResponse::TXT_SUCCESS_CODE
-            );
-        } catch (\Exception $e) {
-            $this->setResultResponse(
-                $resultResponse,
-                "",
-                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
-                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
-            );
-        }
+        $resultResponse = ApiExtensions::findByColumns(Product::class, $columns, $value);
 
         return response()->json($resultResponse);
     }
 
-    public function findByAvailable($available)
+    public function findByAvailable($value)
     {
-        $query = Product::query();
-        $resultResponse = new ResultResponse();
+        $columns = ['available'];
 
-        try {
-            $query->orWhere('available', 'LIKE', '%' . $available . '%');
-
-            $product = $query->paginate(1);
-
-            $this->setResultResponse(
-                $resultResponse,
-                $product,
-                ResultResponse::SUCCESS_CODE,
-                ResultResponse::TXT_SUCCESS_CODE
-            );
-        } catch (\Exception $e) {
-            $this->setResultResponse(
-                $resultResponse,
-                "",
-                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
-                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
-            );
-        }
+        $resultResponse = ApiExtensions::findByColumns(Product::class, $columns, $value);
 
         return response()->json($resultResponse);
     }
 
-    public function findByImagePath($image_path)
+    public function findByImagePath($value)
     {
-        $query = Product::query();
-        $resultResponse = new ResultResponse();
+        $columns = ['image_path'];
 
-        try {
-            $query->orWhere('image_path', 'LIKE', '%' . $image_path . '%');
-
-            $product = $query->paginate(1);
-
-            $this->setResultResponse(
-                $resultResponse,
-                $product,
-                ResultResponse::SUCCESS_CODE,
-                ResultResponse::TXT_SUCCESS_CODE
-            );
-        } catch (\Exception $e) {
-            $this->setResultResponse(
-                $resultResponse,
-                "",
-                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
-                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
-            );
-        }
+        $resultResponse = ApiExtensions::findByColumns(Product::class, $columns, $value);
 
         return response()->json($resultResponse);
     }
 
-    public function findByDescription($description)
+    public function findByDescription($value)
     {
-        $query = Product::query();
-        $resultResponse = new ResultResponse();
+        $columns = ['description'];
 
-        try {
-            $query->orWhere('description', 'LIKE', '%' . $description . '%');
-
-            $product = $query->paginate(1);
-
-            $this->setResultResponse(
-                $resultResponse,
-                $product,
-                ResultResponse::SUCCESS_CODE,
-                ResultResponse::TXT_SUCCESS_CODE
-            );
-        } catch (\Exception $e) {
-            $this->setResultResponse(
-                $resultResponse,
-                "",
-                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
-                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
-            );
-        }
+        $resultResponse = ApiExtensions::findByColumns(Product::class, $columns, $value);
 
         return response()->json($resultResponse);
     }
 
-    public function findByType($type)
+    public function findByType($value)
     {
-        $query = Product::query();
-        $resultResponse = new ResultResponse();
+        $columns = ['type'];
 
-        try {
-            $query->orWhere('type', 'LIKE', '%' . $type . '%');
-
-            $product = $query->paginate(1);
-
-            $this->setResultResponse(
-                $resultResponse,
-                $product,
-                ResultResponse::SUCCESS_CODE,
-                ResultResponse::TXT_SUCCESS_CODE
-            );
-        } catch (\Exception $e) {
-            $this->setResultResponse(
-                $resultResponse,
-                "",
-                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
-                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
-            );
-        }
+        $resultResponse = ApiExtensions::findByColumns(Product::class, $columns, $value);
 
         return response()->json($resultResponse);
     }
 
     public function findByAllColumns($value)
     {
-        $query = Product::query();
-        $resultResponse = new ResultResponse();
         $columns = ['name', 'price', 'available', 'image_path', 'description', 'type'];
 
-        try {
-            foreach ($columns as $column) {
-                $query->orWhere($column, 'LIKE', '%' . $value . '%');
-            }
-
-            $product = $query->paginate(1);
-
-            $this->setResultResponse(
-                $resultResponse,
-                $product,
-                ResultResponse::SUCCESS_CODE,
-                ResultResponse::TXT_SUCCESS_CODE
-            );
-        } catch (\Exception $e) {
-            $this->setResultResponse(
-                $resultResponse,
-                "",
-                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
-                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
-            );
-        }
+        $resultResponse = ApiExtensions::findByColumns(Product::class, $columns, $value);
 
         return response()->json($resultResponse);
     }
@@ -316,14 +181,14 @@ class ProductController extends Controller
 
             $product->save();
 
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 $product,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
         } catch (\Exception $e) {
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 "",
                 ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
@@ -350,14 +215,14 @@ class ProductController extends Controller
 
             $product->save();
 
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 $product,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
         } catch (\Exception $e) {
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 "",
                 ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
@@ -380,14 +245,14 @@ class ProductController extends Controller
 
             $product->delete();
 
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 $product,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
         } catch (\Exception $e) {
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 "",
                 ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
@@ -397,10 +262,4 @@ class ProductController extends Controller
         return response()->json($resultResponse);
     }
 
-    private function setResultResponse($resultResponse, $data, $statusCode, $message)
-    {
-        $resultResponse->setData($data);
-        $resultResponse->setStatusCode($statusCode);
-        $resultResponse->setMessage($message);
-    }
 }

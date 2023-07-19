@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Libs\ApiExtensions;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 use App\Libs\ResultResponse;
@@ -19,7 +20,7 @@ class EmployeeController extends Controller
 
         $resultResponse = new ResultResponse();
 
-        $this->setResultResponse(
+        ApiExtensions::setResultResponse(
             $resultResponse,
             $employees,
             ResultResponse::SUCCESS_CODE,
@@ -53,14 +54,14 @@ class EmployeeController extends Controller
 
             $newEmployee->save();
 
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 $newEmployee,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
         } catch (\Exception $e) {
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 "",
                 ResultResponse::ERROR_CODE,
@@ -82,14 +83,14 @@ class EmployeeController extends Controller
         try {
             $employee = Employee::findOrFail($id);
 
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 $employee,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
         } catch (\Exception $e) {
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 "",
                 ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
@@ -100,251 +101,83 @@ class EmployeeController extends Controller
         return response()->json($resultResponse);
     }
 
-    public function findByName($name)
+    public function findByName($value)
     {
-        $query = Employee::query();
-        $resultResponse = new ResultResponse();
+        $columns = ['name'];
 
-        try {
-            $query->orWhere('name', 'LIKE', '%' . $name . '%');
-
-            $employee = $query->paginate(1);
-
-            $this->setResultResponse(
-                $resultResponse,
-                $employee,
-                ResultResponse::SUCCESS_CODE,
-                ResultResponse::TXT_SUCCESS_CODE
-            );
-        } catch (\Exception $e) {
-            $this->setResultResponse(
-                $resultResponse,
-                "",
-                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
-                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
-            );
-        }
+        $resultResponse = ApiExtensions::findByColumns(Employee::class, $columns, $value);
 
         return response()->json($resultResponse);
     }
 
     public function findBySurname($value)
     {
-        $query = Employee::query();
-        $resultResponse = new ResultResponse();
         $columns = ['surname_1', 'surname_2'];
 
-        try {
-            foreach ($columns as $column) {
-                $query->orWhere($column, 'LIKE', '%' . $value . '%');
-            }
-
-            $employee = $query->paginate(1);
-
-            $this->setResultResponse(
-                $resultResponse,
-                $employee,
-                ResultResponse::SUCCESS_CODE,
-                ResultResponse::TXT_SUCCESS_CODE
-            );
-        } catch (\Exception $e) {
-            $this->setResultResponse(
-                $resultResponse,
-                "",
-                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
-                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
-            );
-        }
+        $resultResponse = ApiExtensions::findByColumns(Employee::class, $columns, $value);
 
         return response()->json($resultResponse);
     }
 
-    public function findByTeam($team)
+    public function findByTeam($value)
     {
-        $query = Employee::query();
-        $resultResponse = new ResultResponse();
+        $columns = ['team'];
 
-        try {
-            $query->orWhere('team', 'LIKE', '%' . $team . '%');
-
-            $employee = $query->paginate(1);
-
-            $this->setResultResponse(
-                $resultResponse,
-                $employee,
-                ResultResponse::SUCCESS_CODE,
-                ResultResponse::TXT_SUCCESS_CODE
-            );
-        } catch (\Exception $e) {
-            $this->setResultResponse(
-                $resultResponse,
-                "",
-                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
-                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
-            );
-        }
+        $resultResponse = ApiExtensions::findByColumns(Employee::class, $columns, $value);
 
         return response()->json($resultResponse);
     }
 
-    public function findByPhone($phone)
+    public function findByPhone($value)
     {
-        $resultResponse = new ResultResponse();
+        $columns = ['phone'];
 
-        try {
-            $employee = Employee::where('phone', $phone)->firstOrFail();
-
-            $this->setResultResponse(
-                $resultResponse,
-                $employee,
-                ResultResponse::SUCCESS_CODE,
-                ResultResponse::TXT_SUCCESS_CODE
-            );
-        } catch (\Exception $e) {
-            $this->setResultResponse(
-                $resultResponse,
-                "",
-                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
-                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
-            );
-        }
+        $resultResponse = ApiExtensions::findByColumns(Employee::class, $columns, $value);
 
         return response()->json($resultResponse);
     }
 
-    public function findByEmail($email)
+    public function findByEmail($value)
     {
-        $resultResponse = new ResultResponse();
+        $columns = ['email'];
 
-        try {
-            $employee = Employee::where('email', $email)->firstOrFail();
-
-            $this->setResultResponse(
-                $resultResponse,
-                $employee,
-                ResultResponse::SUCCESS_CODE,
-                ResultResponse::TXT_SUCCESS_CODE
-            );
-        } catch (\Exception $e) {
-            $this->setResultResponse(
-                $resultResponse,
-                "",
-                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
-                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
-            );
-        }
+        $resultResponse = ApiExtensions::findByColumns(Employee::class, $columns, $value);
 
         return response()->json($resultResponse);
     }
 
-    public function findByWorkShift($work_shift)
+    public function findByWorkShift($value)
     {
-        $query = Employee::query();
-        $resultResponse = new ResultResponse();
+        $columns = ['work_shift'];
 
-        try {
-            $query->orWhere('work_shift', 'LIKE', '%' . $work_shift . '%');
-
-            $employee = $query->paginate(1);
-
-            $this->setResultResponse(
-                $resultResponse,
-                $employee,
-                ResultResponse::SUCCESS_CODE,
-                ResultResponse::TXT_SUCCESS_CODE
-            );
-        } catch (\Exception $e) {
-            $this->setResultResponse(
-                $resultResponse,
-                "",
-                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
-                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
-            );
-        }
+        $resultResponse = ApiExtensions::findByColumns(Employee::class, $columns, $value);
 
         return response()->json($resultResponse);
     }
 
-    public function findByBankAccount($bank_account)
+    public function findByBankAccount($value)
     {
-        $resultResponse = new ResultResponse();
+        $columns = ['bank_account'];
 
-        try {
-            $employee = Employee::where('bank_account', $bank_account)->firstOrFail();
-
-            $this->setResultResponse(
-                $resultResponse,
-                $employee,
-                ResultResponse::SUCCESS_CODE,
-                ResultResponse::TXT_SUCCESS_CODE
-            );
-        } catch (\Exception $e) {
-            $this->setResultResponse(
-                $resultResponse,
-                "",
-                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
-                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
-            );
-        }
+        $resultResponse = ApiExtensions::findByColumns(Employee::class, $columns, $value);
 
         return response()->json($resultResponse);
     }
 
-    public function findByAddress($address)
+    public function findByAddress($value)
     {
-        $query = Employee::query();
-        $resultResponse = new ResultResponse();
+        $columns = ['address'];
 
-        try {
-            $query->orWhere('address', 'LIKE', '%' . $address . '%');
-
-            $employee = $query->paginate(1);
-
-            $this->setResultResponse(
-                $resultResponse,
-                $employee,
-                ResultResponse::SUCCESS_CODE,
-                ResultResponse::TXT_SUCCESS_CODE
-            );
-        } catch (\Exception $e) {
-            $this->setResultResponse(
-                $resultResponse,
-                "",
-                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
-                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
-            );
-        }
+        $resultResponse = ApiExtensions::findByColumns(Employee::class, $columns, $value);
 
         return response()->json($resultResponse);
     }
 
     public function findByAllColumns($value)
     {
-        $query = Employee::query();
-        $resultResponse = new ResultResponse();
         $columns = ['name', 'surname_1', 'surname_2', 'team', 'phone', 'email', 'work_shift', 'bank_account', 'address'];
 
-        try {
-            foreach ($columns as $column) {
-                $query->orWhere($column, 'LIKE', '%' . $value . '%');
-            }
-
-            $employee = $query->paginate(1);
-
-            $this->setResultResponse(
-                $resultResponse,
-                $employee,
-                ResultResponse::SUCCESS_CODE,
-                ResultResponse::TXT_SUCCESS_CODE
-            );
-        } catch (\Exception $e) {
-            $this->setResultResponse(
-                $resultResponse,
-                "",
-                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
-                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
-            );
-        }
+        $resultResponse = ApiExtensions::findByColumns(Employee::class, $columns, $value);
 
         return response()->json($resultResponse);
     }
@@ -373,14 +206,14 @@ class EmployeeController extends Controller
 
             $employee->save();
 
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 $employee,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
         } catch (\Exception $e) {
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 "",
                 ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
@@ -410,14 +243,14 @@ class EmployeeController extends Controller
 
             $employee->save();
 
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 $employee,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
         } catch (\Exception $e) {
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 "",
                 ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
@@ -440,14 +273,14 @@ class EmployeeController extends Controller
 
             $employee->delete();
 
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 $employee,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
         } catch (\Exception $e) {
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 "",
                 ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
@@ -455,12 +288,5 @@ class EmployeeController extends Controller
             );
         }
         return response()->json($resultResponse);
-    }
-
-    private function setResultResponse($resultResponse, $data, $statusCode, $message)
-    {
-        $resultResponse->setData($data);
-        $resultResponse->setStatusCode($statusCode);
-        $resultResponse->setMessage($message);
     }
 }

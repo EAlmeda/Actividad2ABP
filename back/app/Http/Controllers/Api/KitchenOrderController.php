@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Libs\ApiExtensions;
 use App\Models\KitchenOrder;
 use Illuminate\Http\Request;
 use App\Libs\ResultResponse;
@@ -18,7 +19,7 @@ class KitchenOrderController extends Controller
 
         $resultResponse = new ResultResponse();
 
-        $this->setResultResponse(
+        ApiExtensions::setResultResponse(
             $resultResponse,
             $kitchenOrders,
             ResultResponse::SUCCESS_CODE,
@@ -46,14 +47,14 @@ class KitchenOrderController extends Controller
 
             $newKitchenOrder->save();
 
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 $newKitchenOrder,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
         } catch (\Exception $e) {
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 "",
                 ResultResponse::ERROR_CODE,
@@ -75,14 +76,14 @@ class KitchenOrderController extends Controller
         try {
             $kitchenOrder = KitchenOrder::findOrFail($id);
 
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 $kitchenOrder,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
         } catch (\Exception $e) {
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 "",
                 ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
@@ -93,87 +94,30 @@ class KitchenOrderController extends Controller
         return response()->json($resultResponse);
     }
 
-    public function findByBeginDate($begin_date)
+    public function findByBeginDate($value)
     {
-        $query = KitchenOrder::query();
-        $resultResponse = new ResultResponse();
+        $columns = ['begin_date'];
 
-        try {
-            $query->orWhere('begin_date', 'LIKE', '%' . $begin_date . '%');
-
-            $kitchen_order = $query->paginate(1);
-
-            $this->setResultResponse(
-                $resultResponse,
-                $kitchen_order,
-                ResultResponse::SUCCESS_CODE,
-                ResultResponse::TXT_SUCCESS_CODE
-            );
-        } catch (\Exception $e) {
-            $this->setResultResponse(
-                $resultResponse,
-                "",
-                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
-                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
-            );
-        }
+        $resultResponse = ApiExtensions::findByColumns(KitchenOrder::class, $columns, $value);
 
         return response()->json($resultResponse);
     }
 
-    public function findByStatus($status)
+    public function findByStatus($value)
     {
-        $query = KitchenOrder::query();
-        $resultResponse = new ResultResponse();
+        $columns = ['status'];
 
-        try {
-            $query->orWhere('status', 'LIKE', '%' . $status . '%');
-
-            $kitchen_order = $query->paginate(1);
-
-            $this->setResultResponse(
-                $resultResponse,
-                $kitchen_order,
-                ResultResponse::SUCCESS_CODE,
-                ResultResponse::TXT_SUCCESS_CODE
-            );
-        } catch (\Exception $e) {
-            $this->setResultResponse(
-                $resultResponse,
-                "",
-                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
-                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
-            );
-        }
+        $resultResponse = ApiExtensions::findByColumns(KitchenOrder::class, $columns, $value);
 
         return response()->json($resultResponse);
     }
 
 
-    public function findByEndDate($end_date)
+    public function findByEndDate($value)
     {
-        $query = KitchenOrder::query();
-        $resultResponse = new ResultResponse();
+        $columns = ['end_date'];
 
-        try {
-            $query->orWhere('end_date', 'LIKE', '%' . $end_date . '%');
-
-            $kitchen_order = $query->paginate(1);
-
-            $this->setResultResponse(
-                $resultResponse,
-                $kitchen_order,
-                ResultResponse::SUCCESS_CODE,
-                ResultResponse::TXT_SUCCESS_CODE
-            );
-        } catch (\Exception $e) {
-            $this->setResultResponse(
-                $resultResponse,
-                "",
-                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
-                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
-            );
-        }
+        $resultResponse = ApiExtensions::findByColumns(KitchenOrder::class, $columns, $value);
 
         return response()->json($resultResponse);
     }
@@ -181,31 +125,9 @@ class KitchenOrderController extends Controller
 
     public function findByAllColumns($value)
     {
-        $query = KitchenOrder::query();
-        $resultResponse = new ResultResponse();
         $columns = ['begin_date', 'end_date', 'status'];
 
-        try {
-            foreach ($columns as $column) {
-                $query->orWhere($column, 'LIKE', '%' . $value . '%');
-            }
-
-            $kitchen_order = $query->paginate(1);
-
-            $this->setResultResponse(
-                $resultResponse,
-                $kitchen_order,
-                ResultResponse::SUCCESS_CODE,
-                ResultResponse::TXT_SUCCESS_CODE
-            );
-        } catch (\Exception $e) {
-            $this->setResultResponse(
-                $resultResponse,
-                "",
-                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
-                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
-            );
-        }
+        $resultResponse = ApiExtensions::findByColumns(KitchenOrder::class, $columns, $value);
 
         return response()->json($resultResponse);
     }
@@ -227,14 +149,14 @@ class KitchenOrderController extends Controller
 
             $kitchenOrder->save();
 
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 $kitchenOrder,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
         } catch (\Exception $e) {
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 "",
                 ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
@@ -258,14 +180,14 @@ class KitchenOrderController extends Controller
 
             $kitchenOrder->save();
 
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 $kitchenOrder,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
         } catch (\Exception $e) {
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 "",
                 ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
@@ -288,14 +210,14 @@ class KitchenOrderController extends Controller
 
             $kitchenOrder->delete();
 
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 $kitchenOrder,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
         } catch (\Exception $e) {
-            $this->setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 "",
                 ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
@@ -303,12 +225,5 @@ class KitchenOrderController extends Controller
             );
         }
         return response()->json($resultResponse);
-    }
-
-    private function setResultResponse($resultResponse, $data, $statusCode, $message)
-    {
-        $resultResponse->setData($data);
-        $resultResponse->setStatusCode($statusCode);
-        $resultResponse->setMessage($message);
     }
 }
