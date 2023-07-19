@@ -35,11 +35,11 @@ class OnlineOrderController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validateOnlineOrder($request);
-
         $resultResponse = new ResultResponse();
 
         try {
+            $this->validateOnlineOrder($request);
+
             $newOnlineOrder   = new OnlineOrder([
                 'amount' => $request->get('amount'),
                 'date' => $request->get('date'),
@@ -169,10 +169,11 @@ class OnlineOrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validateOnlineOrder($request);
         $resultResponse = new ResultResponse();
 
         try {
+            $this->validateOnlineOrder($request);
+
             $onlineOrder = OnlineOrder::findOrFail($id);
 
             $onlineOrder->amount = $request->get('amount');
@@ -207,6 +208,8 @@ class OnlineOrderController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
+            $this->validateOnlineOrder($request);
+
             $onlineOrder = OnlineOrder::findOrFail($id);
 
             $onlineOrder->amount = $request->get('amount', $onlineOrder->amount);
