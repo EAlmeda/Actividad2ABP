@@ -8,6 +8,7 @@ use App\Libs\ResultResponse;
 use App\Models\Customer;
 use App\Models\OnlineOrder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class CustomerController extends Controller
 {
@@ -20,7 +21,7 @@ class CustomerController extends Controller
 
         $resultResponse = new ResultResponse();
 
-      ApiExtensions::setResultResponse(
+        ApiExtensions::setResultResponse(
             $resultResponse,
             $customers,
             ResultResponse::SUCCESS_CODE,
@@ -39,6 +40,7 @@ class CustomerController extends Controller
 
         $resultResponse = new ResultResponse();
 
+        $password = Hash::make($request->get('password'));
         try {
             $newCustomer   = new Customer([
                 'name' => $request->get('name'),
@@ -47,19 +49,20 @@ class CustomerController extends Controller
                 'birth_date' => $request->get('birth_date'),
                 'phone' => $request->get('phone'),
                 'email' => $request->get('email'),
+                'password' => $password,
                 'address' => $request->get('address')
             ]);
 
             $newCustomer->save();
 
-          ApiExtensions::setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 $newCustomer,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
         } catch (\Exception $e) {
-          ApiExtensions::setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 "",
                 ResultResponse::ERROR_CODE,
@@ -81,14 +84,14 @@ class CustomerController extends Controller
         try {
             $customer = Customer::findOrFail($id);
             $customer->OnlineOrder = $customer->online();
-          ApiExtensions::setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 $customer,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
         } catch (\Exception $e) {
-          ApiExtensions::setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 "",
                 ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
@@ -174,24 +177,27 @@ class CustomerController extends Controller
         try {
             $customer = Customer::findOrFail($id);
 
+            $password = Hash::make($request->get('password'));
+
             $customer->name = $request->get('name');
             $customer->surname_1 = $request->get('surname_1');
             $customer->surname_2 = $request->get('surname_2');
             $customer->birth_date = $request->get('birth_date');
             $customer->phone = $request->get('phone');
             $customer->email = $request->get('email');
+            $customer->password = $password;
             $customer->address = $request->get('address');
 
             $customer->save();
 
-          ApiExtensions::setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 $customer,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
         } catch (\Exception $e) {
-          ApiExtensions::setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 "",
                 ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
@@ -209,6 +215,10 @@ class CustomerController extends Controller
         try {
             $customer = Customer::findOrFail($id);
 
+            $password = $request->get('password');
+            if ($password)
+                $customer->password = Hash::make($password);
+
             $customer->name = $request->get('name', $customer->name);
             $customer->surname_1 = $request->get('surname_1', $customer->surname_1);
             $customer->surname_2 = $request->get('surname_2', $customer->surname_2);
@@ -219,14 +229,14 @@ class CustomerController extends Controller
 
             $customer->save();
 
-          ApiExtensions::setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 $customer,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
         } catch (\Exception $e) {
-          ApiExtensions::setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 "",
                 ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
@@ -249,14 +259,14 @@ class CustomerController extends Controller
 
             $customer->delete();
 
-          ApiExtensions::setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 $customer,
                 ResultResponse::SUCCESS_CODE,
                 ResultResponse::TXT_SUCCESS_CODE
             );
         } catch (\Exception $e) {
-          ApiExtensions::setResultResponse(
+            ApiExtensions::setResultResponse(
                 $resultResponse,
                 "",
                 ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
@@ -265,5 +275,4 @@ class CustomerController extends Controller
         }
         return response()->json($resultResponse);
     }
-
 }
