@@ -34,11 +34,11 @@ class BoardController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validateBoard($request);
-
         $resultResponse = new ResultResponse();
 
         try {
+            $this -> validateBoard($request);
+            
             $newBoard   = new Board([
                 'capacity' => $request->get('capacity'),
                 'available' => $request->get('available'),
@@ -125,10 +125,11 @@ class BoardController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validateBoard($request);
         $resultResponse = new ResultResponse();
 
         try {
+            $this -> validateBoard($request);
+
             $board = Board::findOrFail($id);
 
             $board->capacity = $request->get('capacity');
@@ -159,6 +160,8 @@ class BoardController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
+            $this -> validateBoard($request);
+
             $board = Board::findOrFail($id);
 
             $board->capacity = $request->get('capacity', $board->capacity);
@@ -211,5 +214,13 @@ class BoardController extends Controller
             );
         }
         return response()->json($resultResponse);
+    }
+
+    private function validateBoard($request)
+    {
+        $validatedData = $request->validate([
+            'capacity' => 'required|integer|between:1,50',
+            'available' => 'required|boolean'
+        ]);
     }
 }
