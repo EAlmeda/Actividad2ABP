@@ -35,11 +35,11 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validateProduct($request);
-
         $resultResponse = new ResultResponse();
 
         try {
+            $this->validateProduct($request);
+
             $newProduct   = new Product([
                 'name' => $request->get('name'),
                 'price' => $request->get('price'),
@@ -166,10 +166,11 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validateProduct($request);
         $resultResponse = new ResultResponse();
 
         try {
+            $this->validateProduct($request);
+
             $product = Product::findOrFail($id);
 
             $product->name = $request->get('name');
@@ -204,6 +205,8 @@ class ProductController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
+            $this->validateProduct($request);
+
             $product = Product::findOrFail($id);
 
             $product->name = $request->get('name', $product->title);
@@ -260,6 +263,18 @@ class ProductController extends Controller
             );
         }
         return response()->json($resultResponse);
+    }
+
+    private function validateProduct($request)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required|unique:App\Models\Product,name|max:200',
+            'price' => 'required|between:0,999.99',
+            'available' => 'required|boolean',
+            'image_path' => 'required|max:200',
+            'description' => 'required|max:500',
+            'type' => 'required|max:50'
+        ]);
     }
 
 }
