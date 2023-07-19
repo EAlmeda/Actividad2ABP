@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -23,13 +24,13 @@ class KitchenOrder extends Model
         return $this->belongsToMany(Product::class,'kitchen_order_contains');
     }
 
-    public function employees(): BelongsToMany
+    public function employee(): BelongsTo
     {
-        return $this->belongsToMany(Employee::class,'cook');
+        return $this->belongsTo(Employee::class);
     }
 
-    public function boards(): BelongsToMany
+    public function board(): BelongsTo
     {
-        return $this->belongsToMany(Board::class,'table');
+        return $this->belongsTo(Board::class);
     }
 }

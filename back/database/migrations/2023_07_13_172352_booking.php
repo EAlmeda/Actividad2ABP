@@ -17,11 +17,11 @@ return new class extends Migration
             $table->unsignedBigInteger('customer_id')->nullable();
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
 
-            $table->string('email',200)->unique();
             $table->dateTime('date',200);
             $table->string('booker_email',200);
             $table->string('booker_name',200);
             $table->integer('booker_phone');
+            $table->integer('people_quantity');
 
             $table->timestamps();
             $table->softDeletes();
