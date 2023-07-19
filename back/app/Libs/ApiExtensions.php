@@ -1,16 +1,21 @@
 <?php
+
 namespace App\Libs;
 
-class ApiExtensions{
+class ApiExtensions
+{
 
-    public static function findByColumns($class, $columns, $value)
+    public static function findByColumns($class, $columns, $value, $strict = true)
     {
         $query = $class::query();
         $resultResponse = new ResultResponse();
 
         try {
             foreach ($columns as $column) {
-                $query->orWhere($column, $value);
+                if ($strict)
+                    $query->orWhere($column, $value);
+                else
+                    $query->orWhere($column, 'LIKE', '%' . $value . '%');
             }
 
             $result = $query->paginate();
@@ -39,4 +44,3 @@ class ApiExtensions{
         $resultResponse->setMessage($message);
     }
 }
-?>
