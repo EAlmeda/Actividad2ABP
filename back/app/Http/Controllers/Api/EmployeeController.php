@@ -35,11 +35,12 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validateEmployee($request);
 
         $resultResponse = new ResultResponse();
 
         try {
+            $this->validateEmployee($request);
+
             $newEmployee   = new Employee([
                 'name' => $request->get('name'),
                 'surname_1' => $request->get('surname_1'),
@@ -188,10 +189,11 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validateEmployee($request);
         $resultResponse = new ResultResponse();
 
         try {
+            $this->validateEmployee($request);
+
             $employee = Employee::findOrFail($id);
 
             $employee->name = $request->get('name');
@@ -229,6 +231,8 @@ class EmployeeController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
+            $this->validateEmployee($request);
+
             $employee = Employee::findOrFail($id);
 
             $employee->name = $request->get('name', $employee->name);
@@ -288,5 +292,20 @@ class EmployeeController extends Controller
             );
         }
         return response()->json($resultResponse);
+    }
+
+    private function validateEmployee($request)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required|max:200',
+            'surname_1' => 'required|max:200',
+            'surname_2' => 'required|max:200',
+            'team' => 'required|max:50',
+            'phone' => 'required|numeric|digits:9',
+            'email' => 'required|unique:App\Models\Customer,email|email',
+            'work_shift' => 'required|max:50',
+            'bank_account' => 'required|unique:App\Models\Employee,bank_account|max:100',
+            'address' => 'required|max:200'
+        ]);
     }
 }
