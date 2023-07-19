@@ -74,6 +74,13 @@ Route::controller(CustomerController::class)->prefix('customer')->group(function
     Route::post('/{id}','update');
     Route::patch('/{id}','patch');
     Route::get('/{id}','show');
+    Route::get('/name/{name}','findByName');
+    Route::get('/surname/{surname}','findBySurname');
+    Route::get('/birth-date/{birth-date}','findByBirthDate');
+    Route::get('/phone/{phone}','findByPhone');
+    Route::get('/email/{email}','findByEmail');
+    Route::get('/address/{address}','findByAddress');
+    Route::get('/all/{value}','findByAllColumns');
     Route::delete('/{id}','destroy');
 });
 
@@ -84,6 +91,15 @@ Route::controller(EmployeeController::class)->prefix('employee')->group(function
     Route::post('/{id}','update');
     Route::patch('/{id}','patch');
     Route::get('/{id}','show');
+    Route::get('/name/{name}','findByName');
+    Route::get('/surname/{surname}','findBySurname');
+    Route::get('/team/{team}','findByTeam');
+    Route::get('/phone/{phone}','findByPhone');
+    Route::get('/email/{email}','findByEmail');
+    Route::get('/work-shift/{work-shift}','findByWorkShift');
+    Route::get('/bank-account/{bank-account}','findByBankAccount');
+    Route::get('/address/{address}','findByAddress');
+    Route::get('/all/{value}','findByAllColumns');
     Route::delete('/{id}','destroy');
 });
 
@@ -94,6 +110,9 @@ Route::controller(IngredientController::class)->prefix('ingredient')->group(func
     Route::post('/{id}','update');
     Route::patch('/{id}','patch');
     Route::get('/{id}','show');
+    Route::get('/name/{name}','findByName');
+    Route::get('/quantity/{quantity}','findByQuantity');
+    Route::get('/all/{value}','findByAllColumns');
     Route::delete('/{id}','destroy');
 });
 
@@ -104,6 +123,10 @@ Route::controller(KitchenOrderController::class)->prefix('products')->group(func
     Route::post('/{id}','update');
     Route::patch('/{id}','patch');
     Route::get('/{id}','show');
+    Route::get('/begin-date/{begin-date}','findByBeginDate');
+    Route::get('/status/{status}','findByStatus');
+    Route::get('/end-date/{end-date}','findByEndDate');
+    Route::get('/all/{value}','findByAllColumns');
     Route::delete('/{id}','destroy');
 });
 
@@ -114,6 +137,13 @@ Route::controller(OnlineOrderController::class)->prefix('products')->group(funct
     Route::post('/{id}','update');
     Route::patch('/{id}','patch');
     Route::get('/{id}','show');
+    Route::get('/amount/{amount}','findByAmount');
+    Route::get('/date/{date}','findByDate');
+    Route::get('/expected-date/{expected-date}','findByExpectedDate');
+    Route::get('/address/{address}','findByAddress');
+    Route::get('/status/{status}','findByStatus');
+    Route::get('/type/{type}','findByType');
+    Route::get('/all/{value}','findByAllColumns');
     Route::delete('/{id}','destroy');
 });
 
@@ -124,5 +154,12 @@ Route::controller(ProductController::class)->prefix('products')->group(function(
     Route::post('/{id}','update');
     Route::patch('/{id}','patch');
     Route::get('/{id}','show');
+    Route::get('/name/{name}','findByName');
+    Route::get('/price/{price}','findByPrice');
+    Route::get('/available/{available}','findByAvailable');
+    Route::get('/image-path/{image-path}','findByImagePath');
+    Route::get('/description/{description}','findByDescription');
+    Route::get('/type/{type}','findByType');
+    Route::get('/all/{value}','findByAllColumns');
     Route::delete('/{id}','destroy');
 });
