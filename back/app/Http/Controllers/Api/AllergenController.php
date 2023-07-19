@@ -34,16 +34,17 @@ class AllergenController extends Controller
      */
     public function store(Request $request)
     {
-        // $this->validateAllergen($request);
-
         $resultResponse = new ResultResponse();
 
         try {
-            $newAllergen   = new Allergen([
+
+            $this->validateAllergen($request);
+            
+            $newAllergen = new Allergen([
                 'name' => $request->get('name'),
                 'description' => $request->get('description'),
                 'icon_name' => $request->get('icon_name'),
-                'risk' => $request->get('risk'),
+                'risk' => $request->get('risk')
             ]);
 
             $newAllergen->save();
@@ -136,7 +137,6 @@ class AllergenController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validateAllergen($request);
         $resultResponse = new ResultResponse();
 
         try {
@@ -172,6 +172,8 @@ class AllergenController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
+            $this->validateAllergen($request);
+
             $allergen = Allergen::findOrFail($id);
 
             $allergen->name = $request->get('name', $allergen->name);
@@ -226,5 +228,15 @@ class AllergenController extends Controller
             );
         }
         return response()->json($resultResponse);
+    }
+
+    private function validateAllergen($request)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required|unique:App\Models\Allergen,name|max:200',
+            'description' => 'required|max:200',
+            'icon_name' => 'required|max:200',
+            'risk' => 'required|integer|between:0,10'
+        ]);
     }
 }
