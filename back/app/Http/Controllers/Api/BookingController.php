@@ -36,11 +36,11 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validateBooking($request);
-
         $resultResponse = new ResultResponse();
 
         try {
+            $this->validateBooking($request);
+
             $newBooking   = new Booking([
                 'booker_name' => $request->get('booker_name'),
                 'booker_phone' => $request->get('booker_phone'),
@@ -160,10 +160,11 @@ class BookingController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validateBooking($request);
         $resultResponse = new ResultResponse();
 
         try {
+            $this->validateBooking($request);
+
             $booking = Booking::findOrFail($id);
 
             $booking->booker_name = $request->get('booker_name');
@@ -197,6 +198,8 @@ class BookingController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
+            $this->validateBooking($request);
+
             $booking = Booking::findOrFail($id);
 
             $booking->booker_name = $request->get('booker_name', $booking->booker_name);
@@ -252,5 +255,16 @@ class BookingController extends Controller
             );
         }
         return response()->json($resultResponse);
+    }
+
+    private function validateBooking($request)
+    {
+        $validatedData = $request->validate([
+            'booker_name' => 'required|unique:App\Models\Allergen,booker_name|max:200',
+            'booker_phone' => 'required|numeric|digits:9',
+            'booker_email' => 'required|email',
+            'people_quantity' => 'required|integer|between:0,50',
+            'date' => 'required|date'
+        ]);
     }
 }
