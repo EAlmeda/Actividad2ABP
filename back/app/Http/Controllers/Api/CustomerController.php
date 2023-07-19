@@ -42,6 +42,8 @@ class CustomerController extends Controller
 
         $password = Hash::make($request->get('password'));
         try {
+            $this -> validateCustomer($request);
+
             $newCustomer   = new Customer([
                 'name' => $request->get('name'),
                 'surname_1' => $request->get('surname_1'),
@@ -170,11 +172,11 @@ class CustomerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        # TODO validateCustomer function
-        # $this->validateCustomer($request);
         $resultResponse = new ResultResponse();
 
         try {
+            $this -> validateCustomer($request);
+
             $customer = Customer::findOrFail($id);
 
             $password = Hash::make($request->get('password'));
@@ -213,6 +215,8 @@ class CustomerController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
+            $this -> validateCustomer($request);
+
             $customer = Customer::findOrFail($id);
 
             $password = $request->get('password');
@@ -274,5 +278,18 @@ class CustomerController extends Controller
             );
         }
         return response()->json($resultResponse);
+    }
+
+    private function validateCustomer($request)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required|max:200',
+            'surname_1' => 'required|max:200',
+            'surname_2' => 'required|max:200',
+            'birth_date' => 'required|date',
+            'phone' => 'required|numeric|digits:9',
+            'email' => 'required|unique:App\Models\Customer,email|email',
+            'address' => 'required|max:200'
+        ]);
     }
 }
