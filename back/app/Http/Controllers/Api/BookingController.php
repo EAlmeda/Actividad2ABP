@@ -44,10 +44,9 @@ class BookingController extends Controller
             $newBooking   = new Booking([
                 'booker_name' => $request->get('booker_name'),
                 'booker_phone' => $request->get('booker_phone'),
-                'booker_time' => $request->get('booker_time'),
+                'booker_email' => $request->get('booker_email'),
                 'people_quantity' => $request->get('people_quantity'),
                 'date' => $request->get('date'),
-                'time' => $request->get('time'),
             ]);
 
             $newBooking->save();
@@ -137,9 +136,9 @@ class BookingController extends Controller
         return response()->json($resultResponse);
     }
 
-    public function findByDateTime($value)
+    public function findByDate($value)
     {
-        $columns = ['date', 'time'];
+        $columns = ['date'];
 
         $resultResponse = ApiExtensions::findByColumns(Booking::class, $columns, $value);
 
@@ -149,7 +148,7 @@ class BookingController extends Controller
     public function findByAllColumns($value)
     {
         # TODO Ensure that all the columns need to be indexed. It makes no sense we need the booking_time to search when having the rest of values.
-        $columns = ['booker_name', 'booker_phone', 'date', 'time'];
+        $columns = ['booker_name', 'booker_phone', 'booker_email', 'people_quantity', 'date'];
 
         $resultResponse = ApiExtensions::findByColumns(Booking::class, $columns, $value);
 
@@ -167,12 +166,11 @@ class BookingController extends Controller
         try {
             $booking = Booking::findOrFail($id);
 
-            $booking->name = $request->get('name');
-            $booking->surname_1 = $request->get('surname_1');
-            $booking->booker_time = $request->get('booker_time');
+            $booking->booker_name = $request->get('booker_name');
+            $booking->booker_phone = $request->get('booker_phone');
+            $booking->booker_email = $request->get('booker_email');
             $booking->people_quantity = $request->get('people_quantity');
             $booking->date = $request->get('date');
-            $booking->time = $request->get('time');
 
             $booking->save();
 
@@ -201,12 +199,11 @@ class BookingController extends Controller
         try {
             $booking = Booking::findOrFail($id);
 
-            $booking->name = $request->get('name', $booking->name);
-            $booking->surname_1 = $request->get('surname_1', $booking->surname_1);
-            $booking->booker_time = $request->get('booker_time', $booking->booker_time);
+            $booking->booker_name = $request->get('booker_name', $booking->booker_name);
+            $booking->booker_phone = $request->get('booker_phone', $booking->booker_phone);
+            $booking->booker_email = $request->get('booker_email', $booking->booker_email);
             $booking->people_quantity = $request->get('people_quantity', $booking->people_quantity);
             $booking->date = $request->get('date', $booking->date);
-            $booking->time = $request->get('time', $booking->time);
 
             $booking->save();
 

@@ -58,7 +58,12 @@ Route::controller(BookingController::class)->prefix('booking')->group(function()
     Route::post('/{id}','update');
     Route::patch('/{id}','patch');
     Route::get('/{id}','show');
-    Route::get('/test/{booker_time}','findByBookerTime');
+    Route::get('/name/{name}','findByBookerName');
+    Route::get('/phone/{phone}','findByBookerPhone');
+    Route::get('/email/{email}','findByBookerEmail');
+    Route::get('/people-quantity/{people_quantity}','findByPeopleQuantity');
+    Route::get('/date/{date}','findByDate');
+    Route::get('/all/{value}','findByAllColumns');
     Route::delete('/{id}','destroy');
 });
 
