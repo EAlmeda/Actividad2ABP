@@ -264,4 +264,16 @@ class OnlineOrderController extends Controller
         }
         return response()->json($resultResponse);
     }
+
+    private function validateOnlineOrder($request)
+    {
+        $validatedData = $request->validate([
+            'amount' => 'required|numeric|digits:5',
+            'date' => 'required|date',
+            'expected_date' => 'required|date',
+            'address' => 'required|max:200',
+            'status' => 'required|max:50',
+            'type' => 'required|max:50'
+        ]);
+    }
 }
