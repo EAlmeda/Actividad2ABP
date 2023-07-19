@@ -260,7 +260,7 @@ class BookingController extends Controller
     private function validateBooking($request)
     {
         $validatedData = $request->validate([
-            'booker_name' => 'required|unique:App\Models\Allergen,booker_name|max:200',
+            'booker_name' => 'required|unique:App\Models\Booking,booker_name|max:200',
             'booker_phone' => 'required|numeric|digits:9',
             'booker_email' => 'required|email',
             'people_quantity' => 'required|integer|between:0,50',
