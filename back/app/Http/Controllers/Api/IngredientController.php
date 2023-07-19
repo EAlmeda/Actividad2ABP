@@ -34,11 +34,11 @@ class IngredientController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validateIngredient($request);
-
         $resultResponse = new ResultResponse();
 
         try {
+            $this->validateIngredient($request);
+
             $newIngredient   = new Ingredient([
                 'name' => $request->get('name'),
                 'quantity' => $request->get('quantity'),
@@ -127,10 +127,11 @@ class IngredientController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validateIngredient($request);
         $resultResponse = new ResultResponse();
 
         try {
+            $this->validateIngredient($request);
+
             $ingredient = Ingredient::findOrFail($id);
 
             $ingredient->name = $request->get('name');
@@ -161,6 +162,8 @@ class IngredientController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
+            $this->validateIngredient($request);
+
             $ingredient = Ingredient::findOrFail($id);
 
             $ingredient->name = $request->get('name', $ingredient->name);
@@ -213,5 +216,13 @@ class IngredientController extends Controller
             );
         }
         return response()->json($resultResponse);
+    }
+
+    private function validateIngredient($request)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required|unique:App\Models\Ingredient,name|max:200',
+            'quantity' => 'required|numeric|digits:3',
+        ]);
     }
 }
