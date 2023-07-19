@@ -34,11 +34,12 @@ class KitchenOrderController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validateKitchenOrder($request);
 
         $resultResponse = new ResultResponse();
 
         try {
+            $this->validateKitchenOrder($request);
+
             $newKitchenOrder   = new KitchenOrder([
                 'begin_date' => $request->get('begin_date'),
                 'end_date' => $request->get('end_date'),
@@ -137,10 +138,11 @@ class KitchenOrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validateKitchenOrder($request);
         $resultResponse = new ResultResponse();
 
         try {
+            $this->validateKitchenOrder($request);
+
             $kitchenOrder = KitchenOrder::findOrFail($id);
 
             $kitchenOrder->begin_date = $request->get('begin_date');
@@ -172,6 +174,8 @@ class KitchenOrderController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
+            $this->validateKitchenOrder($request);
+
             $kitchenOrder = KitchenOrder::findOrFail($id);
 
             $kitchenOrder->begin_date = $request->get('begin_date', $kitchenOrder->begin_date);
@@ -225,5 +229,14 @@ class KitchenOrderController extends Controller
             );
         }
         return response()->json($resultResponse);
+    }
+
+    private function validateKitchenOrder($request)
+    {
+        $validatedData = $request->validate([
+            'begin_date' => 'required|date',
+            'end_date' => 'required|date',
+            'status' => 'required|max:50',
+        ]);
     }
 }
