@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Booking } from 'src/models/booking';
+import { Booking } from 'src/models/Booking';
 
 export const loadBookingList = createAction('[Booking] Load booking list');
 export const deleteBooking = createAction(

@@ -1,24 +1,24 @@
 import { EntityAdapter, EntityState, createEntityAdapter } from '@ngrx/entity';
 import { Action, createReducer, on } from '@ngrx/store';
-import { Order } from 'src/models/order';
+import { OnlineOrder } from 'src/models/OnlineOrder';
 import * as fromActions from '../../actions';
 
-export interface OnlineOrderState extends EntityState<Order> {
-  selectedOrder: Order | null;
+export interface OnlineOrderState extends EntityState<OnlineOrder> {
+  selectedOrder: OnlineOrder | null;
 }
 
-export interface KitchenOrderState extends EntityState<Order> {
-  selectedOrder: Order | null;
+export interface KitchenOrderState extends EntityState<OnlineOrder> {
+  selectedOrder: OnlineOrder | null;
 }
 
-export const onlineOrderAdapter: EntityAdapter<Order> =
-  createEntityAdapter<Order>({
-    selectId: (order: Order) => order.id,
+export const onlineOrderAdapter: EntityAdapter<OnlineOrder> =
+  createEntityAdapter<OnlineOrder>({
+    selectId: (order: OnlineOrder) => order.id,
   });
 
-export const kitchenOrderAdapter: EntityAdapter<Order> =
-  createEntityAdapter<Order>({
-    selectId: (order: Order) => order.id,
+export const kitchenOrderAdapter: EntityAdapter<OnlineOrder> =
+  createEntityAdapter<OnlineOrder>({
+    selectId: (order: OnlineOrder) => order.id,
   });
 
 export const defaultOnlineOrderState: OnlineOrderState = {
@@ -46,15 +46,15 @@ export const onlineOrderReducer = createReducer(
   })),
   on(
     fromActions.loadOnlineOrderById,
-    (state: OnlineOrderState, order: Order) => ({
+    (state: OnlineOrderState, order: OnlineOrder) => ({
       ...state,
       selectedOrder: order,
     })
   ),
-  on(fromActions.addOnlineOrder, (state: OnlineOrderState, order: Order) =>
+  on(fromActions.addOnlineOrder, (state: OnlineOrderState, order: OnlineOrder) =>
     onlineOrderAdapter.upsertOne(order, state)
   ),
-  on(fromActions.updateOnlineOrder, (state: OnlineOrderState, order: Order) =>
+  on(fromActions.updateOnlineOrder, (state: OnlineOrderState, order: OnlineOrder) =>
     onlineOrderAdapter.updateOne({ id: order.id, changes: { ...order } }, state)
   ),
   on(
@@ -71,15 +71,15 @@ export const kitchenOrderReducer = createReducer(
   })),
   on(
     fromActions.loadKitchenOrderById,
-    (state: KitchenOrderState, order: Order) => ({
+    (state: KitchenOrderState, order: OnlineOrder) => ({
       ...state,
       selectedOrder: order,
     })
   ),
-  on(fromActions.addKitchenOrder, (state: KitchenOrderState, order: Order) =>
+  on(fromActions.addKitchenOrder, (state: KitchenOrderState, order: OnlineOrder) =>
     kitchenOrderAdapter.upsertOne(order, state)
   ),
-  on(fromActions.updateKitchenOrder, (state: KitchenOrderState, order: Order) =>
+  on(fromActions.updateKitchenOrder, (state: KitchenOrderState, order: OnlineOrder) =>
     kitchenOrderAdapter.updateOne(
       { id: order.id, changes: { ...order } },
       state
@@ -100,8 +100,8 @@ export function kitchenReducer(state: OnlineOrderState, action: Action) {
   return kitchenOrderAdapter(state, action);
 }
 
-export const selectOnlineOrderList = (state: OnlineOrderState): Order[] =>
+export const selectOnlineOrderList = (state: OnlineOrderState): OnlineOrder[] =>
   onlineOrderAdapter.getSelectors().selectAll(state) ?? [];
 
-export const selectKitchenOrderList = (state: KitchenOrderState): Order[] =>
+export const selectKitchenOrderList = (state: KitchenOrderState): OnlineOrder[] =>
   kitchenOrderAdapter.getSelectors().selectAll(state) ?? [];

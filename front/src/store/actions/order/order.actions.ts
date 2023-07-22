@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Order } from 'src/models/order';
+import { OnlineOrder } from 'src/models/OnlineOrder';
 
 export const loadOnlineOrderList = createAction(
   '[Online Order] Load order list'
@@ -17,19 +17,19 @@ export const loadKitchenOrderById = createAction(
 );
 export const updateOnlineOrder = createAction(
   '[Online Order] Update order',
-  props<{ order: Order }>()
+  props<{ order: OnlineOrder }>()
 );
 export const updateKitchenOrder = createAction(
   '[Kitchen Order] Update order',
-  props<{ order: Order }>()
+  props<{ order: OnlineOrder }>()
 );
 export const addOnlineOrder = createAction(
   '[Online Order] Add order',
-  props<{ order: Order }>()
+  props<{ order: OnlineOrder }>()
 );
 export const addKitchenOrder = createAction(
   '[Kitchen Order] Add order',
-  props<{ order: Order }>()
+  props<{ order: OnlineOrder }>()
 );
 export const deleteOnlineOrder = createAction(
   '[Online Order] Delete order',

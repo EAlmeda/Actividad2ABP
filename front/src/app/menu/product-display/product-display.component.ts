@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Store } from '@ngrx/store';
 import * as fromActions from '../../../store/actions';
-import { Product } from 'src/models/product';
+import { Product } from 'src/models/Product';
 
 @Component({
   selector: 'app-product-display',

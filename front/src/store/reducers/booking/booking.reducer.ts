@@ -1,6 +1,6 @@
 import { EntityAdapter, EntityState, createEntityAdapter } from '@ngrx/entity';
 import { Action, createReducer, on } from '@ngrx/store';
-import { Booking } from 'src/models/booking';
+import { Booking } from 'src/models/Booking';
 import * as fromActions from '../../actions';
 
 export interface BookingState extends EntityState<Booking> {}
