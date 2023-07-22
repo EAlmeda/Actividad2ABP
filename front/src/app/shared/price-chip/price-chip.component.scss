@@ -2,15 +2,15 @@
     display: flex;
     width: 4rem;
     height: 0.5rem;
-    padding: 16px;
+    padding: $unit * 2;
     align-items: center;
     flex-shrink: 0;
-    border-radius: 28px;
-    background: #3D5A2F;
+    border-radius: $unit * 3.5;
+    background: $dark-green;
 
     &__text {
-        color: white;
-        font-size: 14px;
-        padding-top: 12px;
+        color: $white;
+        font-size: $unit * 1.75;
+        padding-top: $unit * 1.5;
     }
 }

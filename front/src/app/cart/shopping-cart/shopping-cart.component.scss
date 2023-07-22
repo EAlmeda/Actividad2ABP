@@ -1,21 +1,20 @@
 .cart {
-    padding: 32px;
+    padding: $unit * 4;
 
     &__cart-display{
         display: grid;
-        gap: 48px;
+        gap: $unit * 6;
         grid-template-columns: repeat(auto-fill, minmax(42rem, 1fr));
-        padding: 16px;
+        padding: $unit * 2;
     }
 
     &__actions {
-        
         display: flex;
         justify-content: end;
-        gap: 8px;
+        gap: $unit;
 
         &--button {
-            background-color: #CAE1A4;
+            background-color: $green;
         }
     }
 }
