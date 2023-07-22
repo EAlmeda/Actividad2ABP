@@ -61,7 +61,7 @@ Route::controller(BookingController::class)->prefix('booking')->group(function()
     Route::get('/name/{name}','findByBookerName');
     Route::get('/phone/{phone}','findByBookerPhone');
     Route::get('/email/{email}','findByBookerEmail');
-    Route::get('/people-quantity/{people_quantity}','findByPeopleQuantity');
+    Route::get('/people-quantity/{people-quantity}','findByPeopleQuantity');
     Route::get('/date/{date}','findByDate');
     Route::get('/all/{value}','findByAllColumns');
     Route::delete('/{id}','destroy');
@@ -117,7 +117,7 @@ Route::controller(IngredientController::class)->prefix('ingredient')->group(func
 });
 
 
-Route::controller(KitchenOrderController::class)->prefix('products')->group(function(){
+Route::controller(KitchenOrderController::class)->prefix('kitchen-order')->group(function(){
     Route::get('/','index');
     Route::post('/','store');
     Route::post('/{id}','update');
@@ -131,7 +131,7 @@ Route::controller(KitchenOrderController::class)->prefix('products')->group(func
 });
 
 
-Route::controller(OnlineOrderController::class)->prefix('products')->group(function(){
+Route::controller(OnlineOrderController::class)->prefix('online-order')->group(function(){
     Route::get('/','index');
     Route::post('/','store');
     Route::post('/{id}','update');

@@ -1,6 +1,9 @@
-<div class="orders">
-    <h1>Pedidos</h1>
-    <div class="orders__order-display">
-        <app-order-display *ngFor="let order of orders" [order]="order"></app-order-display>
-    </div>
+<div class="orders" *ngIf="orders$ | async as orders">
+  <h1>Pedidos</h1>
+  <div class="orders__order-display">
+    <app-order-display
+      *ngFor="let order of orders"
+      [order]="order"
+    ></app-order-display>
+  </div>
 </div>

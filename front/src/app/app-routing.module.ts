@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BookATableComponent } from './book-a-table/book-atable.component';
+import { BookATableComponent } from './bookings/book-a-table/book-atable.component';
 import { MenuComponent } from './menu/menu-component/menu.component';
 import { OrdersComponent } from './orders/orders.component';
 import { ReviewsComponent } from './reviews/reviews.component';
@@ -15,11 +15,11 @@ const routes: Routes = [
   { path: 'orders', component: OrdersComponent },
   { path: 'reviews', component: ReviewsComponent },
   { path: 'profile', component: ProfileComponent },
-  { path: 'cart', component: ShoppingCartComponent }
+  { path: 'cart', component: ShoppingCartComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
