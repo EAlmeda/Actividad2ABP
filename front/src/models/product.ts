@@ -4,6 +4,7 @@ export interface Product {
   type: string;
   available: boolean;
   price: number;
+  image_path: string;
   description: string;
   route?: string;
 }

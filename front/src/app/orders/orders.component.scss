@@ -1,11 +1,11 @@
 
 .orders {
-    padding: 32px;
+    padding: $unit * 4;
 
     &__order-display{
         display: grid;
-        gap: 48px;
+        gap: $unit * 6;
         grid-template-columns: repeat(auto-fill, minmax(42rem, 1fr));
-        padding: 16px;
+        padding: $unit * 2;
     }
 }

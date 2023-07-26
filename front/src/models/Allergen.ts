@@ -1,6 +1,7 @@
-import { Ingredient } from "./Ingredient";
+import { Ingredient } from './Ingredient';
 
 export interface Allergen {
+  id: string;
   name: string;
   description: string;
   icon_name: string;

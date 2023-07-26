@@ -35,9 +35,17 @@ $actividad2ABP-theme: mat.define-light-theme((
 
 /* You can add global styles to this file, and also import other style files */
 
+/* colors */
+$light-green: #E3F5C5;
+$green: #CAE1A4;
+$dark-green: #3D5A2F;
+$white: white;
+
+$unit: 8px;
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 mat-icon {
-  color: #3D5A2F;
+  color: $dark-green;
 }

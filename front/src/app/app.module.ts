@@ -6,39 +6,39 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { SharedModule } from './shared/shared.module';
-import { BookATableComponent } from './book-a-table/book-atable.component';
-import { MenuComponent } from './menu/menu-component/menu.component';
-import { OrdersComponent } from './orders/orders.component';
 import { ReviewsComponent } from './reviews/reviews.component';
 import { HomeComponent } from './home/home.component';
 import { MenuModule } from './menu/menu.module';
 import { UsersModule } from './users/users.module';
 import { CartModule } from './cart/cart.module';
-import { OrderDisplayComponent } from './orders/order-display/order-display.component';
 import { StoreModule } from '@ngrx/store';
+import { OrdersModule } from './orders/orders.module';
+import { BookingsModule } from './bookings/bookings.module';
+import { reducers } from 'src/store';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavBarComponent,
-    BookATableComponent,
-    OrdersComponent,
     ReviewsComponent,
     HomeComponent,
-    OrderDisplayComponent, 
-    
   ],
   imports: [
     BrowserModule,
     SharedModule,
     AppRoutingModule,
+    BookingsModule,
     MenuModule,
     UsersModule,
     CartModule,
+    OrdersModule,
     BrowserAnimationsModule,
-    StoreModule.forRoot({}, {})
+    StoreModule.forRoot({}, {}),
+    StoreModule.forFeature('state', reducers),
+    EffectsModule.forRoot([]),
+    EffectsModule.forFeature(effects),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -114,5 +114,8 @@
       }
     }
   },
-  "defaultProject": "actividad2ABP"
+  "defaultProject": "actividad2ABP",
+  "cli": {
+    "analytics": "2b0036d4-26a1-4eaa-b820-d4333d98f7b4"
+  }
 }

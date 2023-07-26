@@ -1,7 +1,8 @@
-import { Employee } from "./Employee";
-import { KitchenOrder } from "./KitchenOrder";
+import { Employee } from './Employee';
+import { KitchenOrder } from './KitchenOrder';
 
-export interface Board{
+export interface Board {
+  id: string;
   capacity: number;
   available: boolean;
   kitchenOrders?: KitchenOrder[];
