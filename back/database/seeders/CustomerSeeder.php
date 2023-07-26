@@ -30,7 +30,7 @@ class CustomerSeeder extends Seeder
             'GMAIL', 'YAHOO', 'OUTLOOK', 'HOTMAIL'
         ];
 
-        $createMultipleUsers = [];
+        $createMultipleCustomers = [];
 
         for ($i = 1; $i <= 50; $i++){
             $random_name = array_rand($spanishNames, 1);
@@ -43,7 +43,7 @@ class CustomerSeeder extends Seeder
             $random_password = strtolower(Str::random(16));
             $random_address = Str::random(50);
 
-            $createMultipleUsers[] = [
+            $createMultipleCustomers[] = [
                 'name' => strtolower($spanishNames[$random_name]),
                 'surname_1' => strtolower($spanishSurnames[$random_surname_1]),
                 'surname_2' => strtolower($spanishSurnames[$random_surname_2]),
@@ -55,6 +55,6 @@ class CustomerSeeder extends Seeder
             ];
         }
 
-        DB::table('customers')->insert($createMultipleUsers);
+        DB::table('customers')->insert($createMultipleCustomers);
     }
 }
