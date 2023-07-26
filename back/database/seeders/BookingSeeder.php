@@ -4,12 +4,12 @@ namespace Database\Seeders;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class EmployeeSeeder extends Seeder
+class BookingSeeder extends Seeder
 {
     /**
      * Seed the application's database.
@@ -24,48 +24,36 @@ class EmployeeSeeder extends Seeder
         $spanishSurnames = [
             'GARCIA', 'RODRIGUEZ', 'GONZALEZ', 'FERNANDEZ', 'LOPEZ', 'MARTINEZ', 'SANCHEZ', 'PEREZ', 'GOMEZ', 'MARTIN', 'JIMENEZ', 'HERNANDEZ', 'RUIZ', 'DIAZ', 'MORENO', 'MUÑOZ', 'ALVAREZ', 'ROMERO', 'GUTIERREZ', 'ALONSO', 'NAVARRO', 'TORRES', 'DOMINGUEZ', 'RAMOS', 'VAZQUEZ', 'RAMIREZ', 'GIL', 'SERRANO', 'MORALES', 'MOLINA', 'BLANCO', 'SUAREZ', 'CASTRO', 'ORTEGA', 'DELGADO', 'ORTIZ', 'MARIN', 'RUBIO', 'NUÑEZ', 'MEDINA', 'SANZ', 'CASTILLO', 'IGLESIAS', 'CORTES', 'GARRIDO', 'SANTOS', 'GUERRERO', 'LOZANO', 'CANO', 'CRUZ', 'MENDEZ', 'FLORES', 'PRIETO', 'HERRERA', 'PEÑA', 'LEON', 'MARQUEZ', 'CABRERA', 'GALLEGO', 'CALVO', 'VIDAL', 'CAMPOS', 'REYES', 'VEGA', 'FUENTES', 'CARRASCO', 'DIEZ', 'AGUILAR', 'CABALLERO', 'NIETO', 'SANTANA', 'VARGAS', 'PASCUAL', 'GIMENEZ', 'HERRERO', 'HIDALGO', 'MONTERO', 'LORENZO', 'SANTIAGO', 'BENITEZ', 'DURAN', 'IBAÑEZ', 'ARIAS', 'MORA', 'FERRER', 'CARMONA', 'VICENTE', 'ROJAS', 'SOTO', 'CRESPO', 'ROMAN', 'PASTOR', 'VELASCO', 'PARRA', 'SAEZ', 'MOYA', 'BRAVO', 'RIVERA', 'GALLARDO', 'SOLER'
         ];
-        
-        $teams = [
-            'WAITER', 'COOKER', 'DELIVERY', 'CHEF', 'MANAGER'
-        ];
 
         $emailHosts = [
             'GMAIL', 'YAHOO', 'OUTLOOK', 'HOTMAIL'
         ];
 
-        $work_shifts = [
-            'MORNING', 'AFTERNOON', 'EVENING'
-        ];
+        $createMultipleBookings = [];
 
-        $createMultipleEmployees = [];
-
-        for ($i = 1; $i <= 15; $i++){
+        for ($i = 1; $i <= 25; $i++){
             $random_name = array_rand($spanishNames, 1);
             $random_surname_1 = array_rand($spanishSurnames, 1);
             $random_surname_2 = array_rand($spanishSurnames, 1);
-            $random_team = array_rand($teams, 1);
             $random_phone = random_int(600000000, 1000000000);
             $random_email_host = array_rand($emailHosts, 1);
             $random_email = strtolower($spanishNames[$random_name] . $spanishSurnames[$random_surname_1] . $spanishSurnames[$random_surname_2] . '@'. $emailHosts[$random_email_host] . '.com');
-            $random_work_shift = array_rand($work_shifts, 1);
-            $random_bank_account = 'ES'.strval(sprintf('%04u', random_int(0, 9999))).strval(sprintf('%04u', random_int(0, 9999))).strval(sprintf('%02u', random_int(0, 99))).strval(sprintf('%04u', random_int(0, 9999))).strval(sprintf('%04u', random_int(0, 9999))).strval(sprintf('%02u', random_int(0, 99)));
-            $random_password = strtolower(Str::random(16));
-            $random_address = Str::random(50);
+            $random_people_qty = random_int(1, 25);
+            $random_date = Carbon::today()->addDays(rand(0, 30));
+            $random_date -> hour = random_int(12, 23);
+            $random_date -> minute = random_int(0, 59);
+            $random_date -> second = 0;
 
-            $createMultipleEmployees[] = [
-                'name' => strtolower($spanishNames[$random_name]),
-                'surname_1' => strtolower($spanishSurnames[$random_surname_1]),
-                'surname_2' => strtolower($spanishSurnames[$random_surname_2]),
-                'team' => strtolower($teams[$random_team]),
-                'phone' => $random_phone,
-                'email' => strtolower($random_email),
-                'work_shift' => strtolower($work_shifts[$random_work_shift]),
-                'bank_account' => $random_bank_account,
-                'password' => Hash::make($random_password),
-                'address' => $random_address
+            $createMultipleBookings[] = [
+                'booker_name' => strtolower($spanishNames[$random_name]),
+                'booker_phone' => $random_phone,
+                'booker_email' => strtolower($random_email),
+                'people_quantity' => $random_people_qty,
+                'date' => $random_date,
+                'time' => $random_date,
             ];
         }
 
-        DB::table('employees')->insert($createMultipleEmployees);
+        DB::table('bookings')->insert($createMultipleBookings);
     }
 }

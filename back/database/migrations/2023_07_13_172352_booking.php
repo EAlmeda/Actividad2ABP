@@ -22,6 +22,8 @@ return new class extends Migration
             $table->string('booker_name',200);
             $table->integer('booker_phone');
             $table->integer('people_quantity');
+            $table->dateTime('time',200);
+
 
             $table->timestamps();
             $table->softDeletes();

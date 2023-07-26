@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('email', 200)->unique();
             $table->string('surname_1', 200);
             $table->string('surname_2', 200);
-            $table->string('password', 25);
+            $table->string('password', 200);
             $table->string('bank_account', 200);
             $table->integer('phone');
             $table->string('work_shift', 200);
