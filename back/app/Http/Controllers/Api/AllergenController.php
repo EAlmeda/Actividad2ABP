@@ -7,7 +7,6 @@ use App\Libs\ApiExtensions;
 use App\Models\Allergen;
 use Illuminate\Http\Request;
 use App\Libs\ResultResponse;
-use Illuminate\Support\Facades\Log;
 
 class AllergenController extends Controller
 {
