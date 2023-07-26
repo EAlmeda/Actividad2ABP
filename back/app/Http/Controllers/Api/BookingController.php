@@ -4,11 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Libs\ApiExtensions;
-use App\Libs\FindExtensions;
 use App\Models\Booking;
 use Illuminate\Http\Request;
 use App\Libs\ResultResponse;
-use App\Models\Allergen;
 
 class BookingController extends Controller
 {
