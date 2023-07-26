@@ -15,12 +15,13 @@ return new class extends Migration
             $table->id();
 
             $table->string('name',200);
-            $table->string('password',200);
-            $table->string('email',200)->unique();
             $table->string('surname_1',200);
             $table->string('surname_2',200);
+            $table->date('birth_date');
             $table->integer('phone');
-            $table->date('bith_date');
+            $table->string('email',200)->unique();
+            $table->string('password',200);
+            $table->string('address', 200);
 
             $table->timestamps();
             $table->softDeletes();
