@@ -1,4 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Observable } from 'rxjs';
+import { ProductService } from 'src/app/menu/product-service.service';
+import { ProductInCart } from 'src/models/ProductInCart';
 
 @Component({
   selector: 'app-shopping-cart-item',
@@ -7,11 +10,16 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ShoppingCartItemComponent implements OnInit {
 
-  @Input() cartItem: any;
-  
-  constructor() { }
+  @Input() cartItem: ProductInCart;
+  @Output() itemRemoved = new EventEmitter<ProductInCart>();
+  constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
+  }
+
+  removeItemFromCart(){
+    this.productService.removeFromCart(this.cartItem);
+    this.itemRemoved.emit(this.cartItem);
   }
 
 }

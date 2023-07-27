@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Product } from 'src/models/Product';
+import { ProductInCart } from 'src/models/ProductInCart';
 
 @Injectable({
   providedIn: 'root',
@@ -11,11 +12,28 @@ export class ProductService {
   constructor(private http: HttpClient) {}
 
   public addToCart(product: Product) {
-    var cart = JSON.parse(localStorage.getItem('cart'));
+    var cart:ProductInCart[] = JSON.parse(localStorage.getItem('cart'));
     if (cart == undefined) cart = [];
-    cart.push(product);
+    var i=cart.findIndex(c=>c.id==product.id);
+    if(i>=0){
+       cart[i].quantity++;
+    }
+    else
+      cart.push({
+        quantity:1,
+        ...product
+      });
     localStorage.setItem('cart', JSON.stringify(cart));
   }
+
+  public removeFromCart(product: Product) {
+    var cart:ProductInCart[] = JSON.parse(localStorage.getItem('cart'));
+    var i=cart.findIndex(c=>c.id==product.id);
+
+    cart.splice(i,1)
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }
+
   public getCart() {
     var cart = JSON.parse(localStorage.getItem('cart'));
     if (cart == undefined) cart = [];

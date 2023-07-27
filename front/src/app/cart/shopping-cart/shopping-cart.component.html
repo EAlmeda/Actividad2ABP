@@ -1,7 +1,7 @@
 <div class="cart">
     <h1>Tu pedido</h1>
     <div class="cart__cart-display">
-        <app-shopping-cart-item *ngFor="let cartItem of shoppingCartItems" [cartItem]="cartItem"></app-shopping-cart-item>
+        <app-shopping-cart-item *ngFor="let cartItem of shoppingCartItems" [cartItem]="cartItem" (itemRemoved)="updateCart()"></app-shopping-cart-item>
     </div>
 
     <div class="cart__actions">
