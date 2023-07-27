@@ -10,8 +10,21 @@ import { Product } from 'src/models/Product';
 export class ProductService {
   constructor(private http: HttpClient) {}
 
-  public getProductList(page:number): Observable<any>{
-    return this.http.get<Product[]>(environment.serviceURL + '/product/?page='+page);
+  public addToCart(product: Product) {
+    var cart = JSON.parse(localStorage.getItem('cart'));
+    if (cart == undefined) cart = [];
+    cart.push(product);
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }
+  public getCart() {
+    var cart = JSON.parse(localStorage.getItem('cart'));
+    if (cart == undefined) cart = [];
+    return cart;
+  }
+  public getProductList(page: number): Observable<any> {
+    return this.http.get<Product[]>(
+      environment.serviceURL + '/product/?page=' + page
+    );
   }
 
   public saveProduct(product: Product): Observable<void> {

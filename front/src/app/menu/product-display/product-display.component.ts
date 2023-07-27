@@ -3,6 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Store } from '@ngrx/store';
 import * as fromActions from '../../../store/actions';
 import { Product } from 'src/models/Product';
+import { ProductService } from '../product-service.service';
 
 @Component({
   selector: 'app-product-display',
@@ -13,11 +14,12 @@ export class ProductDisplayComponent implements OnInit {
   @Input() public product: Product | undefined;
   @Output() onAddToCart: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor(private _snackBar: MatSnackBar, private store: Store) {}
+  constructor(private _snackBar: MatSnackBar, private store: Store, private productService: ProductService) {}
 
   ngOnInit(): void {}
 
   addToTheCart() {
+    this.productService.addToCart(this.product);
     this.store.dispatch(
       fromActions.addProductToTheCart({ product: this.product })
     );
