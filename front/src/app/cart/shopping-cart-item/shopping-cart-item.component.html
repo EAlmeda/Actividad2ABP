@@ -4,7 +4,7 @@
     <mat-label class="cart-item-quantity"> x {{cartItem.quantity}} </mat-label>
   </mat-card-header>
   <app-price-chip class="cart-product-price" [price]="cartItem.price"></app-price-chip>
-  <img mat-card-image class="item-card__img" [src]="'../../../../assets/'+cartItem.image_path" />
+  <img class="item-card__img" alt="Comida" [src]="'../assets/'+cartItem.image_path" />
   <mat-card-actions class="item-card__actions">
     <button mat-icon-button aria-hidden="false" matTooltip="Eliminar del carrito." (click)="removeItemFromCart()">
       <mat-icon class="remove-cart-icon" aria-hidden="false" aria-label="Shopping cart icon">
