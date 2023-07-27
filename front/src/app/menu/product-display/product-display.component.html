@@ -15,12 +15,12 @@
     </mat-card-content>
     <mat-card-actions class="card__container-actions">
         <button mat-icon-button matTooltip="Añadir a favoritos." (click)="addToFavouriteList()">
-            <mat-icon aria-hidden="false" aria-label="Favorite" >
+            <mat-icon class="favorite-icon" aria-hidden="false" aria-label="Favorite" >
                 <span class="material-symbols-outlined">favorite</span>
             </mat-icon>
         </button>
         <button mat-icon-button [disabled]="!product.available" matTooltip="Añadir al carrito." (click)="addToTheCart()">
-            <mat-icon aria-hidden="false" aria-label="Shopping cart icon" >
+            <mat-icon class="cart-icon" aria-hidden="false" aria-label="Shopping cart icon" >
                 <span class="material-symbols-outlined">shopping_cart_checkout</span>
             </mat-icon>
         </button>
