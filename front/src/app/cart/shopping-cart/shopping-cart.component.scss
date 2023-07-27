@@ -4,7 +4,7 @@
     &__cart-display{
         display: grid;
         gap: 48px;
-        grid-template-columns: repeat(auto-fill, minmax(42rem, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(21rem, 42rem));
         padding: 16px;
     }
 
@@ -18,4 +18,8 @@
             background-color: #CAE1A4;
         }
     }
+}
+
+.cart__actions {
+    padding-top: 20px;
 }
