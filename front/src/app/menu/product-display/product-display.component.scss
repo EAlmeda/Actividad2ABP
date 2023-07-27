@@ -6,6 +6,7 @@ $blue: #9CCC65;
 
 .card {
     max-width: 300px;
+    height: 500px;
     border-radius: 10px;
     box-shadow: 0 4px 8px 0 $grey-light;
     transition: 0.3s;
@@ -17,6 +18,7 @@ $blue: #9CCC65;
         width: 100%;
         margin-left: auto;
         margin-right: auto;
+        height: 35%;
       }
 
     &__container-actions {
