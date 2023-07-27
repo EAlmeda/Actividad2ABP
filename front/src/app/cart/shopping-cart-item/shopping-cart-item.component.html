@@ -3,7 +3,7 @@
     <mat-card-title>{{ cartItem.name }} </mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <img class="item-card__img" alt="Comida" src="../assets/gyozas.jpg" />
+    <img class="item-card__img" alt="Comida" [src]="'../assets/'+cartItem.image_path" />
     <app-price-chip [price]="cartItem.price"></app-price-chip>
     <mat-form-field class="example-full-width">
       <mat-label>Cantidad</mat-label>
