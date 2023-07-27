@@ -6,7 +6,7 @@ $blue: #9CCC65;
 
 .card {
     max-width: 300px;
-    height: 500px;
+    height: 450px;
     border-radius: 10px;
     box-shadow: 0 4px 8px 0 $grey-light;
     transition: 0.3s;
@@ -44,4 +44,12 @@ $blue: #9CCC65;
 
 .cart-icon:hover {
   color: rgb(0, 11, 170);
+}
+
+p{
+  height: 120px;
+}
+
+.separate{
+  margin-right: auto;
 }

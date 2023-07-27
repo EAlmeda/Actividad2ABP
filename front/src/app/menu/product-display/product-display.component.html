@@ -9,11 +9,10 @@
       <p>
         {{product.description}}
       </p>
-      <div>
-        <app-price-chip [price]="product.price"></app-price-chip>
-      </div>
     </mat-card-content>
     <mat-card-actions class="card__container-actions">
+      <app-price-chip class="separate" [price]="product.price"></app-price-chip>
+
         <button mat-icon-button matTooltip="Añadir a favoritos." (click)="addToFavouriteList()">
             <mat-icon class="favorite-icon" aria-hidden="false" aria-label="Favorite" >
                 <span class="material-symbols-outlined">favorite</span>
