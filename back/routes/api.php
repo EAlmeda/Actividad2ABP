@@ -117,7 +117,7 @@ Route::controller(IngredientController::class)->prefix('ingredient')->group(func
 });
 
 
-Route::controller(KitchenOrderController::class)->prefix('products')->group(function(){
+Route::controller(KitchenOrderController::class)->prefix('kitchen-order')->group(function(){
     Route::get('/','index');
     Route::post('/','store');
     Route::post('/{id}','update');
@@ -131,7 +131,7 @@ Route::controller(KitchenOrderController::class)->prefix('products')->group(func
 });
 
 
-Route::controller(OnlineOrderController::class)->prefix('products')->group(function(){
+Route::controller(OnlineOrderController::class)->prefix('online-order')->group(function(){
     Route::get('/','index');
     Route::post('/','store');
     Route::post('/{id}','update');
@@ -148,7 +148,7 @@ Route::controller(OnlineOrderController::class)->prefix('products')->group(funct
 });
 
 
-Route::controller(ProductController::class)->prefix('products')->group(function(){
+Route::controller(ProductController::class)->prefix('product')->group(function(){
     Route::get('/','index');
     Route::post('/','store');
     Route::post('/{id}','update');
