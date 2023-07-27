@@ -17,6 +17,7 @@ class Product extends Model
         'name',
         'price',
         'available',
+        'recipe',
         'image_path',
         'description',
         'type'

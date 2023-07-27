@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name', 200);
             $table->double('price');
             $table->boolean('available');
-            $table->string('recipe',200);
+            $table->string('recipe',1500);
             $table->string('image_path',200);
             $table->string('description', 200);
             $table->enum('type', ['dish', 'drink']);

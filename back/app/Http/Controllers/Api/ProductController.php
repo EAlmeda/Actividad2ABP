@@ -44,6 +44,7 @@ class ProductController extends Controller
                 'name' => $request->get('name'),
                 'price' => $request->get('price'),
                 'available' => $request->get('available'),
+                'recipe' => $request->get('recipe'),
                 'image_path' => $request->get('image_path'),
                 'description' => $request->get('description'),
                 'type' => $request->get('type'),
@@ -125,6 +126,15 @@ class ProductController extends Controller
         return response()->json($resultResponse);
     }
 
+    public function findByRecipe($value)
+    {
+        $columns = ['recipe'];
+
+        $resultResponse = ApiExtensions::findByColumns(Product::class, $columns, $value);
+
+        return response()->json($resultResponse);
+    }
+
     public function findByImagePath($value)
     {
         $columns = ['image_path'];
@@ -154,7 +164,7 @@ class ProductController extends Controller
 
     public function findByAllColumns($value)
     {
-        $columns = ['name', 'price', 'available', 'image_path', 'description', 'type'];
+        $columns = ['name', 'price', 'available', 'recipe', 'image_path', 'description', 'type'];
 
         $resultResponse = ApiExtensions::findByColumns(Product::class, $columns, $value);
 
@@ -176,6 +186,7 @@ class ProductController extends Controller
             $product->name = $request->get('name');
             $product->price = $request->get('price');
             $product->available = $request->get('available');
+            $product->recipe = $request->get('recipe');
             $product->image_path = $request->get('image_path');
             $product->description = $request->get('description');
             $product->type = $request->get('type');
@@ -212,6 +223,7 @@ class ProductController extends Controller
             $product->name = $request->get('name', $product->title);
             $product->price = $request->get('price', $product->price);
             $product->available = $request->get('available', $product->available);
+            $product->recipe = $request->get('recipe', $product->recipe);
             $product->image_path = $request->get('image_path', $product->image_path);
             $product->description = $request->get('description', $product->description);
             $product->type = $request->get('type', $product->type);
@@ -271,6 +283,7 @@ class ProductController extends Controller
             'name' => 'required|unique:App\Models\Product,name|max:200',
             'price' => 'required|between:0,999.99',
             'available' => 'required|boolean',
+            'recipe' => 'max:1500',
             'image_path' => 'required|max:200',
             'description' => 'required|max:500',
             'type' => 'required|max:50'
