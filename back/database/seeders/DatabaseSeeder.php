@@ -21,6 +21,8 @@ class DatabaseSeeder extends Seeder
             BoardSeeder::class,
             BookingSeeder::class,
             IngredientSeeder::class,
+            KitchenOrderSeeder::class,
+            OnlineOrderSeeder::class,
             ProductSeeder::class,
         ]);
     }

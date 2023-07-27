@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -47,10 +48,12 @@ class ProductSeeder extends Seeder
 
         $createMultipleProducts = [];
 
-        for ($i = 0; $i <= count($names); $i++){
+        for ($i = 0; $i < count($names); $i++){
             $name = $names[$i];
             $random_price = mt_rand(1*100,50*100)/100;
             $random_available = mt_rand(0,1) == 1;
+            $recipe = Str::random(16);
+            $image_path = $image_paths[$i];
             $description = $descriptions[$i];
             $type = $types[$i];
 
@@ -58,8 +61,10 @@ class ProductSeeder extends Seeder
                 'name' => strtolower($name),
                 'price' => $random_price,
                 'available' => $random_available,
+                'recipe' => $recipe,
+                'image_path' => $image_path,
                 'description' => $description,
-                'type' => $type,
+                'type' => strtolower($type),
             ];
         }
 

@@ -16,7 +16,7 @@ return new class extends Migration
 
             $table->dateTime('beginDate');
             $table->dateTime('endDate');
-            $table->enum('status', ['ordered', 'cookiing','finished']);
+            $table->enum('status', ['ordered', 'cooking','finished']);
             $table->integer('board_id')->unsigned();
 
             $table->timestamps();

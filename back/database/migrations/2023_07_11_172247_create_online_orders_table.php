@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('online_orders', function (Blueprint $table) {
             $table->id();
 
-            $table->string('name',200);
             $table->double('amount');
             $table->dateTime('date');
             $table->dateTime('expected_date');

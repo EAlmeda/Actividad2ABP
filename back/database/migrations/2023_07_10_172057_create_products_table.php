@@ -20,7 +20,7 @@ return new class extends Migration
             $table->boolean('available');
             $table->string('recipe',1500);
             $table->string('image_path',200);
-            $table->string('description', 200);
+            $table->string('description', 1000);
             $table->enum('type', ['dish', 'drink']);
             $table->timestamps();
             $table->softDeletes();

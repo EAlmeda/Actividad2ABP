@@ -22,7 +22,7 @@ class IngredientSeeder extends Seeder
         
         $createMultipleIngredients = [];
 
-        for ($i = 0; $i <= count($ingredients); $i++){
+        for ($i = 0; $i < count($ingredients); $i++){
             $name = $ingredients[$i];
             $quantity = random_int(0, 200);
 

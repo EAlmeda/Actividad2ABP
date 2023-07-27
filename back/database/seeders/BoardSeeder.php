@@ -20,7 +20,7 @@ class BoardSeeder extends Seeder
         for ($i = 0; $i < 25; $i++){
             $random_board_capacity = random_int(1, 15);
             $random_board_available = true;
-            $random_number = random_int(1, 25);
+            $random_number = random_int(0, 25);
             $random_employee_id = random_int(1, 15);
 
             $createMultipleBoards[] = [

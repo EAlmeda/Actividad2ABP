@@ -285,7 +285,7 @@ class ProductController extends Controller
             'available' => 'required|boolean',
             'recipe' => 'max:1500',
             'image_path' => 'required|max:200',
-            'description' => 'required|max:500',
+            'description' => 'required|max:1000',
             'type' => 'required|max:50'
         ]);
     }
