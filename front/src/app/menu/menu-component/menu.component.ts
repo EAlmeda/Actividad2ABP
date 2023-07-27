@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductService } from 'src/app/menu/product-service.service';
 import { Product } from 'src/models/Product';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 
 @Component({
   selector: 'app-menu',
@@ -7,83 +10,35 @@ import { Product } from 'src/models/Product';
   styleUrls: ['./menu.component.scss'],
 })
 export class MenuComponent implements OnInit {
-  products: Product[] = [
-    {
-      id: '1',
-      name: 'Pizza marinara',
-      type: 'Dish',
-      available: true,
-      price: 16,
-      description: 'Pizza con mariscos varios.',
-      route:"gyozas.jpg"
-    },
-    {
-      id:'2',
-      name: 'Pizza marinara',
-      type: 'Drink',
-      available: true,
-      price: 16,
-      description: 'Pizza con mariscos varios.',
-    },
-    {
-      id:'3',
-      name: 'Pizza marinara',
-      type: 'Drink',
-      available: false,
-      price: 16,
-      description: 'Pizza con mariscos varios.',
-    },
-    {
-      id:'4',
-      name: 'Pizza marinara',
-      type: 'Drink',
-      available: true,
-      price: 16,
-      description: 'Pizza con mariscos varios.',
-    },
-    {
-      id:'5',
-      name: 'Pizza marinara',
-      type: 'Drink',
-      available: true,
-      price: 16,
-      description: 'Pizza con mariscos varios.',
-    },
-    {
-      id:'6',
-      name: 'Pizza marinara',
-      type: 'Dish',
-      available: false,
-      price: 16,
-      description: 'Pizza con mariscos varios.',
-    },
-    {
-      id:'7',
-      name: 'Pizza marinara',
-      type: 'Dish',
-      available: true,
-      price: 16,
-      description: 'Pizza con mariscos varios.',
-    },
-    {
-      id:'8',
-      name: 'Pizza marinara',
-      type: 'Dish',
-      available: true,
-      price: 16,
-      description: 'Pizza con mariscos varios.',
-    },
-    {
-      id:'9',
-      name: 'Pizza marinara',
-      type: 'Dish',
-      available: false,
-      price: 16,
-      description: 'Pizza con mariscos varios.',
-    },
-  ];
+  dataSource: Product[];
+  pageIndex: number;
+  length: number;
+  pageSize: number;
+  pageEvent: PageEvent;
+  loading: boolean;
 
-  constructor() {}
+  constructor(private productService: ProductService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getData(1)
+  }
+
+  nextPage(event?: PageEvent) {
+    this.getData(event.pageIndex + 1);
+
+    return event;
+  }
+
+  getData(index) {
+    this.loading = true;
+
+    this.productService.getProductList(index).subscribe((res) => {
+      this.pageIndex = res.current_page - 1;
+      this.length = res.total;
+      this.dataSource = res.data;
+      this.pageSize = res.per_page;
+
+      this.loading = false;
+    });
+  }
 }

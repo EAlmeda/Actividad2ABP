@@ -5,5 +5,5 @@ export interface Product {
   available: boolean;
   price: number;
   description: string;
-  route?: string;
+  image_path?: string;
 }
