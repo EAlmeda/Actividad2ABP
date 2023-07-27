@@ -24,7 +24,7 @@ class ProductSeeder extends Seeder
         $image_paths = array(
             'tortilla_patata.jpg', 'gazpacho_andaluz.jpg', 'cocido_madrileno.jpg', 'paella_valenciana.jpg', 'fabada_asturiana.jpg', 'ajoblanco.jpg',
             'bacalao_pil_pil.jpg', 'callos_madrilena.jpg', 'empanada_gallega_bonito_pimientos.jpg', 'pulpo_gallega.jpg',
-            'cocacola.jpg', 'fanta_naranja.jpg', 'fanta_limon.jpg', 'agua_km0.jpg', 'agua_embotellada.jpg', 'vino_blanco.jpg', 'vino_tinto.jpg'
+            'cocacola.jpg', 'fanta_naranja.jpg', 'fanta_limon.jpg', 'agua_km0.png', 'agua_embotellada.jpg', 'vino_blanco.jpg', 'vino_tinto.jpg'
         );
 
         $descriptions = array(
@@ -58,7 +58,7 @@ class ProductSeeder extends Seeder
             $type = $types[$i];
 
             $createMultipleProducts[] = [
-                'name' => strtolower($name),
+                'name' => $name,
                 'price' => $random_price,
                 'available' => $random_available,
                 'recipe' => $recipe,
