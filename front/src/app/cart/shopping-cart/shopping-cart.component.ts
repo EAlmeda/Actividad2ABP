@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ProductService } from 'src/app/menu/product-service.service';
+import { OnlineOrderService } from 'src/app/orders/online-order.service';
+import { OrderStatus, OrderType } from 'src/models/OnlineOrder';
 import { Product } from 'src/models/Product';
 import { ProductInCart } from 'src/models/ProductInCart';
 
@@ -11,7 +14,11 @@ import { ProductInCart } from 'src/models/ProductInCart';
 export class ShoppingCartComponent implements OnInit {
   shoppingCartItems: ProductInCart[];
 
-  constructor(private productService: ProductService) {
+  constructor(
+    private _snackBar: MatSnackBar,
+    private productService: ProductService,
+    private onlineOrderService: OnlineOrderService
+  ) {
     this.shoppingCartItems = productService.getCart();
   }
 
@@ -19,5 +26,44 @@ export class ShoppingCartComponent implements OnInit {
 
   updateCart() {
     this.shoppingCartItems = this.productService.getCart();
+  }
+
+  finishOrder() {
+    this.onlineOrderService
+      .saveOnlineOrder({
+        address: 'Avenida Rodriguez',
+        amount: this.calculateAmount(),
+        date: new Date(),
+        products: this.shoppingCartItems,
+        status: OrderStatus[0],
+        type: OrderType[1],
+        expectedDate: new Date(),
+        customerId: '7',
+      })
+      .subscribe(
+        (result) => {
+          this._snackBar.open('Online order ordered', 'Close', {
+            horizontalPosition: 'end',
+            verticalPosition: 'bottom',
+          });
+          this.productService.emptyCart();
+          this.shoppingCartItems=[];
+
+        },
+        (error) => {
+          this._snackBar.open('An error has occured', 'Close', {
+            horizontalPosition: 'end',
+            verticalPosition: 'bottom',
+          });
+        }
+      );
+  }
+
+  calculateAmount() {
+    var total = 0;
+    this.shoppingCartItems.forEach((element) => {
+      total = +element.price * element.quantity;
+    });
+    return total;
   }
 }

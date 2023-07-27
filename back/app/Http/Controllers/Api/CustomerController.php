@@ -8,6 +8,7 @@ use App\Libs\ResultResponse;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class CustomerController extends Controller
 {
@@ -39,9 +40,10 @@ class CustomerController extends Controller
 
         $resultResponse = new ResultResponse();
 
-        $password = Hash::make($request->get('password'));
         try {
-            $this -> validateCustomer($request);
+            $password = Hash::make($request->get('password'));
+
+            $this->validateCustomer($request);
 
             $newCustomer   = new Customer([
                 'name' => $request->get('name'),
@@ -65,7 +67,7 @@ class CustomerController extends Controller
         } catch (\Exception $e) {
             ApiExtensions::setResultResponse(
                 $resultResponse,
-                "",
+                $e,
                 ResultResponse::ERROR_CODE,
                 ResultResponse::TXT_ERROR_CODE
             );
@@ -94,7 +96,7 @@ class CustomerController extends Controller
         } catch (\Exception $e) {
             ApiExtensions::setResultResponse(
                 $resultResponse,
-                "",
+                $e,
                 ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
                 ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
             );
@@ -174,7 +176,7 @@ class CustomerController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
-            $this -> validateCustomer($request);
+            $this->validateCustomer($request);
 
             $customer = Customer::findOrFail($id);
 
@@ -200,7 +202,7 @@ class CustomerController extends Controller
         } catch (\Exception $e) {
             ApiExtensions::setResultResponse(
                 $resultResponse,
-                "",
+                $e,
                 ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
                 ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
             );
@@ -214,7 +216,7 @@ class CustomerController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
-            $this -> validateCustomer($request);
+            $this->validateCustomer($request);
 
             $customer = Customer::findOrFail($id);
 
@@ -241,7 +243,7 @@ class CustomerController extends Controller
         } catch (\Exception $e) {
             ApiExtensions::setResultResponse(
                 $resultResponse,
-                "",
+                $e,
                 ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
                 ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
             );
@@ -271,7 +273,7 @@ class CustomerController extends Controller
         } catch (\Exception $e) {
             ApiExtensions::setResultResponse(
                 $resultResponse,
-                "",
+                $e,
                 ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
                 ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
             );

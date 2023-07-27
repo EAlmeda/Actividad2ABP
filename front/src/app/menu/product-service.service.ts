@@ -12,26 +12,29 @@ export class ProductService {
   constructor(private http: HttpClient) {}
 
   public addToCart(product: Product) {
-    var cart:ProductInCart[] = JSON.parse(localStorage.getItem('cart'));
+    var cart: ProductInCart[] = JSON.parse(localStorage.getItem('cart'));
     if (cart == undefined) cart = [];
-    var i=cart.findIndex(c=>c.id==product.id);
-    if(i>=0){
-       cart[i].quantity++;
-    }
-    else
+    var i = cart.findIndex((c) => c.id == product.id);
+    if (i >= 0) {
+      cart[i].quantity++;
+    } else
       cart.push({
-        quantity:1,
-        ...product
+        quantity: 1,
+        ...product,
       });
     localStorage.setItem('cart', JSON.stringify(cart));
   }
 
   public removeFromCart(product: Product) {
-    var cart:ProductInCart[] = JSON.parse(localStorage.getItem('cart'));
-    var i=cart.findIndex(c=>c.id==product.id);
+    var cart: ProductInCart[] = JSON.parse(localStorage.getItem('cart'));
+    var i = cart.findIndex((c) => c.id == product.id);
 
-    cart.splice(i,1)
+    cart.splice(i, 1);
     localStorage.setItem('cart', JSON.stringify(cart));
+  }
+
+  public emptyCart() {
+    localStorage.removeItem('cart');
   }
 
   public getCart() {

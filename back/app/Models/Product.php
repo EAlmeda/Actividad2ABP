@@ -40,6 +40,6 @@ class Product extends Model
 
     public function onlineOrders():BelongsToMany
     {
-        return $this->belongsToMany(KitchenOrder::class,'online_order_contains');
+        return $this->belongsToMany(OnlineOrder::class,'online_order_contains');
     }
 }

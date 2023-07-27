@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -18,7 +19,9 @@ class OnlineOrder extends Model
         'expected_date',
         'address',
         'status',
-        'type'
+        'type',
+        'name',
+        'customer_id'
     ];
 
     public function Products():BelongsToMany
@@ -29,5 +32,10 @@ class OnlineOrder extends Model
     public function employees():BelongsToMany
     {
         return $this->belongsToMany(Employee::class,'delivers');
+    }
+
+    public function customer():BelongsTo
+    {
+        return $this->belongsTo(Customer::class);
     }
 }

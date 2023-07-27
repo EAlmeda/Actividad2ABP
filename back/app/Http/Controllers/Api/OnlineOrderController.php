@@ -5,8 +5,11 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Libs\ApiExtensions;
 use App\Models\OnlineOrder;
+use App\Models\Product;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Libs\ResultResponse;
+use Illuminate\Support\Facades\Log;
 
 
 class OnlineOrderController extends Controller
@@ -41,15 +44,24 @@ class OnlineOrderController extends Controller
             $this->validateOnlineOrder($request);
 
             $newOnlineOrder   = new OnlineOrder([
+                'name' => 'test',
                 'amount' => $request->get('amount'),
-                'date' => $request->get('date'),
-                'expected_date' => $request->get('expected_date'),
+                'date' => Carbon::parse($request->get('date')),
+                'expected_date' => Carbon::parse($request->get('expectedDate')),
                 'address' => $request->get('address'),
-                'status' => $request->get('status'),
-                'type' => $request->get('type'),
+                'status' => strtolower($request->get('status')),
+                'type' => strtolower($request->get('type')),
+                'customer_id' => $request->get('customerId')
             ]);
-
             $newOnlineOrder->save();
+            $products = $request->get('products');
+            if (isset($products)) {
+                foreach ($products as $product) {
+                    $newOnlineOrder
+                        ->Products()
+                        ->attach($product['id'], ['quantity' => $product['quantity']]);
+                }
+            }
 
             ApiExtensions::setResultResponse(
                 $resultResponse,
@@ -58,9 +70,10 @@ class OnlineOrderController extends Controller
                 ResultResponse::TXT_SUCCESS_CODE
             );
         } catch (\Exception $e) {
+
             ApiExtensions::setResultResponse(
                 $resultResponse,
-                "",
+                $e,
                 ResultResponse::ERROR_CODE,
                 ResultResponse::TXT_ERROR_CODE
             );
@@ -270,10 +283,12 @@ class OnlineOrderController extends Controller
 
     private function validateOnlineOrder($request)
     {
+        $request->date = Carbon::parse($request->date);
+        $request->expected_date = Carbon::parse($request->expected_date);
         $validatedData = $request->validate([
-            'amount' => 'required|numeric|digits:5',
+            'amount' => 'required|numeric|gt:0',
             'date' => 'required|date',
-            'expected_date' => 'required|date',
+            'expectedDate' => 'required|date',
             'address' => 'required|max:200',
             'status' => 'required|max:50',
             'type' => 'required|max:50'

@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ProductService } from './product-service.service';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { OnlineOrderService } from '../orders/online-order.service';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
   ],
   providers:[
     ProductService,
+    OnlineOrderService
   ]
 })
 export class MenuModule { }

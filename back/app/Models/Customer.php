@@ -20,7 +20,8 @@ class Customer extends Model
         'birth_date',
         'phone',
         'email',
-        'address'
+        'address',
+        'password'
     ];
 
     public function onlineOrders():HasMany

@@ -1,21 +1,25 @@
+import { ProductInCart } from './ProductInCart';
+
 export interface OnlineOrder {
-  id: string;
+  id?: string;
   amount: number;
   date: Date;
-  expecteDate: Date;
+  expectedDate: Date;
   address: string;
-  type: OrderType;
-  status: OrderStatus;
+  type: string;
+  status: string;
+  products: ProductInCart[];
+  customerId: string;
 }
 
 export enum OrderStatus {
-  'ORDERED'=0,
-  'COOKING'=1,
-  'DELIVERING'=2,
-  'DELIVERED'=3,
+  'ORDERED' = 0,
+  'COOKING' = 1,
+  'DELIVERING' = 2,
+  'DELIVERED' = 3,
 }
 
 export enum OrderType {
-  'DELIVERY'=0,
-  'PICK_UP'=1,
+  'DELIVERY' = 0,
+  'PICK_UP' = 1,
 }
