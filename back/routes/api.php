@@ -118,7 +118,7 @@ Route::controller(IngredientController::class)->prefix('ingredient')->group(func
 });
 
 
-Route::controller(KitchenOrderController::class)->prefix('kitchenOrder')->group(function(){
+Route::controller(KitchenOrderController::class)->prefix('kitchen-order')->group(function(){
     Route::get('/','index');
     Route::post('/','store');
     Route::post('/{id}','update');
@@ -126,7 +126,7 @@ Route::controller(KitchenOrderController::class)->prefix('kitchenOrder')->group(
     Route::get('/{id}','show');
     Route::get('/beginDate/{beginDate}','findByBeginDate');
     Route::get('/status/{status}','findByStatus');
-    Route::get('/end-date/{endDate}','findByEndDate');
+    Route::get('/endDate/{endDate}','findByEndDate');
     Route::get('/all/{value}','findByAllColumns');
     Route::delete('/{id}','destroy');
 });
@@ -140,7 +140,7 @@ Route::controller(OnlineOrderController::class)->prefix('online-order')->group(f
     Route::get('/{id}','show');
     Route::get('/amount/{amount}','findByAmount');
     Route::get('/date/{date}','findByDate');
-    Route::get('/expected-date/{expected-date}','findByExpectedDate');
+    Route::get('/expectedDate/{expectedDate}','findByExpectedDate');
     Route::get('/address/{address}','findByAddress');
     Route::get('/status/{status}','findByStatus');
     Route::get('/type/{type}','findByType');

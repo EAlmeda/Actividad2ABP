@@ -13,7 +13,6 @@ export class OrderDisplayComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.order)
   }
 
 }

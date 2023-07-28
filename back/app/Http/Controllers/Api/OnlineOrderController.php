@@ -19,7 +19,7 @@ class OnlineOrderController extends Controller
      */
     public function index()
     {
-        $onlineOrders = OnlineOrder::all();
+        $onlineOrders = OnlineOrder::paginate();
 
         $resultResponse = new ResultResponse();
 
