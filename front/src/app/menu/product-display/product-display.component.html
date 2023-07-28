@@ -25,9 +25,8 @@
         <span class="material-symbols-outlined">favorite</span>
       </mat-icon>
     </button>
-    <button
+    <button *ngIf="product.available"
       mat-icon-button
-      [disabled]="!product.available"
       matTooltip="Añadir al carrito."
       (click)="addToTheCart()"
     >
@@ -39,5 +38,19 @@
         <span class="material-symbols-outlined">shopping_cart_checkout</span>
       </mat-icon>
     </button>
+
+    <button *ngIf="!product.available"
+    mat-icon-button
+    matTooltip="Producto no disponible."
+    (click)="disabled()"
+  >
+    <mat-icon
+      class="cart-icon"
+      aria-hidden="false"
+      aria-label="Shopping cart icon"
+    >
+      <span class="material-symbols-outlined">report_problem</span>
+    </mat-icon>
+  </button>
   </mat-card-actions>
 </mat-card>

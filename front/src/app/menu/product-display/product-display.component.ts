@@ -29,6 +29,13 @@ export class ProductDisplayComponent implements OnInit {
     });
   }
 
+  disabled(){
+    this._snackBar.open(this.product?.name + ' not available', 'Close', {
+      horizontalPosition: 'end',
+      verticalPosition: 'bottom',
+    });
+  }
+
   addToFavouriteList() {
     this.store.dispatch(
       fromActions.addProductToTheFavouriteList({ product: this.product })
