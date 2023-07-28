@@ -15,7 +15,7 @@ class BoardController extends Controller
      */
     public function index()
     {
-        $boards = Board::all();
+        $boards = Board::paginate();
 
         $resultResponse = new ResultResponse();
 
