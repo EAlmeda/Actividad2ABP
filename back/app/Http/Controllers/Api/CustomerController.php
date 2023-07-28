@@ -86,7 +86,6 @@ class CustomerController extends Controller
 
         try {
             $customer = Customer::findOrFail($id);
-            $customer->OnlineOrder = $customer->online();
             ApiExtensions::setResultResponse(
                 $resultResponse,
                 $customer,
@@ -281,6 +280,32 @@ class CustomerController extends Controller
         return response()->json($resultResponse);
     }
 
+    public function getOnlineOrders($customerId)
+    {
+        $resultResponse = new ResultResponse();
+
+        try {
+            $customer = Customer::findOrFail($customerId);
+            Log::info($customer);
+            $onlineOrders = $customer->onlineOrders()->get();
+
+            ApiExtensions::setResultResponse(
+                $resultResponse,
+                $onlineOrders,
+                ResultResponse::SUCCESS_CODE,
+                ResultResponse::TXT_SUCCESS_CODE
+            );
+        } catch (\Exception $e) {
+            ApiExtensions::setResultResponse(
+                $resultResponse,
+                $e,
+                ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
+                ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
+            );
+        }
+        return response()->json($resultResponse);
+    }
+
     private function validateCustomer($request)
     {
         $validatedData = $request->validate([
@@ -289,7 +314,7 @@ class CustomerController extends Controller
             'surname_2' => 'required|max:200',
             'birth_date' => 'required|date',
             'phone' => 'required|numeric|digits:9',
-            'email' => 'required|unique:App\Models\Customer,email|email',
+            'email' => 'required|email',
             'address' => 'required|max:200'
         ]);
     }

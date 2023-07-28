@@ -3,7 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Store } from '@ngrx/store';
 import * as fromActions from '../../../store/actions';
 import { Product } from 'src/models/Product';
-import { ProductService } from '../product-service.service';
+import { ProductService } from '../product.service';
 
 @Component({
   selector: 'app-product-display',

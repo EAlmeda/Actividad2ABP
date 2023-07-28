@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ProductService } from 'src/app/menu/product-service.service';
+import { ProductService } from 'src/app/menu/product.service';
 import { ProductInCart } from 'src/models/ProductInCart';
 
 @Component({

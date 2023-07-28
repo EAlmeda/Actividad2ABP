@@ -74,6 +74,7 @@ Route::controller(CustomerController::class)->prefix('customer')->group(function
     Route::post('/{id}','update');
     Route::patch('/{id}','patch');
     Route::get('/{id}','show');
+    Route::get('/{customerId}/online-order','getOnlineOrders');
     Route::get('/name/{name}','findByName');
     Route::get('/surname/{surname}','findBySurname');
     Route::get('/birth-date/{birth-date}','findByBirthDate');

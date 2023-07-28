@@ -5,7 +5,7 @@ namespace App\Libs;
 class ApiExtensions
 {
 
-    public static function findByColumns($class, $columns, $value, $strict = true)
+    public static function findByColumns($class, $columns, $value, $strict = false)
     {
         $query = $class::query();
         $resultResponse = new ResultResponse();

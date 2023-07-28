@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ProductService } from 'src/app/menu/product-service.service';
+import { ProductService } from 'src/app/menu/product.service';
 import { OnlineOrderService } from 'src/app/orders/online-order.service';
 import { OrderStatus, OrderType } from 'src/models/OnlineOrder';
 import { Product } from 'src/models/Product';

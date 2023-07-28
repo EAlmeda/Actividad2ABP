@@ -4,7 +4,7 @@ import { MenuComponent } from './menu-component/menu.component';
 import { ProductDisplayComponent } from './product-display/product-display.component';
 import { SharedModule } from '../shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
-import { ProductService } from './product-service.service';
+import { ProductService } from './product.service';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { OnlineOrderService } from '../orders/online-order.service';
