@@ -29,13 +29,15 @@ class KitchenOrderSeeder extends Seeder
             $beginDate = Carbon::now()->addHour($time);
             $endDate = Carbon::now()->addHour();
             $status = array_rand($statuses, 1);
-            $board_id = mt_rand(1, 25);
+            $random_board_id = mt_rand(1, 25);
+            $random_employee_id = mt_rand(1, 15);
 
             $createMultipleKitchenOrders[] = [
                 'beginDate' => $beginDate,
                 'endDate' => $endDate,
                 'status' => $statuses[$status],
-                'board_id' => $board_id
+                'board_id' => $random_board_id,
+                'employee_id' => $random_employee_id,
             ];
         }
 
