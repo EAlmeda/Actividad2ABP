@@ -1,10 +1,9 @@
 <mat-card class="card" *ngIf="product">
     <mat-card-header>
-      <div mat-card-avatar ></div>
       <mat-card-title>{{product.name}}</mat-card-title>
       <mat-card-subtitle>{{product.type}}</mat-card-subtitle>
     </mat-card-header>
-    <img mat-card-image class="card__header-image" [src]="'../../../../assets/'+product.image_path" alt="Photo of a Shiba Inu">
+    <img mat-card-image class="card__header-image" [src]="'../../../../assets/'+product.image_path">
     <mat-card-content>
       <p>
         {{product.description}}
@@ -13,15 +12,15 @@
     <mat-card-actions class="card__container-actions">
       <app-price-chip class="separate" [price]="product.price"></app-price-chip>
 
-        <button mat-icon-button matTooltip="Añadir a favoritos." (click)="addToFavouriteList()">
-            <mat-icon class="favorite-icon" aria-hidden="false" aria-label="Favorite" >
-                <span class="material-symbols-outlined">favorite</span>
-            </mat-icon>
-        </button>
-        <button mat-icon-button [disabled]="!product.available" matTooltip="Añadir al carrito." (click)="addToTheCart()">
-            <mat-icon class="cart-icon" aria-hidden="false" aria-label="Shopping cart icon" >
-                <span class="material-symbols-outlined">shopping_cart_checkout</span>
-            </mat-icon>
-        </button>
+      <button mat-icon-button matTooltip="Añadir a favoritos." (click)="addToFavouriteList()">
+          <mat-icon class="favorite-icon" aria-hidden="false" aria-label="Favorite" >
+              <span class="material-symbols-outlined">favorite</span>
+          </mat-icon>
+      </button>
+      <button mat-icon-button [disabled]="!product.available" matTooltip="Añadir al carrito." (click)="addToTheCart()">
+          <mat-icon class="cart-icon" aria-hidden="false" aria-label="Shopping cart icon" >
+              <span class="material-symbols-outlined">shopping_cart_checkout</span>
+          </mat-icon>
+      </button>
     </mat-card-actions>
 </mat-card>
