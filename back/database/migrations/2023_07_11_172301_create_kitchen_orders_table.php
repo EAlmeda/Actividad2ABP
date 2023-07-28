@@ -18,11 +18,13 @@ return new class extends Migration
             $table->dateTime('endDate');
             $table->enum('status', ['ordered', 'cooking','finished']);
             $table->integer('board_id')->unsigned();
+            $table->integer('employee_id')->unsigned();
 
             $table->timestamps();
             $table->softDeletes();
 
             $table->foreign('board_id')->references('id')->on('boards')->onDelete('cascade');
+            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
         });
     }
 

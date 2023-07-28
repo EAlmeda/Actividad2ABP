@@ -44,6 +44,8 @@ class KitchenOrderController extends Controller
                 'begin_date' => $request->get('begin_date'),
                 'end_date' => $request->get('end_date'),
                 'status' => $request->get('status'),
+                'board_id' => $request->get('board_id'),
+                'employee_id' => $request->get('employee_id')
             ]);
 
             $newKitchenOrder->save();
@@ -152,6 +154,9 @@ class KitchenOrderController extends Controller
             $kitchenOrder->begin_date = $request->get('begin_date');
             $kitchenOrder->end_date = $request->get('end_date');
             $kitchenOrder->status = $request->get('status');
+            $kitchenOrder->employee_id = $request->get('employee_id');
+            $kitchenOrder->board_id = $request->get('board_id');
+
 
             $kitchenOrder->save();
 
@@ -185,6 +190,8 @@ class KitchenOrderController extends Controller
             $kitchenOrder->begin_date = $request->get('begin_date', $kitchenOrder->begin_date);
             $kitchenOrder->end_date = $request->get('end_date', $kitchenOrder->end_date);
             $kitchenOrder->status = $request->get('status', $kitchenOrder->status);
+            $kitchenOrder->employee_id = $request->get('employee_id', $kitchenOrder->employee_id);
+            $kitchenOrder->board_id = $request->get('board_id', $kitchenOrder->board_id);
 
             $kitchenOrder->save();
 
