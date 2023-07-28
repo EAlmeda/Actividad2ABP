@@ -82,7 +82,9 @@ class EmployeeController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
-            $employee = Employee::findOrFail($id);
+            $employee = Employee::with('onlineOrders')
+                ->with('kitchenOrders')
+                ->findOrFail($id);
 
             ApiExtensions::setResultResponse(
                 $resultResponse,

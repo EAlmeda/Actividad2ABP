@@ -76,7 +76,7 @@ class BookingController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
-            $booking = Booking::findOrFail($id);
+            $booking = Booking::with('customer')->findOrFail($id);
 
             ApiExtensions::setResultResponse(
                 $resultResponse,
