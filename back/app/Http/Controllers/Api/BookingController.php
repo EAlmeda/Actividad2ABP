@@ -45,6 +45,7 @@ class BookingController extends Controller
                 'booker_email' => $request->get('booker_email'),
                 'people_quantity' => $request->get('people_quantity'),
                 'date' => $request->get('date'),
+                'time' => $request->get('time')
             ]);
 
             $newBooking->save();
@@ -170,6 +171,7 @@ class BookingController extends Controller
             $booking->booker_email = $request->get('booker_email');
             $booking->people_quantity = $request->get('people_quantity');
             $booking->date = $request->get('date');
+            $booking->time = $request->get('time');
 
             $booking->save();
 
@@ -205,6 +207,7 @@ class BookingController extends Controller
             $booking->booker_email = $request->get('booker_email', $booking->booker_email);
             $booking->people_quantity = $request->get('people_quantity', $booking->people_quantity);
             $booking->date = $request->get('date', $booking->date);
+            $booking->time = $request->get('time', $booking->time);
 
             $booking->save();
 
