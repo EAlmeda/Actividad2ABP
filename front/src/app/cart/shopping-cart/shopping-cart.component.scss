@@ -1,6 +1,5 @@
 .cart {
   padding: 32px;
-
   &__cart-display {
     display: grid;
     gap: 48px;
@@ -19,6 +18,8 @@
       margin-left: 8px;
     }
   }
+  overflow-y: scroll !important;
+
 }
 
 p {
@@ -27,11 +28,6 @@ p {
 }
 
 footer {
-  position: absolute;
-  justify-content: end;
-  align-items: end;
-  bottom: 0;
   margin-right: 50px;
-  right: 0;
   margin-bottom: 30px;
 }

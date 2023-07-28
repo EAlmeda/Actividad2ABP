@@ -8,20 +8,22 @@
     ></app-shopping-cart-item>
   </div>
 
-  <footer class="cart__actions">
-    <div class="test">
-      <p>Total: {{ total }} €</p>
 
-      <a
-        mat-button
-        routerLink="/menu"
-        routerLinkActive="active"
-        class="cart__actions--button"
-        >Cancelar</a
-      >
-      <button mat-button class="cart__actions--button" (click)="finishOrder()">
-        Finalizar pedido
-      </button>
-    </div>
-  </footer>
 </div>
+
+<footer class="cart__actions">
+  <div class="test">
+    <p>Total: {{ total | number:"1.2-2"}} €  </p>
+
+    <a
+      mat-button
+      routerLink="/menu"
+      routerLinkActive="active"
+      class="cart__actions--button"
+      >Cancelar</a
+    >
+    <button mat-button class="cart__actions--button" (click)="finishOrder()">
+      Finalizar pedido
+    </button>
+  </div>
+</footer>

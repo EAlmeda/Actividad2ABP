@@ -14,6 +14,7 @@ export class OrdersComponent implements OnInit {
   constructor(private customerService: CustomerService) {}
 
   ngOnInit(): void {
+
     this.customerService.getOnlineOrdersByCustomer('7').subscribe((res) => {
       this.orders = res.data;
     });

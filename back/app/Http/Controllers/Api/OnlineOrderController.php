@@ -44,7 +44,6 @@ class OnlineOrderController extends Controller
             $this->validateOnlineOrder($request);
 
             $newOnlineOrder   = new OnlineOrder([
-                'name' => 'test',
                 'amount' => $request->get('amount'),
                 'date' => Carbon::parse($request->get('date')),
                 'expected_date' => Carbon::parse($request->get('expectedDate')),
@@ -53,7 +52,10 @@ class OnlineOrderController extends Controller
                 'type' => strtolower($request->get('type')),
                 'customer_id' => $request->get('customerId')
             ]);
-            $newOnlineOrder->save();
+            $t=$newOnlineOrder->save();
+            Log::info($t);
+            Log::info($newOnlineOrder);
+
             $products = $request->get('products');
             if (isset($products)) {
                 foreach ($products as $product) {

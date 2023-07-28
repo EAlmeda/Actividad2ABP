@@ -25,8 +25,8 @@ import { StoreModule } from '@ngrx/store';
     OrdersComponent,
     ReviewsComponent,
     HomeComponent,
-    OrderDisplayComponent, 
-    
+    OrderDisplayComponent,
+
   ],
   imports: [
     BrowserModule,
