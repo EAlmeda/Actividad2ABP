@@ -7,11 +7,13 @@ import { ReviewsComponent } from './reviews/reviews.component';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './users/profile/profile.component';
 import { ShoppingCartComponent } from './cart/shopping-cart/shopping-cart.component';
+import { MenuEditComponent } from './menu/menu-edit/menu-edit.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'book-a-table', component: BookATableComponent },
   { path: 'menu', component: MenuComponent },
+  { path: 'menu/edit', component: MenuEditComponent },
   { path: 'orders', component: OrdersComponent },
   { path: 'reviews', component: ReviewsComponent },
   { path: 'profile', component: ProfileComponent },

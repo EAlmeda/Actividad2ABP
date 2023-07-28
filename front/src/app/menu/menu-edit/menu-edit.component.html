@@ -1,0 +1,56 @@
+<div class="edit">
+  <h1>Menu</h1>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title class="text-uppercase"
+        >Añade un plato a la carta</mat-card-title
+      >
+    </mat-card-header>
+          <form [formGroup]="form" (submit)="submit()">
+            <mat-form-field>
+              <mat-label>Nombre</mat-label>
+              <input matInput formControlName="name" />
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Precio</mat-label>
+              <input type="number" matInput formControlName="price" />
+            </mat-form-field>
+
+            <mat-checkbox formControlName="available"
+              >Disponibilidad</mat-checkbox
+            >
+
+            <mat-form-field>
+              <mat-label>Receta</mat-label>
+              <input matInput formControlName="recipe" />
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Nombre Archivo</mat-label>
+              <input matInput formControlName="image_path" />
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Descripcion</mat-label>
+              <input matInput formControlName="description" />
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Tipo</mat-label>
+              <mat-select formControlName="type">
+                <mat-option value="drink">drink</mat-option>
+                <mat-option value="dish">dish</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <button
+              type="submit"
+              class="btn btn-success"
+              [disabled]="form.invalid"
+            >
+              Guardar
+            </button>
+          </form>
+  </mat-card>
+</div>

@@ -49,7 +49,7 @@ export class ProductService {
   }
 
   public saveProduct(product: Product): Observable<void> {
-    return this.http.post<void>(`${environment.serviceURL}/productss`, product);
+    return this.http.post<void>(`${environment.serviceURL}/product`, product);
   }
 
   public getProductById(id: string): Observable<Product> {
