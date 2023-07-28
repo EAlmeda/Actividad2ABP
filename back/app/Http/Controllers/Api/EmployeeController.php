@@ -84,6 +84,7 @@ class EmployeeController extends Controller
         try {
             $employee = Employee::with('onlineOrders')
                 ->with('kitchenOrders')
+                ->with('boards')
                 ->findOrFail($id);
 
             ApiExtensions::setResultResponse(

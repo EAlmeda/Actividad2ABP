@@ -60,7 +60,7 @@ class OnlineOrderController extends Controller
             if (isset($products)) {
                 foreach ($products as $product) {
                     $newOnlineOrder
-                        ->Products()
+                        ->products()
                         ->attach($product['id'], ['quantity' => $product['quantity']]);
                 }
             }
@@ -93,7 +93,11 @@ class OnlineOrderController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
-            $onlineOrder = OnlineOrder::findOrFail($id);
+            $onlineOrder = OnlineOrder::
+            with('products')->
+            with('employee')->
+            with('customer')->
+            findOrFail($id);
 
             ApiExtensions::setResultResponse(
                 $resultResponse,

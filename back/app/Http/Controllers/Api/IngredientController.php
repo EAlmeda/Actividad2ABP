@@ -73,7 +73,7 @@ class IngredientController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
-            $ingredient = Ingredient::findOrFail($id);
+            $ingredient = Ingredient::with('products')->findOrFail($id);
 
             ApiExtensions::setResultResponse(
                 $resultResponse,

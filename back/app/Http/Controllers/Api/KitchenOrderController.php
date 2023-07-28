@@ -75,7 +75,11 @@ class KitchenOrderController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
-            $kitchenOrder = KitchenOrder::findOrFail($id);
+            $kitchenOrder = KitchenOrder::
+            with('employee')->
+             with('board')->
+            with('products')->
+            findOrFail($id);
 
             ApiExtensions::setResultResponse(
                 $resultResponse,

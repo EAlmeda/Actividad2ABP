@@ -79,7 +79,12 @@ class ProductController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
-            $product = Product::findOrFail($id);
+            $product = Product::
+            with('ingredients')->
+            with('allergens')->
+            with('onlineOrders')->
+            with('kitchenOrders')->
+            findOrFail($id);
 
             ApiExtensions::setResultResponse(
                 $resultResponse,

@@ -38,7 +38,7 @@ class BoardController extends Controller
 
         try {
             $this -> validateBoard($request);
-            
+
             $newBoard   = new Board([
                 'capacity' => $request->get('capacity'),
                 'available' => $request->get('available'),
@@ -73,7 +73,9 @@ class BoardController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
-            $board = Board::with('kitchenOrders')->with('employees')->findOrFail($id);
+            $board = Board::
+            with('kitchenOrders')->
+            with('employees')->findOrFail($id);
             ApiExtensions::setResultResponse(
                 $resultResponse,
                 $board,
