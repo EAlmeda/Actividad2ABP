@@ -15,7 +15,7 @@ class KitchenOrderController extends Controller
      */
     public function index()
     {
-        $kitchenOrders = KitchenOrder::all();
+        $kitchenOrders = KitchenOrder::paginate();
 
         $resultResponse = new ResultResponse();
 
@@ -97,7 +97,7 @@ class KitchenOrderController extends Controller
 
     public function findByBeginDate($value)
     {
-        $columns = ['begin_date'];
+        $columns = ['beginDate'];
 
         $resultResponse = ApiExtensions::findByColumns(KitchenOrder::class, $columns, $value);
 
@@ -116,7 +116,7 @@ class KitchenOrderController extends Controller
 
     public function findByEndDate($value)
     {
-        $columns = ['end_date'];
+        $columns = ['endDate'];
 
         $resultResponse = ApiExtensions::findByColumns(KitchenOrder::class, $columns, $value);
 
@@ -126,7 +126,7 @@ class KitchenOrderController extends Controller
 
     public function findByAllColumns($value)
     {
-        $columns = ['begin_date', 'end_date', 'status'];
+        $columns = ['beginDate', 'endDate', 'status'];
 
         $resultResponse = ApiExtensions::findByColumns(KitchenOrder::class, $columns, $value);
 

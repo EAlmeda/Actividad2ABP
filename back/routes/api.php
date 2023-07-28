@@ -118,15 +118,15 @@ Route::controller(IngredientController::class)->prefix('ingredient')->group(func
 });
 
 
-Route::controller(KitchenOrderController::class)->prefix('kitchen-order')->group(function(){
+Route::controller(KitchenOrderController::class)->prefix('kitchenOrder')->group(function(){
     Route::get('/','index');
     Route::post('/','store');
     Route::post('/{id}','update');
     Route::patch('/{id}','patch');
     Route::get('/{id}','show');
-    Route::get('/begin-date/{begin-date}','findByBeginDate');
+    Route::get('/beginDate/{beginDate}','findByBeginDate');
     Route::get('/status/{status}','findByStatus');
-    Route::get('/end-date/{end-date}','findByEndDate');
+    Route::get('/end-date/{endDate}','findByEndDate');
     Route::get('/all/{value}','findByAllColumns');
     Route::delete('/{id}','destroy');
 });

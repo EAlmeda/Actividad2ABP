@@ -15,7 +15,7 @@ class AllergenController extends Controller
      */
     public function index()
     {
-        $allergens = Allergen::all();
+        $allergens = Allergen::paginate();
 
         $resultResponse = new ResultResponse();
 
@@ -38,7 +38,7 @@ class AllergenController extends Controller
         try {
 
             $this->validateAllergen($request);
-            
+
             $newAllergen = new Allergen([
                 'name' => $request->get('name'),
                 'description' => $request->get('description'),
