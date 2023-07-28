@@ -158,14 +158,15 @@ class CustomerController extends Controller
         return response()->json($resultResponse);
     }
 
-    public function findByAll($value)
+    public function findByAllColumns($value)
     {
-        $columns = ['name, surname_1, surname_2, birth_date, phone, email, address'];
+        $columns = ['name', 'surname_1', 'surname_2', 'birth_date', 'phone', 'email', 'address'];
 
         $resultResponse = ApiExtensions::findByColumns(Customer::class, $columns, $value);
 
         return response()->json($resultResponse);
     }
+
 
     /**
      * Update the specified resource in storage.
