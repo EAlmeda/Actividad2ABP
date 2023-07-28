@@ -158,7 +158,7 @@ Route::controller(ProductController::class)->prefix('product')->group(function()
     Route::get('/name/{name}','findByName');
     Route::get('/price/{price}','findByPrice');
     Route::get('/available/{available}','findByAvailable');
-    Route::get('/image-path/{image-path}','findByImagePath');
+    Route::get('/image-path/{imagePath}','findByImagePath');
     Route::get('/description/{description}','findByDescription');
     Route::get('/type/{type}','findByType');
     Route::get('/all/{value}','findByAllColumns');

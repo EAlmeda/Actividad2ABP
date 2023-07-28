@@ -29,9 +29,9 @@ class OnlineOrder extends Model
         return $this->belongsToMany(Product::class,'online_order_contains');
     }
 
-    public function employees():BelongsToMany
+    public function employee():BelongsTo
     {
-        return $this->belongsToMany(Employee::class,'delivers');
+        return $this->BelongsTo(Employee::class);
     }
 
     public function customer():BelongsTo

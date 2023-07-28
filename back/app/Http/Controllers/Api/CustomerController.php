@@ -85,7 +85,7 @@ class CustomerController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
-            $customer = Customer::findOrFail($id);
+            $customer = Customer::with('onlineOrders')->with('bookings')->findOrFail($id);
             ApiExtensions::setResultResponse(
                 $resultResponse,
                 $customer,

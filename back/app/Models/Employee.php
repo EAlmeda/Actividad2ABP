@@ -26,14 +26,14 @@ class Employee extends Model
         'address'
     ];
 
-    public function onlineOrders():BelongsToMany
+    public function onlineOrders():HasMany
     {
-        return $this->belongsToMany(OnlineOrder::class,'delivers');
+        return $this->hasMany(OnlineOrder::class);
     }
 
-    public function kitchenOrders():BelongsToMany
+    public function kitchenOrders():HasMany
     {
-        return $this->belongsToMany(KitchenOrder::class,'cook');
+        return $this->hasMany(KitchenOrder::class);
     }
 
     public function boards():HasMany
