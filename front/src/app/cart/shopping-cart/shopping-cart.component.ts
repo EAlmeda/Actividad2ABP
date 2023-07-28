@@ -13,6 +13,7 @@ import { ProductInCart } from 'src/models/ProductInCart';
 })
 export class ShoppingCartComponent implements OnInit {
   shoppingCartItems: ProductInCart[];
+  total: number;
 
   constructor(
     private _snackBar: MatSnackBar,
@@ -20,19 +21,21 @@ export class ShoppingCartComponent implements OnInit {
     private onlineOrderService: OnlineOrderService
   ) {
     this.shoppingCartItems = productService.getCart();
+    this.total = this.calculateAmount();
   }
 
   ngOnInit(): void {}
 
   updateCart() {
     this.shoppingCartItems = this.productService.getCart();
+    this.total = this.calculateAmount();
   }
 
   finishOrder() {
     this.onlineOrderService
       .saveOnlineOrder({
         address: 'Avenida Rodriguez',
-        amount: this.calculateAmount(),
+        amount: this.total,
         date: new Date(),
         products: this.shoppingCartItems,
         status: OrderStatus[0],
@@ -47,8 +50,8 @@ export class ShoppingCartComponent implements OnInit {
             verticalPosition: 'bottom',
           });
           this.productService.emptyCart();
-          this.shoppingCartItems=[];
-
+          this.shoppingCartItems = [];
+          this.total = this.calculateAmount();
         },
         (error) => {
           this._snackBar.open('An error has occured', 'Close', {
@@ -62,7 +65,7 @@ export class ShoppingCartComponent implements OnInit {
   calculateAmount() {
     var total = 0;
     this.shoppingCartItems.forEach((element) => {
-      total = +element.price * element.quantity;
+      total += element.price * element.quantity;
     });
     return total;
   }
