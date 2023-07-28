@@ -101,7 +101,7 @@ class BoardController extends Controller
         return response()->json($resultResponse);
     }
 
-    public function findByAvaialability($value)
+    public function findByAvailability($value)
     {
         $columns = ['available'];
 
