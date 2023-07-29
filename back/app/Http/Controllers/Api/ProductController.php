@@ -79,12 +79,7 @@ class ProductController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
-            $product = Product::
-            with('ingredients')->
-            with('allergens')->
-            with('onlineOrders')->
-            with('kitchenOrders')->
-            findOrFail($id);
+            $product = Product::with('ingredients')->with('allergens')->with('onlineOrders')->with('kitchenOrders')->findOrFail($id);
 
             ApiExtensions::setResultResponse(
                 $resultResponse,
@@ -221,11 +216,11 @@ class ProductController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
-            $this->validateProduct($request);
+            $this->validateProduct($request, true);
 
             $product = Product::findOrFail($id);
 
-            $product->name = $request->get('name', $product->title);
+            $product->name = $request->get('name', $product->name);
             $product->price = $request->get('price', $product->price);
             $product->available = $request->get('available', $product->available);
             $product->recipe = $request->get('recipe', $product->recipe);
@@ -282,17 +277,27 @@ class ProductController extends Controller
         return response()->json($resultResponse);
     }
 
-    private function validateProduct($request)
+    private function validateProduct($request, $isPatch = false)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|unique:App\Models\Product,name|max:200',
-            'price' => 'required|between:0,999.99',
-            'available' => 'required|boolean',
-            'recipe' => 'max:1500',
-            'image_path' => 'required|max:200',
-            'description' => 'required|max:1000',
-            'type' => 'required|max:50'
-        ]);
+        if (!$isPatch)
+            $validatedData = $request->validate([
+                'name' => 'required|unique:App\Models\Product,name|max:200',
+                'price' => 'required|between:0,999.99',
+                'available' => 'required|boolean',
+                'recipe' => 'max:1500',
+                'image_path' => 'required|max:200',
+                'description' => 'required|max:1000',
+                'type' => 'required|max:50'
+            ]);
+        else //Without required because you can send only 1 property
+            $validatedData = $request->validate([
+                'name' => 'max:200',
+                'price' => 'between:0,999.99',
+                'available' => 'boolean',
+                'recipe' => 'max:1500',
+                'image_path' => 'max:200',
+                'description' => 'max:1000',
+                'type' => 'max:50'
+            ]);
     }
-
 }

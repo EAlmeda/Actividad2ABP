@@ -37,7 +37,7 @@ class BoardController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
-            $this -> validateBoard($request);
+            $this->validateBoard($request);
 
             $newBoard   = new Board([
                 'capacity' => $request->get('capacity'),
@@ -73,9 +73,7 @@ class BoardController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
-            $board = Board::
-            with('kitchenOrders')->
-            with('employees')->findOrFail($id);
+            $board = Board::with('kitchenOrders')->with('employees')->findOrFail($id);
             ApiExtensions::setResultResponse(
                 $resultResponse,
                 $board,
@@ -130,7 +128,7 @@ class BoardController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
-            $this -> validateBoard($request);
+            $this->validateBoard($request);
 
             $board = Board::findOrFail($id);
 
@@ -162,7 +160,7 @@ class BoardController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
-            $this -> validateBoard($request);
+            $this->validateBoard($request, true);
 
             $board = Board::findOrFail($id);
 
@@ -218,11 +216,17 @@ class BoardController extends Controller
         return response()->json($resultResponse);
     }
 
-    private function validateBoard($request)
+    private function validateBoard($request, $isPatch = false)
     {
-        $validatedData = $request->validate([
-            'capacity' => 'required|integer|between:1,50',
-            'available' => 'required|boolean'
-        ]);
+        if (!$isPatch)
+            $validatedData = $request->validate([
+                'capacity' => 'required|integer|between:1,50',
+                'available' => 'required|boolean'
+            ]);
+        else
+            $validatedData = $request->validate([
+                'capacity' => 'integer|between:1,50',
+                'available' => 'boolean'
+            ]);
     }
 }

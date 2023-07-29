@@ -171,7 +171,7 @@ class AllergenController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
-            $this->validateAllergen($request);
+            $this->validateAllergen($request,true);
 
             $allergen = Allergen::findOrFail($id);
 
@@ -229,13 +229,21 @@ class AllergenController extends Controller
         return response()->json($resultResponse);
     }
 
-    private function validateAllergen($request)
+    private function validateAllergen($request, $isPatch = false)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|unique:App\Models\Allergen,name|max:200',
-            'description' => 'required|max:200',
-            'icon_name' => 'required|max:200',
-            'risk' => 'required|integer|between:0,10'
-        ]);
+        if (!$isPatch)
+            $validatedData = $request->validate([
+                'name' => 'required|unique:App\Models\Allergen,name|max:200',
+                'description' => 'required|max:200',
+                'icon_name' => 'required|max:200',
+                'risk' => 'required|integer|between:0,10'
+            ]);
+        else
+            $validatedData = $request->validate([
+                'name' => 'max:200',
+                'description' => 'max:200',
+                'icon_name' => 'max:200',
+                'risk' => 'integer|between:0,10'
+            ]);
     }
 }
