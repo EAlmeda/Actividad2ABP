@@ -50,7 +50,8 @@ class EmployeeController extends Controller
                 'email' => $request->get('email'),
                 'work_shift' => $request->get('work_shift'),
                 'bank_account' => $request->get('bank_account'),
-                'address' => $request->get('address')
+                'address' => $request->get('address'),
+                'password' => $request->get('password'),
             ]);
 
             $newEmployee->save();
@@ -64,7 +65,7 @@ class EmployeeController extends Controller
         } catch (\Exception $e) {
             ApiExtensions::setResultResponse(
                 $resultResponse,
-                "",
+                $e,
                 ResultResponse::ERROR_CODE,
                 ResultResponse::TXT_ERROR_CODE
             );
@@ -305,9 +306,9 @@ class EmployeeController extends Controller
             'surname_2' => 'required|max:200',
             'team' => 'required|max:50',
             'phone' => 'required|numeric|digits:9',
-            'email' => 'required|unique:App\Models\Customer,email|email',
+            // 'email' => 'required|unique:App\Models\Customer,email|email',
             'work_shift' => 'required|max:50',
-            'bank_account' => 'required|unique:App\Models\Employee,bank_account|max:100',
+            // 'bank_account' => 'required|unique:App\Models\Employee,bank_account|max:100',
             'address' => 'required|max:200'
         ]);
     }

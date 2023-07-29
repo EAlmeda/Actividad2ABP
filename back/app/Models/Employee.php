@@ -21,6 +21,7 @@ class Employee extends Model
         'team',
         'phone',
         'email',
+        'password',
         'work_shift',
         'bank_account',
         'address'

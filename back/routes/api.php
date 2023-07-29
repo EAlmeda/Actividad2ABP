@@ -97,8 +97,8 @@ Route::controller(EmployeeController::class)->prefix('employee')->group(function
     Route::get('/team/{team}','findByTeam');
     Route::get('/phone/{phone}','findByPhone');
     Route::get('/email/{email}','findByEmail');
-    Route::get('/work-shift/{work-shift}','findByWorkShift');
-    Route::get('/bank-account/{bank-account}','findByBankAccount');
+    Route::get('/work-shift/{workShift}','findByWorkShift');
+    Route::get('/bank-account/{bankAccount}','findByBankAccount');
     Route::get('/address/{address}','findByAddress');
     Route::get('/all/{value}','findByAllColumns');
     Route::delete('/{id}','destroy');

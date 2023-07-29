@@ -61,7 +61,7 @@ class ProductController extends Controller
         } catch (\Exception $e) {
             ApiExtensions::setResultResponse(
                 $resultResponse,
-                "",
+                $e,
                 ResultResponse::ERROR_CODE,
                 ResultResponse::TXT_ERROR_CODE
             );
@@ -95,7 +95,7 @@ class ProductController extends Controller
         } catch (\Exception $e) {
             ApiExtensions::setResultResponse(
                 $resultResponse,
-                "",
+                $e,
                 ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
                 ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
             );
@@ -207,7 +207,7 @@ class ProductController extends Controller
         } catch (\Exception $e) {
             ApiExtensions::setResultResponse(
                 $resultResponse,
-                "",
+                $e,
                 ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
                 ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
             );
@@ -244,7 +244,7 @@ class ProductController extends Controller
         } catch (\Exception $e) {
             ApiExtensions::setResultResponse(
                 $resultResponse,
-                "",
+                $e,
                 ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
                 ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
             );
@@ -274,7 +274,7 @@ class ProductController extends Controller
         } catch (\Exception $e) {
             ApiExtensions::setResultResponse(
                 $resultResponse,
-                "",
+                $e,
                 ResultResponse::ERROR_ELEMENT_NOT_FOUND_CODE,
                 ResultResponse::TXT_ERROR_ELEMENT_NOT_FOUND_CODE
             );
