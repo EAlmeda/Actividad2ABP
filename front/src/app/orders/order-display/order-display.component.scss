@@ -1,6 +1,14 @@
 .order-card{
-    background-color: #E3F5C5;
+  background-color: #E3F5C5;
 }
 p{
   margin-left: 10px;
+}
+
+::ng-deep mat-progress-bar .mat-progress-bar-fill::after {
+  background-color: #3D5A2F;
+}
+
+::ng-deep mat-progress-bar .mat-progress-bar-buffer {
+  background: #ffffff;
 }

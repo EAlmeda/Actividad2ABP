@@ -12,7 +12,7 @@
       <button mat-button>Generar código QR</button>
     </mat-card-actions>
     <mat-card-footer>
-        <mat-progress-bar *ngIf="order.status!='delivered'" mode="indeterminate"></mat-progress-bar>
-        <p *ngIf="order.status=='delivered'">Pedido entregado </p>
+        <mat-progress-bar class="not-delivere-bar" *ngIf="order.status!='delivered'" mode="indeterminate"></mat-progress-bar>
+        <mat-progress-bar class="delivere-bar" *ngIf="order.status=='delivered'" mode="determinate" value="100"></mat-progress-bar>
       </mat-card-footer>
   </mat-card>
