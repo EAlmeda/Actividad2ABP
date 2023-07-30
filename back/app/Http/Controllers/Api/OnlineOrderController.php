@@ -41,7 +41,7 @@ class OnlineOrderController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
-            // $this->validateOnlineOrder($request);
+             $this->validateOnlineOrder($request);
 
             $newOnlineOrder   = new OnlineOrder([
                 'amount' => $request->get('amount'),
