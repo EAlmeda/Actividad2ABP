@@ -38,7 +38,5 @@ export class MenuEditComponent implements OnInit {
         console.log(error);
       }
     );
-
-    console.log(this.form.value);
   }
 }
