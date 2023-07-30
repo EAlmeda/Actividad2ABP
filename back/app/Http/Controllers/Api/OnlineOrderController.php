@@ -50,11 +50,9 @@ class OnlineOrderController extends Controller
                 'address' => $request->get('address'),
                 'status' => strtolower($request->get('status')),
                 'type' => strtolower($request->get('type')),
-                'customer_id' => $request->get('customer_id')
+                'customer_id' => $request->get('customerId')
             ]);
-            $t=$newOnlineOrder->save();
-            Log::info($t);
-            Log::info($newOnlineOrder);
+            $newOnlineOrder->save();
 
             $products = $request->get('products');
             if (isset($products)) {
