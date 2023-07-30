@@ -14,9 +14,11 @@ class KitchenOrder extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'begin_date',
-        'end_date',
-        'status'
+        'beginDate',
+        'endDate',
+        'status',
+        'board_id',
+        'employee_id',
     ];
 
     public function products(): BelongsToMany

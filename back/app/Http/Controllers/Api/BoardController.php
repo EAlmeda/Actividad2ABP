@@ -42,6 +42,7 @@ class BoardController extends Controller
             $newBoard   = new Board([
                 'capacity' => $request->get('capacity'),
                 'available' => $request->get('available'),
+                'number' => $request->get('number'),
             ]);
 
             $newBoard->save();
@@ -73,7 +74,7 @@ class BoardController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
-            $board = Board::with('kitchenOrders')->with('employees')->findOrFail($id);
+            $board = Board::with('kitchenOrders')->with('employee')->findOrFail($id);
             ApiExtensions::setResultResponse(
                 $resultResponse,
                 $board,
@@ -166,6 +167,7 @@ class BoardController extends Controller
 
             $board->capacity = $request->get('capacity', $board->capacity);
             $board->available = $request->get('available', $board->available);
+            $board->number = $request->get('number', $board->number);
 
             $board->save();
 
@@ -221,11 +223,13 @@ class BoardController extends Controller
         if (!$isPatch)
             $validatedData = $request->validate([
                 'capacity' => 'required|integer|between:1,50',
+                'number' => 'required|integer|between:1,50',
                 'available' => 'required|boolean'
             ]);
         else
             $validatedData = $request->validate([
                 'capacity' => 'integer|between:1,50',
+                'number' => 'integer|between:1,50',
                 'available' => 'boolean'
             ]);
     }

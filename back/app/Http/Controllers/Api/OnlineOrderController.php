@@ -41,7 +41,7 @@ class OnlineOrderController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
-            $this->validateOnlineOrder($request);
+            // $this->validateOnlineOrder($request);
 
             $newOnlineOrder   = new OnlineOrder([
                 'amount' => $request->get('amount'),
@@ -50,7 +50,7 @@ class OnlineOrderController extends Controller
                 'address' => $request->get('address'),
                 'status' => strtolower($request->get('status')),
                 'type' => strtolower($request->get('type')),
-                'customer_id' => $request->get('customerId')
+                'customer_id' => $request->get('customer_id')
             ]);
             $t=$newOnlineOrder->save();
             Log::info($t);
@@ -291,7 +291,7 @@ class OnlineOrderController extends Controller
     {
         $request->date = Carbon::parse($request->date);
         $request->expected_date = Carbon::parse($request->expected_date);
-        
+
         if (!$isPatch)
             $validatedData = $request->validate([
                 'amount' => 'required|numeric|gt:0',

@@ -16,12 +16,13 @@ class Board extends Model
 
     protected $fillable = [
         'available',
-        'capacity'
+        'capacity',
+        'number'
     ];
 
     public function kitchenOrders():HasMany
     {
-        return $this->hasMany(KitchenOrder::class,'to');
+        return $this->hasMany(KitchenOrder::class);
     }
 
     public function employee():BelongsTo
