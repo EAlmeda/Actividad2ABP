@@ -183,7 +183,7 @@ class KitchenOrderController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
-            $this->validateKitchenOrder($request);
+            $this->validateKitchenOrder($request, true);
 
             $kitchenOrder = KitchenOrder::findOrFail($id);
 
@@ -242,12 +242,19 @@ class KitchenOrderController extends Controller
         return response()->json($resultResponse);
     }
 
-    private function validateKitchenOrder($request)
+    private function validateKitchenOrder($request, $isPatch=false)
     {
-        $validatedData = $request->validate([
-            'begin_date' => 'required|date',
-            'end_date' => 'required|date',
-            'status' => 'required|max:50',
-        ]);
+        if (!$isPatch)
+            $validatedData = $request->validate([
+                'begin_date' => 'required|date',
+                'end_date' => 'required|date',
+                'status' => 'required|max:50'
+            ]);
+        else
+            $validatedData = $request->validate([
+                'begin_date' => 'date',
+                'end_date' => 'date',
+                'status' => 'max:50',
+            ]);
     }
 }

@@ -216,7 +216,7 @@ class CustomerController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
-            $this->validateCustomer($request);
+            $this->validateCustomer($request, true);
 
             $customer = Customer::findOrFail($id);
 
@@ -307,16 +307,27 @@ class CustomerController extends Controller
         return response()->json($resultResponse);
     }
 
-    private function validateCustomer($request)
+    private function validateCustomer($request, $isPatch = false)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|max:200',
-            'surname_1' => 'required|max:200',
-            'surname_2' => 'required|max:200',
-            'birth_date' => 'required|date',
-            'phone' => 'required|numeric|digits:9',
-            'email' => 'required|email',
-            'address' => 'required|max:200'
-        ]);
+        if (!$isPatch)
+            $validatedData = $request->validate([
+                'name' => 'required|max:200',
+                'surname_1' => 'required|max:200',
+                'surname_2' => 'required|max:200',
+                'birth_date' => 'required|date',
+                'phone' => 'required|numeric|digits:9',
+                'email' => 'required|email',
+                'address' => 'required|max:200'
+            ]);
+        else
+            $validatedData = $request->validate([
+                'name' => 'max:200',
+                'surname_1' => 'max:200',
+                'surname_2' => 'max:200',
+                'birth_date' => 'date',
+                'phone' => 'numeric|digits:9',
+                'email' => 'email',
+                'address' => 'max:200'
+            ]);
     }
 }

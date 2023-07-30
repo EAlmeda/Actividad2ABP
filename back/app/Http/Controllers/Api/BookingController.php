@@ -198,7 +198,7 @@ class BookingController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
-            $this->validateBooking($request);
+            $this->validateBooking($request,true);
 
             $booking = Booking::findOrFail($id);
 
@@ -258,14 +258,23 @@ class BookingController extends Controller
         return response()->json($resultResponse);
     }
 
-    private function validateBooking($request)
+    private function validateBooking($request, $isPatch = false)
     {
-        $validatedData = $request->validate([
-            'booker_name' => 'required|unique:App\Models\Booking,booker_name|max:200',
-            'booker_phone' => 'required|numeric|digits:9',
-            'booker_email' => 'required|email',
-            'people_quantity' => 'required|integer|between:0,50',
-            'date' => 'required|date'
-        ]);
+        if (!$isPatch)
+            $validatedData = $request->validate([
+                'booker_name' => 'required|unique:App\Models\Booking,booker_name|max:200',
+                'booker_phone' => 'required|numeric|digits:9',
+                'booker_email' => 'required|email',
+                'people_quantity' => 'required|integer|between:0,50',
+                'date' => 'required|date'
+            ]);
+        else
+            $validatedData = $request->validate([
+                'booker_name' => 'max:200',
+                'booker_phone' => 'numeric|digits:9',
+                'booker_email' => 'email',
+                'people_quantity' => 'integer|between:0,50',
+                'date' => 'date'
+            ]);
     }
 }

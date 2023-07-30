@@ -191,7 +191,7 @@ class OnlineOrderController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
-            $this->validateOnlineOrder($request);
+            $this->validateOnlineOrder($request, true);
 
             $onlineOrder = OnlineOrder::findOrFail($id);
 
@@ -227,7 +227,7 @@ class OnlineOrderController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
-            $this->validateOnlineOrder($request);
+            $this->validateOnlineOrder($request, true);
 
             $onlineOrder = OnlineOrder::findOrFail($id);
 
@@ -287,17 +287,28 @@ class OnlineOrderController extends Controller
         return response()->json($resultResponse);
     }
 
-    private function validateOnlineOrder($request)
+    private function validateOnlineOrder($request, $isPatch=false)
     {
         $request->date = Carbon::parse($request->date);
         $request->expected_date = Carbon::parse($request->expected_date);
-        $validatedData = $request->validate([
-            'amount' => 'required|numeric|gt:0',
-            'date' => 'required|date',
-            'expectedDate' => 'required|date',
-            'address' => 'required|max:200',
-            'status' => 'required|max:50',
-            'type' => 'required|max:50'
-        ]);
+        
+        if (!$isPatch)
+            $validatedData = $request->validate([
+                'amount' => 'required|numeric|gt:0',
+                'date' => 'required|date',
+                'expectedDate' => 'required|date',
+                'address' => 'required|max:200',
+                'status' => 'required|max:50',
+                'type' => 'required|max:50'
+            ]);
+        else
+            $validatedData = $request->validate([
+                'amount' => 'numeric|gt:0',
+                'date' => 'date',
+                'expectedDate' => 'date',
+                'address' => 'max:200',
+                'status' => 'max:50',
+                'type' => 'max:50'
+            ]);
     }
 }

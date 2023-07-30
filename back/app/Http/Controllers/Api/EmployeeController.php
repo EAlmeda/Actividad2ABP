@@ -235,7 +235,7 @@ class EmployeeController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
-            $this->validateEmployee($request);
+            $this->validateEmployee($request, true);
 
             $employee = Employee::findOrFail($id);
 
@@ -298,18 +298,27 @@ class EmployeeController extends Controller
         return response()->json($resultResponse);
     }
 
-    private function validateEmployee($request)
+    private function validateEmployee($request, $isPatch=false)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|max:200',
-            'surname_1' => 'required|max:200',
-            'surname_2' => 'required|max:200',
-            'team' => 'required|max:50',
-            'phone' => 'required|numeric|digits:9',
-            // 'email' => 'required|unique:App\Models\Customer,email|email',
-            'work_shift' => 'required|max:50',
-            // 'bank_account' => 'required|unique:App\Models\Employee,bank_account|max:100',
-            'address' => 'required|max:200'
-        ]);
+        if (!$isPatch)
+            $validatedData = $request->validate([
+                'name' => 'max:200',
+                'surname_1' => 'max:200',
+                'surname_2' => 'max:200',
+                'birth_date' => 'date',
+                'phone' => 'numeric|digits:9',
+                'email' => 'email',
+                'address' => 'max:200'
+            ]);
+        else
+            $validatedData = $request->validate([
+                'name' => 'max:200',
+                'surname_1' => 'max:200',
+                'surname_2' => 'max:200',
+                'birth_date' => 'date',
+                'phone' => 'numeric|digits:9',
+                'email' => 'email',
+                'address' => 'max:200'
+            ]);
     }
 }

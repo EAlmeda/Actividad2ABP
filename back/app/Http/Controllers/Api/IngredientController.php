@@ -162,7 +162,7 @@ class IngredientController extends Controller
         $resultResponse = new ResultResponse();
 
         try {
-            $this->validateIngredient($request);
+            $this->validateIngredient($request, true);
 
             $ingredient = Ingredient::findOrFail($id);
 
@@ -218,11 +218,17 @@ class IngredientController extends Controller
         return response()->json($resultResponse);
     }
 
-    private function validateIngredient($request)
+    private function validateIngredient($request, $isPatch=false)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|unique:App\Models\Ingredient,name|max:200',
-            'quantity' => 'required|numeric|digits:3',
-        ]);
+        if (!$isPatch)
+            $validatedData = $request->validate([
+                'name' => 'required|unique:App\Models\Ingredient,name|max:200',
+                'quantity' => 'required|numeric|digits:3',
+            ]);
+        else
+            $validatedData = $request->validate([
+                'name' => 'max:200',
+                'quantity' => 'numeric|digits:3',
+            ]);
     }
 }
