@@ -258,7 +258,7 @@ class ProductController extends Controller
         try {
             $product = Product::findOrFail($id);
 
-            $product->delete();
+            $product->forceDelete();
 
             ApiExtensions::setResultResponse(
                 $resultResponse,
@@ -281,7 +281,7 @@ class ProductController extends Controller
     {
         if (!$isPatch)
             $validatedData = $request->validate([
-                'name' => 'required|unique:App\Models\Product,name|max:200',
+                 'name' => 'required|unique:App\Models\Product,name|max:200',
                 'price' => 'required|between:0,999.99',
                 'available' => 'required|boolean',
                 'recipe' => 'max:1500',
