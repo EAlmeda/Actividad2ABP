@@ -15,7 +15,7 @@ import { MenuModule } from './menu/menu.module';
 import { UsersModule } from './users/users.module';
 import { CartModule } from './cart/cart.module';
 import { OrderDisplayComponent } from './orders/order-display/order-display.component';
-import { StoreModule } from '@ngrx/store';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -35,8 +35,8 @@ import { StoreModule } from '@ngrx/store';
     MenuModule,
     UsersModule,
     CartModule,
+    MatProgressSpinnerModule,
     BrowserAnimationsModule,
-    StoreModule.forRoot({}, {})
   ],
   providers: [],
   bootstrap: [AppComponent]

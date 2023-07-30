@@ -1,7 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Store } from '@ngrx/store';
-import * as fromActions from '../../../store/actions';
 import { Product } from 'src/models/Product';
 import { ProductService } from '../product.service';
 
@@ -14,22 +12,25 @@ export class ProductDisplayComponent implements OnInit {
   @Input() public product: Product | undefined;
   @Output() onAddToCart: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor(private _snackBar: MatSnackBar, private store: Store, private productService: ProductService) {}
+  constructor(
+    private _snackBar: MatSnackBar,
+    private productService: ProductService
+  ) {}
 
   ngOnInit(): void {}
 
   addToTheCart() {
     this.productService.addToCart(this.product);
-    this.store.dispatch(
-      fromActions.addProductToTheCart({ product: this.product })
-    );
+    // this.store.dispatch(
+    //   fromActions.addProductToTheCart({ product: this.product })
+    // );
     this._snackBar.open(this.product?.name + ' added to the cart', 'Close', {
       horizontalPosition: 'end',
       verticalPosition: 'bottom',
     });
   }
 
-  disabled(){
+  disabled() {
     this._snackBar.open(this.product?.name + ' not available', 'Close', {
       horizontalPosition: 'end',
       verticalPosition: 'bottom',
@@ -37,9 +38,9 @@ export class ProductDisplayComponent implements OnInit {
   }
 
   addToFavouriteList() {
-    this.store.dispatch(
-      fromActions.addProductToTheFavouriteList({ product: this.product })
-    );
+    // this.store.dispatch(
+    //   fromActions.addProductToTheFavouriteList({ product: this.product })
+    // );
     this._snackBar.open(
       this.product?.name + ' added to favourite list.',
       'Close',

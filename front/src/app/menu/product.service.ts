@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { Product } from 'src/models/Product';
 import { ProductInCart } from 'src/models/ProductInCart';
+import { Product } from 'src/models/Product';
 
 @Injectable({
   providedIn: 'root',
